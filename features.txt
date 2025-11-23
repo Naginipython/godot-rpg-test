@@ -1,0 +1,47 @@
+combat:
+- Attack textbox/boss shit talk
+- Full attack list
+- Attack details
+- Actions
+- Actions buff strategy pattern
+- Collab bar (built on attack_game)
+- Collabs (what does this do?)
+- Items
+- attack_game uses tiles instead of timer
+- attack_game differing patterns (2 hits, sliding, holding)
+- multiple enemies
+- Dead characters can't attack or be attacked (even mid attack_game)
+
+world:
+- interactables
+- chatboxes
+- player follow
+- retain HP & stats
+- damaging tiles
+- pushables
+
+UI:
+- A shadow of the character's color would be sick
+- Pokemon Mystery Dungeon/Deltarune/Omori portrait in textbox
+- Name and description above text
+- Bottom right has [>>>]
+
+Art:
+- World Sprites
+	- Walking (4 directions)
+	- Simple attack?
+- Enemy Full body sprites
+- Portraits (like: https://sprites.pmdcollab.org/)
+	- Normal
+	- Happy
+	- Joyous
+	
+	- Angry
+	
+	- Sad
+	- Teary?
+	- Crying
+	
+	- Determined
+	- Dizzy
+	- Surprised

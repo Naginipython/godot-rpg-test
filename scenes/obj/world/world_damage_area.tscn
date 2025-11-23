@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcjtgsbbhxbeu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3c1kd"]
+size = Vector2(4, 4)
+
+[node name="WorldDamageArea" type="Area2D" groups=["WorldDamage"]]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0, 0, 0.37254903)
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3c1kd")

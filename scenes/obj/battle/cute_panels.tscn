@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c47gooh5kqn31"]
+
+[ext_resource type="Script" uid="uid://deqarovwhwowk" path="res://scenes/obj/battle/cute_panels.gd" id="1_sil63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucm66"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="CutePanel" type="PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ucm66")
+script = ExtResource("1_sil63")

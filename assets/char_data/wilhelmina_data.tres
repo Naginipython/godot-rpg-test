@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://b1mqycx2b2n65"]
+
+[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/char_data/char_data.gd" id="1_w8eai"]
+[ext_resource type="Texture2D" uid="uid://d2l4vtbssikl" path="res://assets/portraits/wilhelmina_frost_temp.jpg" id="2_m2m8s"]
+
+[resource]
+script = ExtResource("1_w8eai")
+character_id = "wilhelmina"
+character_name = "Wilhelmina Frost"
+color = Color(0.3372549, 0.5921569, 1, 1)
+active = true
+party_order = 1
+temp_face = ExtResource("2_m2m8s")
+attacks = ["Slash"]
+metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

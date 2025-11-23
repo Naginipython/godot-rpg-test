@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://57pgol331lfm"]
+
+[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/world_sprites/Soldier.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bd34lqlgcaqxh" path="res://scenes/obj/world/player.gd" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://dihv8ipdrnnmi" path="res://scenes/obj/StateMachines/player/state_machine.gd" id="3_bv3ab"]
+[ext_resource type="Script" uid="uid://bx6s1nuv3vdv" path="res://scenes/obj/StateMachines/player/player_main.gd" id="4_yw0es"]
+[ext_resource type="Script" uid="uid://dr1k0t6es3gws" path="res://scenes/obj/StateMachines/player/player_talking.gd" id="5_qxi25"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3pqv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1le8f"]
+radius = 6.249999
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bcj64"]
+radius = 6.2499995
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 6
+script = ExtResource("2_onrkg")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_i3pqv")
+offset = Vector2(1, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.99999994, 1.9999999)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CircleShape2D_1le8f")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.2499999, 2.5)
+shape = SubResource("CircleShape2D_bcj64")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 5.960464e-07)
+zoom = Vector2(4, 4)
+
+[node name="InteractCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
+script = ExtResource("3_bv3ab")
+init_state = NodePath("Main")
+
+[node name="Main" type="Node" parent="StateMachine"]
+script = ExtResource("4_yw0es")
+
+[node name="Talking" type="Node" parent="StateMachine"]
+script = ExtResource("5_qxi25")
+
+[connection signal="area_entered" from="Area2D" to="StateMachine/Main" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="StateMachine/Main" method="_on_area_2d_area_exited"]

@@ -1,0 +1,118 @@
+[
+    {
+        "character_id": "nitya",
+        "character_name": "Nitya Nil",
+        "title": "Crocodile Delinquent with a Heart of Gold",
+        "color": "#22b900",
+        "active": true,
+
+        "face_atlus": null,
+
+        "exp": 0,
+        "base_max_health": 110,
+        "base_str": 10,
+        "base_def": 10,
+        "base_spd": 12,
+
+        "attacks": [
+            "Bun Kisser"
+        ],
+        "attack_details": {
+            "Bun Kisser": {
+                "name": "Bun Kisser",
+                "power": 80,
+                "accuracy": 90,
+                "desc": "A basic slashing attack with a sword.",
+                "unlock_lvl": 20
+            },
+            "Tail Whip": {
+                "name": "Tail Whip",
+                "power": 15,
+                "accuracy": 85,
+                "desc": "A biiiig tail to HIT you with!",
+                "unlock_lvl": 1
+            },
+            "Take a Bite": {
+                "name": "Take a Bite",
+                "power": 40,
+                "accuracy": 75,
+                "desc": "She IS a crocodile after all...",
+                "unlock_lvl": 5
+            },
+            "Crocodile Slam": {
+                "name": "Crocodile Slam",
+                "power": 60,
+                "accuracy": 80,
+                "desc": "With the force of a 1,000 crocodiles!",
+                "unlock_lvl": 10
+            }
+        },
+
+        "dialogue": null
+    },
+    {
+        "character_id": "wilhelmina",
+        "character_name": "Wilhelmina Frost",
+        "title": "Captain of the Royal Guard and Knight of Ostellia",
+        "color": "#5697ff",
+        "active": true,
+
+        "face_atlus": null,
+
+        "exp": 0,
+        "base_max_health": 100,
+        "base_str": 10,
+        "base_def": 10,
+        "base_spd": 10,
+
+        "attacks": [
+            "Slash"
+        ],
+        "attack_details": {
+            "Slash": {
+                "name": "Slash",
+                "power": 25,
+                "accuracy": 90,
+                "desc": "The diligent slash of a seasoned knight.",
+                "unlock_lvl": 1
+            }
+        },
+
+        "dialogue": null
+    },
+    {
+        "character_id": "clio",
+        "character_name": "Clio Aite",
+        "title": "Phase World's Head Archivist",
+        "color": "#7d4500",
+        "active": false,
+
+        "face_atlus": null,
+
+        "exp": 0,
+        "base_max_health": 100,
+        "base_str": 10,
+        "base_def": 10,
+        "base_spd": 10,
+
+        "attacks": [
+            "Quick Slash"
+        ],
+        "attack_details": {
+            "Quick Slash": {
+                "name": "Quick Slash",
+                "power": 15,
+                "accuracy": 95,
+                "desc": "A swift and precise slash aimed at the opponent.",
+                "unlock_lvl": 1
+            }
+        },
+
+        "npc_dialogue": {
+            "0": {
+                "0": "It's quite dangerous out there... Be careful.",
+                "1": "Welcome back. You can always stay here to rest."
+            }
+        }
+    }
+]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkbmx1hgvvsm4"]
+
+[ext_resource type="Script" uid="uid://78va00qlomrv" path="res://scenes/main/attack_game.gd" id="1_0cy4r"]
+
+[node name="AttackGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0cy4r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+
+[node name="Panel_Q" type="Panel" parent="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel_W" type="Panel" parent="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel_E" type="Panel" parent="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="KeySpawnTimer" type="Timer" parent="."]
+wait_time = 0.75
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="KeySpawnTimer" to="." method="_on_key_spawn_timer_timeout"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

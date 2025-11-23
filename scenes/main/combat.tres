@@ -1,0 +1,29 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bw3k707omyot"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klngl"]
+bg_color = Color(0.024027664, 0.024027664, 0.024027664, 0.6862745)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a13l4"]
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llf1c"]
+bg_color = Color(0.6, 0.6, 0.6, 0.7529412)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gswd4"]
+bg_color = Color(1, 0, 0, 1)
+
+[resource]
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+HBoxContainer/constants/separation = 4
+Panel/styles/panel = SubResource("StyleBoxFlat_klngl")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_a13l4")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_llf1c")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_gswd4")
