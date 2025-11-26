@@ -51,8 +51,6 @@ There is a slight chance the data in `assets/char_data/` get their array of stri
 ## Planned features
 combat:
 - Attack textbox/boss shit talk
-- Full attack list
-- Attack details
 - Actions
 - Actions buff strategy pattern
 - Collab bar (built on attack_game)
@@ -60,8 +58,10 @@ combat:
 - Items
 - attack_game uses tiles instead of timer
 - attack_game differing patterns (2 hits, sliding, holding)
-- multiple enemies
+- multiple enemies w/combined attacks (that coordinate)
 - Dead characters can't attack or be attacked (even mid attack_game)
+- Full attack list
+- Attack details
 
 world:
 - interactables
@@ -95,4 +95,4 @@ Art (paid):
 	- Goldfish Kingdom
 
 Story:
-- 
+- lmao

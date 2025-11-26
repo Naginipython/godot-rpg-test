@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmug1hdq3eney"]
+[gd_scene load_steps=11 format=3 uid="uid://dmug1hdq3eney"]
 
 [ext_resource type="Theme" uid="uid://bw3k707omyot" path="res://scenes/main/combat.tres" id="1_sjsul"]
 [ext_resource type="Script" uid="uid://7icirmn3pf0o" path="res://scenes/main/combat.gd" id="2_d2w21"]
 [ext_resource type="PackedScene" uid="uid://jg6viof7rwpu" path="res://scenes/main/bg.tscn" id="3_2s4uo"]
 [ext_resource type="PackedScene" uid="uid://dkbmx1hgvvsm4" path="res://scenes/main/attack_game.tscn" id="4_1l022"]
 [ext_resource type="Texture2D" uid="uid://cp7opcyvgowcp" path="res://assets/Jelly_Hoshiumi_Portrait.webp" id="5_2m6id"]
+[ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="6_d2w21"]
 
 [sub_resource type="Animation" id="Animation_yurpa"]
 length = 0.001
@@ -296,6 +297,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_sjsul")
 script = ExtResource("2_d2w21")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextUI" parent="CanvasLayer" instance=ExtResource("6_d2w21")]
+offset_top = -170.0
+offset_bottom = -23.0
 
 [node name="bg" parent="." instance=ExtResource("3_2s4uo")]
 modulate = Color(0.73347163, 0.73347163, 0.73347163, 1)

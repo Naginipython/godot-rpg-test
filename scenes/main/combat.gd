@@ -53,6 +53,8 @@ func _process(_delta: float) -> void:
 			StoryManager.story_progress += 1;
 			StoryManager.enable_flag(StoryManager.StoryPoint.fBoss_Defeated)
 			Game_singleton.change_mode(Game_singleton.Modes.WORLD)
+		if Input.is_action_just_pressed("temp_enemy_attack"):
+			pass
 		# Menu change test
 		#if Input.is_action_just_pressed("up"):
 			#var child3: PlayerMenu = %PlayerMenuContainer.get_child(2)
