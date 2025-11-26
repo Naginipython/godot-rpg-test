@@ -117,6 +117,8 @@ _data = {
 }
 
 [node name="TextUI" type="MarginContainer"]
+visible = false
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -185,6 +187,13 @@ theme_override_font_sizes/font_size = 24
 text = "test"
 autowrap_mode = 2
 
+[node name="EndHintLabel" type="Label" parent="TextBox/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "[>>>]"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
 libraries = {
@@ -192,7 +201,7 @@ libraries = {
 }
 
 [node name="TextCharTimer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.025
 one_shot = true
 
 [connection signal="timeout" from="TextCharTimer" to="." method="_on_text_char_timer_timeout"]

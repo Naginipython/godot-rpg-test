@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextboxStyle" load_steps=3 format=3 uid="uid://rgjmc231x4f3"]
+
+[ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/portraits/Nitya_Nil_temp.jpg" id="1_cjdje"]
+[ext_resource type="Script" uid="uid://cbypi08gv5ts1" path="res://assets/TextboxStyle/textbox_style.gd" id="1_rpcbl"]
+
+[resource]
+script = ExtResource("1_rpcbl")
+char_name = "Nitya Nil"
+title = "Crocodile Delinquent with a Heart of Gold"
+color = Color(0.13333334, 0.7254902, 0, 1)
+portrait = ExtResource("1_cjdje")
+metadata/_custom_type_script = "uid://cbypi08gv5ts1"

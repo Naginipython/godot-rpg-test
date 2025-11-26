@@ -15,13 +15,15 @@ var boss_hp: int = 100
 
 func _ready() -> void:
 	Game_singleton.sort_party()
+	print(Game_singleton.party)
 	for character in Game_singleton.party:
 		var menu_inst: PlayerMenu = menu.instantiate()
 		menu_inst.init_menu(character, self)
 		%PlayerMenuContainer.add_child(menu_inst)
 		player_menus.push_back(menu_inst)
 		
-		create_cute_panels.call_deferred(character.color, menu_inst)
+		create_cute_panels.call_deferred(character.style.color, menu_inst)
+	player_menus[0].selected = true
 
 func create_cute_panels(color: Color, playerMenu: PlayerMenu) -> void:
 	var panel_inst: PanelContainer = cute_panel.instantiate()
@@ -48,7 +50,8 @@ func _process(_delta: float) -> void:
 				player_menus[menu_idx].swap("main")
 		
 		if Input.is_action_just_pressed("temp_battle_end"):
-			Game_singleton.story_progress += 1;
+			StoryManager.story_progress += 1;
+			StoryManager.enable_flag(StoryManager.StoryPoint.fBoss_Defeated)
 			Game_singleton.change_mode(Game_singleton.Modes.WORLD)
 		# Menu change test
 		#if Input.is_action_just_pressed("up"):
@@ -88,7 +91,7 @@ func toggle_attack_game(mode: bool) -> void:
 		players_attacked.sort()
 		
 		for i in range(0, players_attacked.size()):
-			battle.set_panel_to_char(i, players_attacked[i], Game_singleton.party[players_attacked[i]].color)
+			battle.set_panel_to_char(i, players_attacked[i], Game_singleton.party[players_attacked[i]].style.color)
 		battle.start()
 
 func next_turn() -> void:

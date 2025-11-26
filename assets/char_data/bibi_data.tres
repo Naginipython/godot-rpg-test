@@ -1,20 +1,13 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=4 format=3 uid="uid://w8ogndpmr2ft"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://w8ogndpmr2ft"]
 
-[ext_resource type="Texture2D" uid="uid://cjbdwruvmqpgk" path="res://assets/portraits/bibi_biscuit_temp.jpg" id="1_b0xv5"]
 [ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/char_data/char_data.gd" id="1_ffr8w"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ffr8w"]
-atlas = ExtResource("1_b0xv5")
+[ext_resource type="Resource" uid="uid://bt1acavxccpur" path="res://assets/TextboxStyle/bibi_temp.tres" id="2_ffr8w"]
 
 [resource]
 script = ExtResource("1_ffr8w")
-character_id = "bibi"
-character_name = "Bibi Biscuit"
-color = Color(1, 0.31764707, 0.4392157, 1)
+char_id = "bibi"
+style = ExtResource("2_ffr8w")
 active = true
-party_order = 3
-face_atlus = SubResource("AtlasTexture_ffr8w")
-temp_face = ExtResource("1_b0xv5")
 base_max_health = 90
 base_spd = 5
 attacks = ["Spoon"]

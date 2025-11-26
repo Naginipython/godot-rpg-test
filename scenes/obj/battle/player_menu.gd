@@ -36,13 +36,14 @@ func _process(_delta: float) -> void:
 	curr_state = $StateMachine.curr_state.name.to_lower()
 
 func init_menu(set_character: CharacterData, set_parent: Control) -> void:
+	print("hi")
 	set_character.connect("initialized", double_check)
 	character = set_character
 	#idx = set_character.party_order
-	img = set_character.temp_face
-	color = set_character.color
-	selected = set_character.party_order == 0
-	char_id = set_character.character_id
+	img = set_character.style.portrait
+	color = set_character.style.color
+	#selected = set_character.party_order == 0
+	char_id = set_character.char_id
 	hp = set_character.health
 	max_hp = set_character.curr_max_health
 	set_character.health_changed.connect(change_hp)

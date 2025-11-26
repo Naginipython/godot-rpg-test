@@ -2,7 +2,11 @@ extends PlayerState
 
 func enter(_prev: String) -> void:
 	# Extract NPC data
-	player.text_ui.enable_text(player.facing_npc)
+	if player.facing_npc.name.begins_with("Debug"):
+		player.text_ui.temp_disable_face_size()
+	var point: StoryManager.StoryPoint = StoryManager.dialogue_check(player.facing_npc.dialogue.keys())
+	print(point)
+	player.text_ui.enable_text(player.facing_npc.dialogue[point])
 
 func process(_delta: float) -> void:
 	if not player.text_ui.is_enabled:

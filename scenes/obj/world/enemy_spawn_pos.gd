@@ -9,7 +9,8 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	if not Game_singleton.enemies_dead_pos.is_empty():
 		if Game_singleton.enemies_dead_pos.find(global_position) != -1:
 			is_alive = false
-			$RespawnTimer.start()
+			if $RespawnTimer.is_stopped():
+				$RespawnTimer.start()
 	if is_alive:
 		var enemy_inst = enemy.instantiate()
 		enemy_inst.spawnpoint = self

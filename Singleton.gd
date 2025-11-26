@@ -5,8 +5,6 @@ enum Modes {
 	WORLD, COMBAT
 }
 
-var story_progress: int = 0
-
 var mode: Modes = Modes.WORLD
 var player_pos: Vector2 = Vector2.ZERO
 var characters: Dictionary[String, CharacterData] = {}
@@ -21,10 +19,10 @@ func _ready() -> void:
 		if file_name.ends_with(".tres"):
 			var file = "res://assets/char_data/" + file_name
 			var loaded_data: Resource = load(file)
-			if loaded_data is CharacterData and not loaded_data.character_id.is_empty():
+			if loaded_data is CharacterData and not loaded_data.char_id.is_empty():
 				var char_data: CharacterData = loaded_data
-				characters[char_data.character_id] = char_data
-				print("Loaded char: " + char_data.character_name)
+				characters[char_data.char_id] = char_data
+				print("Loaded char: " + char_data.char_id)
 	
 	# Get Party, sorted
 	for character: CharacterData in characters.values():

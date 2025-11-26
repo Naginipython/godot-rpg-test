@@ -7,20 +7,13 @@ signal health_changed(new_value: int)
 
 # Basic
 @export_group("Basic")
-@export var character_id: String = ""
-@export var character_name: String = ""
-@export var color: Color = Color(1,1,1)
-@export var active: bool = false
-@export var party_order: int = 0
-
-# Face sprites
-@export_group("Face Sprites")
-# https://sprites.pmdcollab.org/#/
-@export var face_atlus: AtlasTexture
-@export var temp_face: CompressedTexture2D = preload("uid://cbcfedh8onyr7")
+@export var char_id: String = ""
+@export var style: TextboxStyle = preload("uid://rgjmc231x4f3")
 
 # Combat
 @export_group("Combat")
+@export var active: bool = false
+#@export var party_order: int = 0
 @export var expr: int = 0: set = _on_exp_set
 @export var base_max_health: int = 100
 @export var base_str: int = 10 # Damage is str * (move_power/10)

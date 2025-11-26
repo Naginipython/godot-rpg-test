@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://bg6g61feiv3rm"]
+[gd_scene load_steps=36 format=4 uid="uid://bg6g61feiv3rm"]
 
 [ext_resource type="Script" uid="uid://cyja04a4wmrkk" path="res://scenes/main/world.gd" id="1_526id"]
 [ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="2_7te0o"]
@@ -6,10 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://57pgol331lfm" path="res://scenes/obj/world/player.tscn" id="3_0aorq"]
 [ext_resource type="Texture2D" uid="uid://crlvgovb0l1yt" path="res://assets/tilemap_packed2.png" id="4_0aorq"]
 [ext_resource type="PackedScene" uid="uid://dbyfr2017ij20" path="res://scenes/obj/world/npc.tscn" id="6_yshnf"]
-[ext_resource type="PackedScene" uid="uid://c0q2bbniweelb" path="res://scenes/obj/world/special_npc.tscn" id="7_smv1n"]
+[ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/dialogue/dialogue_line.gd" id="7_3c7vn"]
 [ext_resource type="PackedScene" uid="uid://bcjtgsbbhxbeu" path="res://scenes/obj/world/world_damage_area.tscn" id="8_7te0o"]
-[ext_resource type="Texture2D" uid="uid://da3o87dptoj" path="res://assets/portraits/temp-rotom.png" id="8_ays12"]
+[ext_resource type="Resource" uid="uid://biol4inm2ltpu" path="res://assets/TextboxStyle/combee_temp.tres" id="8_sag5l"]
+[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/dialogue/conversation.gd" id="8_xwd6a"]
 [ext_resource type="PackedScene" uid="uid://dk0gksulrujr0" path="res://scenes/obj/world/enemy_spawn_pos.tscn" id="9_smv1n"]
+[ext_resource type="Resource" uid="uid://14n8gqa74fdh" path="res://assets/TextboxStyle/rotom_temp.tres" id="10_xwd6a"]
+[ext_resource type="Resource" uid="uid://dyx2gp4jpnlxb" path="res://assets/TextboxStyle/Clio Aite.tres" id="11_sag5l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
 texture = ExtResource("2_526id")
@@ -687,14 +690,104 @@ physics_layer_0/collision_layer = 4
 sources/0 = SubResource("TileSetAtlasSource_1r2wy")
 sources/1 = SubResource("TileSetAtlasSource_0aorq")
 
+[sub_resource type="Resource" id="Resource_sag5l"]
+script = ExtResource("7_3c7vn")
+text = "Hello!"
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_2p2jg"]
+script = ExtResource("7_3c7vn")
+text = "This is a test"
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_r1or7"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_sag5l"), SubResource("Resource_2p2jg")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_0w3ym"]
+script = ExtResource("7_3c7vn")
+text = "Oh, hello!"
+speaker = ExtResource("8_sag5l")
+face = 2
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_ailbm"]
+script = ExtResource("7_3c7vn")
+text = "This is a special test"
+speaker = ExtResource("8_sag5l")
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_xwd6a"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_0w3ym"), SubResource("Resource_ailbm")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_fvaq5"]
+script = ExtResource("7_3c7vn")
+text = "Whoa, you really beat that guy!"
+speaker = ExtResource("8_sag5l")
+face = 2
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_snr5s"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_fvaq5")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_3wopa"]
+script = ExtResource("7_3c7vn")
+text = "It's kinda hard to make this dialogue in the editor..."
+speaker = ExtResource("10_xwd6a")
+face = 1
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_bolsh"]
+script = ExtResource("7_3c7vn")
+text = "Not to mention, dialogue itself on a large scale has been hard..."
+speaker = ExtResource("10_xwd6a")
+face = 1
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_shf8f"]
+script = ExtResource("7_3c7vn")
+text = "... But for now, this is awesome!"
+speaker = ExtResource("10_xwd6a")
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_3c7vn"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_3wopa"), SubResource("Resource_bolsh"), SubResource("Resource_shf8f")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_2hobn"]
+script = ExtResource("7_3c7vn")
+text = "Alas, your journey now begins!"
+speaker = ExtResource("10_xwd6a")
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_kt1us"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_2hobn")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_moqhu"]
+script = ExtResource("7_3c7vn")
+text = "This is a more specific character test"
+speaker = ExtResource("11_sag5l")
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_pasgk"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_moqhu")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
 [node name="Game" type="Node"]
 script = ExtResource("1_526id")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TextUI" parent="UI" instance=ExtResource("2_7te0o")]
-visible = false
-modulate = Color(1, 1, 1, 0)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -709,26 +802,37 @@ tile_set = SubResource("TileSet_7te0o")
 position = Vector2(8, 8)
 text_ui = NodePath("../UI/TextUI")
 
-[node name="NormalNPC" parent="." instance=ExtResource("6_yshnf")]
+[node name="Npc" parent="." instance=ExtResource("6_yshnf")]
 position = Vector2(-39.999996, -7.9999995)
-
-[node name="SpecialNpc" parent="." instance=ExtResource("7_smv1n")]
-self_modulate = Color(1, 1, 0, 1)
-position = Vector2(-55.999996, 7.9999995)
-dialogue = Dictionary[int, Array]({
--1: [[0, "Hello"], [1, "This is a special test"]],
-1: [[1, "I really liked that guy"], [1, "Killing is wrong, I advise you don't do it again"]]
+convo = SubResource("Resource_r1or7")
+dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
+0: SubResource("Resource_r1or7")
 })
 
-[node name="SpecialNpc2" parent="." instance=ExtResource("7_smv1n")]
+[node name="NpcCombee" parent="." instance=ExtResource("6_yshnf")]
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(-56, 8.000002)
+convo = SubResource("Resource_xwd6a")
+dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
+-1: SubResource("Resource_snr5s"),
+0: SubResource("Resource_xwd6a")
+})
+
+[node name="NpcRotom" parent="." instance=ExtResource("6_yshnf")]
 self_modulate = Color(1, 0.62352943, 0, 1)
 position = Vector2(-72, 39.999996)
-char_name = "Rotom"
-title = "Ever-changing Electric menace"
-portrait = ExtResource("8_ays12")
-color = Color(1, 0.62352943, 0, 1)
-dialogue = Dictionary[int, Array]({
--1: [[1, "This is really hard to do in the editor..."], [1, "Surely I can make this easier later...."], [0, "But for now, this is awesome!"]]
+convo = SubResource("Resource_3c7vn")
+dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
+0: SubResource("Resource_3c7vn"),
+2: SubResource("Resource_kt1us")
+})
+
+[node name="DebugClio" parent="." instance=ExtResource("6_yshnf")]
+self_modulate = Color(0.75686276, 0.4627451, 0, 1)
+position = Vector2(-55.999996, 23.999998)
+convo = SubResource("Resource_pasgk")
+dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
+0: SubResource("Resource_pasgk")
 })
 
 [node name="WorldDamageArea" parent="." instance=ExtResource("8_7te0o")]

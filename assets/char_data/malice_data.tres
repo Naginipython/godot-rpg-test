@@ -1,16 +1,13 @@
 [gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://c2w6a4dwau6hc"]
 
 [ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/char_data/char_data.gd" id="1_xsbwr"]
-[ext_resource type="Texture2D" uid="uid://dbl4vrmbqjwjr" path="res://assets/portraits/malice_evermore_temp.jpg" id="2_xsbwr"]
+[ext_resource type="Resource" uid="uid://b8yvglwye5xp3" path="res://assets/TextboxStyle/malice_temp.tres" id="2_xsbwr"]
 
 [resource]
 script = ExtResource("1_xsbwr")
-character_id = "malice"
-character_name = "Malice Evermore"
-color = Color(0.9411765, 0.6627451, 1, 1)
+char_id = "malice"
+style = ExtResource("2_xsbwr")
 active = true
-party_order = 2
-temp_face = ExtResource("2_xsbwr")
 base_max_health = 75
 base_spd = 8
 attacks = ["Energy Siphen"]

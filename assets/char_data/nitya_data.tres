@@ -1,17 +1,15 @@
 [gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://cad3qxc5u3kse"]
 
 [ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/char_data/char_data.gd" id="1_j2rjj"]
-[ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/portraits/Nitya_Nil_temp.jpg" id="2_mqtwm"]
+[ext_resource type="Resource" uid="uid://rgjmc231x4f3" path="res://assets/TextboxStyle/nitya_temp.tres" id="2_qiuxa"]
 
 [resource]
 script = ExtResource("1_j2rjj")
-character_id = "nitya"
-character_name = "Nitya Nil"
-color = Color(0.13333334, 0.7254902, 0, 1)
+char_id = "nitya"
 active = true
 base_max_health = 110
 base_spd = 12
-attacks = ["Tail Whip"]
+attacks = ["Bum Kisser"]
 attack_details = Dictionary[String, Dictionary]({
 "bunkisser": {
 "desc": "A cut lil mace <3",

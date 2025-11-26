@@ -14,7 +14,9 @@ var emotion_colors: Dictionary[Face, Color] = {
 	Face.Sad: Color(0.0, 0.0, 1.0, 1.0),
 	Face.Surpirsed: Color(0.0, 1.0, 1.0, 1.0)
 }
+var temp_face_size: Vector2 = Vector2(40,40)
 
+# UI variables
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var text_char_timer: Timer = $TextCharTimer
 @onready var text: Label = %Text
@@ -23,57 +25,59 @@ var emotion_colors: Dictionary[Face, Color] = {
 @onready var text_box: PanelContainer = $TextBox
 @onready var glow: TextureRect = %Glow
 
-var is_enabled: bool = false
-var is_talking: bool = false
+var is_enabled: bool = false #used for player state talking -> main in player_talking.gd
+var is_printing: bool = true #used to check if it's printing
 
 var text_queue: Array[String] = []
 var face_queue: Array[Face] = []
+
+var char_idx = 0
+var queue: Array[DialogueLine] = []
 
 func _ready() -> void:
 	text.text = ""
 	title.text = ""
 	title.visible = false
+	animation_player.play("RESET")
 
-#func impatient() -> void:
-	#text_char_timer.stop()
-	#if text_queue.front():
-		#var s: String = text_queue.front()
-		#text.text = text.text + s
-		#text_queue.pop_front()
-
-func enable_text(npc_data: Npc) -> void:
-	if npc_data is SpecialNpc:
-		var new_title = npc_data.char_name + ", " + npc_data.title
-		setup_char(npc_data.portrait, new_title, npc_data.color)
-		setup_dialogue(npc_data.dialogue)
+func _process(_delta: float) -> void:
+	# Make [>>>] go [ >>] [>>>] [> >] [>>>] [>> ]
+	# when current text is finished.
+	if is_printing:
+		%EndHintLabel.modulate = Color(1,1,1,0)
 	else:
-		setup_char()
-		add_array_to_text_queue(npc_data.text)
-	#setup_char(new_title, color)
-	text.text = ""
+		%EndHintLabel.modulate = Color(1,1,1,1)
+
+func temp_disable_face_size() -> void:
+	temp_face_size = Vector2(0,0)
+
+func enable_text(convo: Conversation) -> void:
 	animation_player.play("enable_text")
+	text.text = ""
 	is_enabled = true
+	queue = convo.lines.duplicate()
+	set_line()
 	text_char_timer.start()
 
-func add_to_text_queue(txt: String) -> void:
-	text_queue.push_back(txt)
+func disable_textbox() -> void:
+	temp_face_size = Vector2(40,40)
+	animation_player.play("disable_text")
+	is_enabled = false
 
-func add_array_to_text_queue(arr: Array[String]) -> void:
-	for txt in arr:
-		add_to_text_queue(txt)
+func set_line() -> void:
+	if not queue.is_empty():
+		char_idx = 0
+		setup_char(queue[0].speaker)
 
-func next_text() -> void:
-	if text_queue.is_empty():
-		animation_player.play("disable_text")
-		is_enabled = false
-	if text_char_timer.is_stopped():
-		text.text = ""
-		if not face_queue.is_empty():
-			set_face()
-		text_char_timer.start()
-
-# ----- Special -----
-func setup_char(img: CompressedTexture2D = null, new_title: String = "", color: Color = Color.WHITE) -> void:
+func setup_char(speaker: TextboxStyle = null) -> void:
+	var img: CompressedTexture2D = null
+	var new_title: String = ""
+	var color: Color = Color.WHITE
+	if speaker:
+		img = speaker.portrait
+		new_title = speaker.char_name + ", " + speaker.title
+		color = speaker.color
+		
 	if not new_title.is_empty():
 		title.text = new_title
 		title.visible = true
@@ -84,31 +88,27 @@ func setup_char(img: CompressedTexture2D = null, new_title: String = "", color: 
 		portrait.visible = true
 		var altas: AtlasTexture = portrait.texture
 		altas.atlas = img
+		set_face()
 	else:
 		portrait.visible = false
 	
 	var style: StyleBoxFlat = text_box.get_theme_stylebox("panel")
 	style.border_color = color
 
-func add_to_face_queue(face: Face) -> void:
-	face_queue.push_back(face)
-
-func setup_dialogue(data: Dictionary) -> void:
-	var idx
-	if data.has(Game_singleton.story_progress):
-		idx = Game_singleton.story_progress
-	else:
-		idx = -1
-	for tuple in data[idx]:
-		add_to_face_queue(tuple[0])
-		add_to_text_queue(tuple[1])
-	set_face()
+func next_text() -> void:
+	if queue.is_empty():
+		disable_textbox()
+	if text_char_timer.is_stopped():
+		text.text = ""
+		set_line()
+		text_char_timer.start()
 
 func set_face() -> void:
-	var face: Face = face_queue.pop_front()
-	var pic: AtlasTexture = portrait.texture
-	pic.region = Rect2(face_pos[face], Vector2(40,40))
-	change_emotion(face)
+	if queue.front():
+		var face: Face = queue.front().face
+		var pic: AtlasTexture = portrait.texture
+		pic.region = Rect2(face_pos[face], temp_face_size)
+		change_emotion(face)
 
 func change_emotion(new_emotion: Face) -> void:
 	if new_emotion in emotion_colors:
@@ -117,14 +117,15 @@ func change_emotion(new_emotion: Face) -> void:
 
 func _on_text_char_timer_timeout() -> void:
 	if visible and not animation_player.is_playing():
-		if text_queue.front():
-			var s: String = text_queue.front()
-			var c: String = s[0]
-			text.text = text.text + c
-			if s.length() == 1:
-				text_queue.pop_front()
+		is_printing = true
+		if queue.front():
+			var d: DialogueLine = queue.front()
+			text.text += d.text[char_idx]
+			char_idx += 1
+			if d.text.length() <= char_idx:
+				is_printing = false
+				queue.pop_front()
 			else:
 				text_char_timer.start()
-				text_queue[0] = s.substr(1)
 	elif visible:
 		text_char_timer.start()
