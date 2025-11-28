@@ -1,0 +1,11 @@
+cutscenes:
+	Standard character movement (speed: MOVE_DISTANCE 16.0 / duration 0.2)*delta idk math
+	Character expressions - (!) (?), etc
+	Dialogue. Ending dialogue continues animation
+	Walking infinite + dialogue, stops infinite once dialogue ends
+	
+
+Issues:
+	How to animate chars? Animation player?
+	Dialogue pauses ani_player? After ending (current), continues animation, then new dialogue?
+	How do I store dialogue?

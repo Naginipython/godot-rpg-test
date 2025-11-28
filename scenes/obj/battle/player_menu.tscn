@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bw3k707omyot" path="res://scenes/main/combat.tres" id="1_by8td"]
 [ext_resource type="Script" uid="uid://cxd1py173lwnk" path="res://scenes/obj/battle/player_menu.gd" id="1_mmqh1"]
 [ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/portraits/Nitya_Nil_temp.jpg" id="2_5a86b"]
-[ext_resource type="Script" uid="uid://baaii1vgdej0r" path="res://scenes/obj/StateMachines/player_menu/state_machine.gd" id="4_tr6c3"]
+[ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="4_ntii7"]
 [ext_resource type="Script" uid="uid://dce55blm8f7qc" path="res://scenes/obj/StateMachines/player_menu/player_menu_main.gd" id="5_ewjb8"]
 [ext_resource type="Script" uid="uid://dyba5s0qc4ef0" path="res://scenes/obj/StateMachines/player_menu/player_menu_actions.gd" id="6_ewjb8"]
 [ext_resource type="Script" uid="uid://cooqvhlmy8nub" path="res://scenes/obj/StateMachines/player_menu/player_menu_action_attack.gd" id="7_cqoq7"]
@@ -372,7 +372,7 @@ libraries = {
 autoplay = "0Default"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
-script = ExtResource("4_tr6c3")
+script = ExtResource("4_ntii7")
 init_state = NodePath("Main")
 
 [node name="Main" type="Node" parent="StateMachine"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmug1hdq3eney"]
+[gd_scene load_steps=15 format=3 uid="uid://dmug1hdq3eney"]
 
 [ext_resource type="Theme" uid="uid://bw3k707omyot" path="res://scenes/main/combat.tres" id="1_sjsul"]
 [ext_resource type="Script" uid="uid://7icirmn3pf0o" path="res://scenes/main/combat.gd" id="2_d2w21"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dkbmx1hgvvsm4" path="res://scenes/main/attack_game.tscn" id="4_1l022"]
 [ext_resource type="Texture2D" uid="uid://cp7opcyvgowcp" path="res://assets/Jelly_Hoshiumi_Portrait.webp" id="5_2m6id"]
 [ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="6_d2w21"]
+[ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="7_1l022"]
+[ext_resource type="Script" uid="uid://dnjuk0e2t7l52" path="res://scenes/obj/StateMachines/combat/combat_main.gd" id="7_2s4uo"]
+[ext_resource type="Script" uid="uid://b4g2t1etxddkh" path="res://scenes/obj/StateMachines/combat/combat_attack_game.gd" id="9_2m6id"]
+[ext_resource type="Script" uid="uid://c2y0hgc3q6if" path="res://scenes/obj/StateMachines/combat/combat_dialogue.gd" id="10_xt4u0"]
 
 [sub_resource type="Animation" id="Animation_yurpa"]
 length = 0.001
@@ -63,18 +67,6 @@ tracks/4/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("BattleContainer/Battle:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_sjsul"]
@@ -135,63 +127,6 @@ tracks/4/keys = {
 "points": PackedFloat32Array(1, -0.03333333, -0.16666667, 0, 0, 0, -0.25, 0, 0.25, 0, 0, 0, 0, 0.083333336, 0),
 "times": PackedFloat32Array(0, 0.19999999, 0.7)
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("BattleContainer/Battle:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath(".")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0.2, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"width_animate_end"
-}, {
-"args": [false],
-"method": &"toggle_attack_game"
-}]
-}
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("BattleContainer/Battle")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0.7),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [false],
-"method": &"toggle_is_game_end"
-}]
-}
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath(".")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0.7),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"next_turn"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_1fo8b"]
 resource_name = "boss_side"
@@ -251,35 +186,6 @@ tracks/4/keys = {
 "points": PackedFloat32Array(0, 0, 0, 0.083333336, 0, 0, -0.25, 0, 0.25, 0, 1, -0.03333333, -0.16666667, 0, 0),
 "times": PackedFloat32Array(0, 0.5, 0.7)
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("BattleContainer/Battle:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath(".")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [true],
-"method": &"toggle_attack_game"
-}, {
-"args": [],
-"method": &"width_animate_start"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nyhuc"]
 _data = {
@@ -321,7 +227,6 @@ offset_bottom = 500.0
 grow_horizontal = 2
 
 [node name="Battle" parent="BattleContainer" instance=ExtResource("4_1l022")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -331,7 +236,7 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -150.0
-offset_right = 150.00049
+offset_right = 150.00024
 offset_bottom = 525.0
 grow_horizontal = 2
 size_flags_vertical = 3
@@ -378,10 +283,17 @@ libraries = {
 &"": SubResource("AnimationLibrary_nyhuc")
 }
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
+unique_name_in_owner = true
+script = ExtResource("7_1l022")
+init_state = NodePath("Main")
 
 [node name="Main" type="Node" parent="StateMachine"]
+script = ExtResource("7_2s4uo")
 
 [node name="AttackGame" type="Node" parent="StateMachine"]
+script = ExtResource("9_2m6id")
 
-[node name="Dialogue" type="Node" parent="StateMachine"]
+[node name="Dialogue" type="Node" parent="StateMachine" node_paths=PackedStringArray("text_ui")]
+script = ExtResource("10_xt4u0")
+text_ui = NodePath("../../CanvasLayer/TextUI")

@@ -18,21 +18,20 @@ var temp_face_size: Vector2 = Vector2(40,40)
 
 # UI variables
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var text_char_timer: Timer = $TextCharTimer
-@onready var text: Label = %Text
-@onready var title: Label = %Title
+@onready var text: RichTextLabel = %Text
+@onready var title: RichTextLabel = %Title
 @onready var portrait: TextureRect = %Portrait
 @onready var text_box: PanelContainer = $TextBox
 @onready var glow: TextureRect = %Glow
 
 var is_enabled: bool = false #used for player state talking -> main in player_talking.gd
-var is_printing: bool = true #used to check if it's printing
-
-var text_queue: Array[String] = []
-var face_queue: Array[Face] = []
-
-var char_idx = 0
 var queue: Array[DialogueLine] = []
+var is_printing: bool = true #used to check if it's printing
+var speed_per_char = 0.02
+var curr_tween: Tween
+var can_skip = false
+
+signal line_finished
 
 func _ready() -> void:
 	text.text = ""
@@ -48,26 +47,50 @@ func _process(_delta: float) -> void:
 	else:
 		%EndHintLabel.modulate = Color(1,1,1,1)
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("select") and is_enabled:
+		if is_printing and can_skip:
+			impatient()
+		else:
+			next_text()
+
 func temp_disable_face_size() -> void:
 	temp_face_size = Vector2(0,0)
 
 func enable_text(convo: Conversation) -> void:
+	$SkipCooldown.start()
 	animation_player.play("enable_text")
 	text.text = ""
-	is_enabled = true
 	queue = convo.lines.duplicate()
 	set_line()
-	text_char_timer.start()
+	is_enabled = true
 
 func disable_textbox() -> void:
 	temp_face_size = Vector2(40,40)
 	animation_player.play("disable_text")
+	await animation_player.animation_finished
+	text.text = ""
+	setup_char()
 	is_enabled = false
 
 func set_line() -> void:
+	can_skip = false
+	$SkipCooldown.start()
 	if not queue.is_empty():
-		char_idx = 0
 		setup_char(queue[0].speaker)
+		
+		text.text = queue[0].text
+		text.visible_characters = 0
+		is_printing = true
+		
+		var char_count = text.get_total_character_count()
+		var duration = char_count * speed_per_char
+		
+		if curr_tween: curr_tween.kill()
+		curr_tween = create_tween()
+		
+		curr_tween.tween_property(text, "visible_characters", char_count, duration)
+		curr_tween.finished.connect(_on_line_finished)
 
 func setup_char(speaker: TextboxStyle = null) -> void:
 	var img: CompressedTexture2D = null
@@ -98,10 +121,10 @@ func setup_char(speaker: TextboxStyle = null) -> void:
 func next_text() -> void:
 	if queue.is_empty():
 		disable_textbox()
-	if text_char_timer.is_stopped():
+	else:
 		text.text = ""
 		set_line()
-		text_char_timer.start()
+		is_printing = true
 
 func set_face() -> void:
 	if queue.front():
@@ -115,17 +138,15 @@ func change_emotion(new_emotion: Face) -> void:
 		var tween = create_tween()
 		tween.tween_property(glow, "modulate", emotion_colors[new_emotion], 0.2)
 
-func _on_text_char_timer_timeout() -> void:
-	if visible and not animation_player.is_playing():
-		is_printing = true
-		if queue.front():
-			var d: DialogueLine = queue.front()
-			text.text += d.text[char_idx]
-			char_idx += 1
-			if d.text.length() <= char_idx:
-				is_printing = false
-				queue.pop_front()
-			else:
-				text_char_timer.start()
-	elif visible:
-		text_char_timer.start()
+func impatient() -> void:
+	if curr_tween: curr_tween.kill()
+	text.visible_characters = -1
+	_on_line_finished()
+
+func _on_line_finished() -> void:
+	is_printing = false
+	queue.pop_front()
+	emit_signal("line_finished")
+
+func _on_skip_cooldown_timeout() -> void:
+	can_skip = true

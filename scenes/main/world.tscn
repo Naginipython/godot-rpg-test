@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://bg6g61feiv3rm"]
+[gd_scene load_steps=38 format=4 uid="uid://bg6g61feiv3rm"]
 
 [ext_resource type="Script" uid="uid://cyja04a4wmrkk" path="res://scenes/main/world.gd" id="1_526id"]
 [ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="2_7te0o"]
@@ -777,9 +777,21 @@ text = "This is a more specific character test"
 speaker = ExtResource("11_sag5l")
 metadata/_custom_type_script = "uid://co5pvnhporosc"
 
+[sub_resource type="Resource" id="Resource_uv1xp"]
+script = ExtResource("7_3c7vn")
+text = "This is a test for a long sentence. I want to see if the textbox will change size when text is added, or if it stays the same throughout. Considering which will look better, I am unsure."
+speaker = ExtResource("11_sag5l")
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_rlych"]
+script = ExtResource("7_3c7vn")
+text = "Also, [i][wave amp=25 freq=5]BOO![/wave][/i]"
+speaker = ExtResource("11_sag5l")
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
 [sub_resource type="Resource" id="Resource_pasgk"]
 script = ExtResource("8_xwd6a")
-lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_moqhu")])
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_moqhu"), SubResource("Resource_uv1xp"), SubResource("Resource_rlych")])
 metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
 
 [node name="Game" type="Node"]
@@ -788,6 +800,14 @@ script = ExtResource("1_526id")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TextUI" parent="UI" instance=ExtResource("2_7te0o")]
+
+[node name="WackyTextTest" type="RichTextLabel" parent="UI"]
+visible = false
+offset_right = 120.0
+offset_bottom = 88.0
+bbcode_enabled = true
+text = "[shake rate=50 level=20]TEST[/shake]
+[i][wave amp=25 freq=5]woosh[/wave][/i]"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -802,14 +822,16 @@ tile_set = SubResource("TileSet_7te0o")
 position = Vector2(8, 8)
 text_ui = NodePath("../UI/TextUI")
 
-[node name="Npc" parent="." instance=ExtResource("6_yshnf")]
+[node name="NPCs" type="Node" parent="."]
+
+[node name="Npc" parent="NPCs" instance=ExtResource("6_yshnf")]
 position = Vector2(-39.999996, -7.9999995)
 convo = SubResource("Resource_r1or7")
 dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_r1or7")
 })
 
-[node name="NpcCombee" parent="." instance=ExtResource("6_yshnf")]
+[node name="NpcCombee" parent="NPCs" instance=ExtResource("6_yshnf")]
 self_modulate = Color(1, 1, 0, 1)
 position = Vector2(-56, 8.000002)
 convo = SubResource("Resource_xwd6a")
@@ -818,7 +840,7 @@ dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_xwd6a")
 })
 
-[node name="NpcRotom" parent="." instance=ExtResource("6_yshnf")]
+[node name="NpcRotom" parent="NPCs" instance=ExtResource("6_yshnf")]
 self_modulate = Color(1, 0.62352943, 0, 1)
 position = Vector2(-72, 39.999996)
 convo = SubResource("Resource_3c7vn")
@@ -827,7 +849,7 @@ dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 2: SubResource("Resource_kt1us")
 })
 
-[node name="DebugClio" parent="." instance=ExtResource("6_yshnf")]
+[node name="DebugClio" parent="NPCs" instance=ExtResource("6_yshnf")]
 self_modulate = Color(0.75686276, 0.4627451, 0, 1)
 position = Vector2(-55.999996, 23.999998)
 convo = SubResource("Resource_pasgk")
@@ -841,4 +863,4 @@ position = Vector2(104, -24)
 [node name="EnemySpawnPos" type="Node" parent="."]
 
 [node name="EnemySpawnPos" parent="EnemySpawnPos" instance=ExtResource("9_smv1n")]
-position = Vector2(24, 24)
+position = Vector2(24, 8)

@@ -4,19 +4,26 @@ class_name Story
 var story_progress: int = 1
 
 enum Chapter {
-	Saga = 1, 
-	Jelly, 
-	Euphoria, 
-	Alias
+	Saga = StoryPoint.Saga_Begins, 
+	Jelly = StoryPoint.Alien_Princess, 
+	Euphoria = StoryPoint.Sinister_Invasion, 
+	Alias = StoryPoint.Secret_Society
 }
 enum StoryPoint {
 	# Flags
-	fBoss_Defeated = -1,
+	fTest = -2,
+	fBoss_Defeated,
 	# Default
 	Default = 0,
 	# Saga
 	Saga_Begins = 1,
 	Exit_Library,
+	# Jelly
+	Alien_Princess,
+	# Euphoria
+	Sinister_Invasion,
+	# Alias
+	Secret_Society,
 }
 
 var flags: Array[bool] = [

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextboxStyle" load_steps=3 format=3 uid="uid://dfcur7lcq1r34"]
+
+[ext_resource type="Texture2D" uid="uid://2f4ose6f7273" path="res://assets/portraits/jelly_hoshiumi_temp.jpg" id="1_2kixe"]
+[ext_resource type="Script" uid="uid://cbypi08gv5ts1" path="res://assets/TextboxStyle/textbox_style.gd" id="1_h76ot"]
+
+[resource]
+script = ExtResource("1_h76ot")
+char_name = "Jelly Hoshiumi"
+title = "Invading Alien Princess"
+color = Color(0.47058824, 0.9137255, 0.9647059, 1)
+portrait = ExtResource("1_2kixe")
+metadata/_custom_type_script = "uid://cbypi08gv5ts1"

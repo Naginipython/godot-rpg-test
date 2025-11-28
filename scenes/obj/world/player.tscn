@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/world_sprites/Soldier.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bd34lqlgcaqxh" path="res://scenes/obj/world/player.gd" id="2_onrkg"]
-[ext_resource type="Script" uid="uid://dihv8ipdrnnmi" path="res://scenes/obj/StateMachines/player/state_machine.gd" id="3_bv3ab"]
+[ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="3_qxi25"]
 [ext_resource type="Script" uid="uid://bx6s1nuv3vdv" path="res://scenes/obj/StateMachines/player/player_main.gd" id="4_yw0es"]
 [ext_resource type="Script" uid="uid://dr1k0t6es3gws" path="res://scenes/obj/StateMachines/player/player_talking.gd" id="5_qxi25"]
 
@@ -58,7 +58,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
-script = ExtResource("3_bv3ab")
+script = ExtResource("3_qxi25")
 init_state = NodePath("Main")
 
 [node name="Main" type="Node" parent="StateMachine"]

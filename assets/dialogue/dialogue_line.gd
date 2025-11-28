@@ -5,7 +5,7 @@ class_name DialogueLine
 @export var speaker: TextboxStyle
 @export var face: TextUI.Face = TextUI.Face.Happy
 
-func _init(_text: String = "", _speaker: TextboxStyle = null, _face: TextUI.Face = 0) -> void:
+func _init(_text: String = "", _speaker: TextboxStyle = null, _face: TextUI.Face = TextUI.Face.Happy) -> void:
 	text = _text
 	speaker = _speaker
 	face = _face

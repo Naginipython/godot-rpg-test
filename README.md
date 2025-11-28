@@ -44,13 +44,13 @@ In combat:
 - Cute boss attack start/end animation
 - Beating enemy (pressing r) triggers dialogue flag for Boss_Defeated
 - Beating enemy (pressing r) progresses story tracker
+- Text UI now works in combat
 
 ## Issues
 There is a slight chance the data in `assets/char_data/` get their array of strings called `attacks` deleted. If you double-click the `.tres` files, in the right menu, you can click Combat dropdown > click 'PackedStringArray' next to 'attacks', then add element of a random name where `<null>` is
 
 ## Planned features
 combat:
-- Attack textbox/boss shit talk
 - Actions
 - Actions buff strategy pattern
 - Collab bar (built on attack_game)
@@ -64,6 +64,7 @@ combat:
 - Attack details
 
 world:
+- cutscenes
 - interactables
 - player follow
 - retain HP & stats

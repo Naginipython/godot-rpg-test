@@ -11,6 +11,10 @@ func enter(prev: String) -> void:
 
 func process(_delta: float) -> void:
 	action_selection()
+	
+	if menu.selected and Input.is_action_just_pressed("return") and not animation_player.is_playing():
+		change_state.emit(self, "main")
+	
 	if Input.is_action_just_pressed("select") and not animation_player.is_playing():
 		push_btn(btn_idx)
 

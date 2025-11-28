@@ -1,10 +1,5 @@
 extends PlayerMenuState
 
-# actin:attack:
-	# when entered, display attacks, resize thing
-	# when exit, resize thing to normal
-	# process: wasd control buttons
-	
 @onready var player_menu: PlayerMenu = $"../.."
 @onready var actions_panel: PanelContainer = %ActionsPanel
 @onready var main_grid: GridContainer = %MainGrid
@@ -64,12 +59,12 @@ func process(_delta: float) -> void:
 	attack_selection()
 
 func exit(next: String) -> void:
-	if next == "main":
-		animation_player.play("CardSwapToMain")
 	secondary_container.visible = false
 	main_grid.visible = true
 	actions_panel.size.y = 100
 	actions_panel.position.y = 0
+	if next == "main":
+		animation_player.play("CardSwapToMain")
 
 func attack_selection() -> void:
 	if Input.is_action_just_pressed("down"):

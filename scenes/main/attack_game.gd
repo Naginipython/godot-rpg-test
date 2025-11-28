@@ -1,8 +1,9 @@
 extends Control
 class_name AttackGame
 
-var is_game_end: bool = false
+@onready var state_machine: StateMachine = %StateMachine
 var stop_spawn: bool = false
+var enabled: bool = false
 
 const ATTACK: PackedScene = preload("uid://dsid5l6egry4u")
 var bottom_y: float
@@ -33,10 +34,12 @@ func _process(_delta: float) -> void:
 	click_input("down", 1, queue_w)
 	click_input("right", 2, queue_e)
 	
+	enabled = state_machine.curr_state.name == "AttackGame"
+	
 	#if Input.is_key_pressed(KEY_ESCAPE):
 		#Game_singleton.change_mode(Game_singleton.Modes.WORLD)
 	# Starts game
-	if visible and $KeySpawnTimer.is_stopped() and not stop_spawn:
+	if enabled and $KeySpawnTimer.is_stopped() and not stop_spawn:
 		$KeySpawnTimer.start()
 		$GameTimer.start()
 	
@@ -48,11 +51,10 @@ func _process(_delta: float) -> void:
 			if child is AttackBlock:
 				blocks_remained = true
 				break
-		if not blocks_remained:
-			is_game_end = true
+		if not blocks_remained and enabled:
+			state_machine.curr_state.end_game()
 
 func start() -> void:
-	is_game_end = false
 	stop_spawn = false
 
 func check_queue(queue: Array[AttackBlock], panel_idx):
@@ -60,7 +62,7 @@ func check_queue(queue: Array[AttackBlock], panel_idx):
 		if not is_instance_valid(queue.front()):
 			queue.pop_front()
 		elif queue.front().position.y > bottom_y:
-			if visible:
+			if enabled:
 				damage(panel_idx, 10)
 			var attack = queue.pop_front()
 			attack.kill()
@@ -127,6 +129,3 @@ func _on_key_spawn_timer_timeout() -> void:
 
 func _on_game_timer_timeout() -> void:
 	stop_spawn = true
-
-func toggle_is_game_end(mode: bool) -> void:
-	is_game_end = mode

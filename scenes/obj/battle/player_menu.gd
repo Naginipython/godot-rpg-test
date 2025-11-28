@@ -1,17 +1,16 @@
 extends Control
 class_name PlayerMenu
 
-signal swap_menus(menu: String)
-
 #@export var idx: int = 0
-@export var char_id: String = ""
-@export var img: CompressedTexture2D = preload("uid://cbcfedh8onyr7")
-@export var color: Color = Color8(255, 81, 112, 255)
 @export var selected: bool = false
+var char_id: String = ""
+var img: CompressedTexture2D = preload("uid://cbcfedh8onyr7")
+var color: Color = Color8(255, 81, 112, 255)
 var hp: int = 100
 var max_hp: int = 100
 var character: CharacterData = preload("uid://cad3qxc5u3kse")
-var parent: Control
+var parent: Node
+var prev_animation_playing: bool = false
 
 @export var curr_state: String
 
@@ -35,8 +34,7 @@ func _process(_delta: float) -> void:
 	$SelectedContainer.visible = selected
 	curr_state = $StateMachine.curr_state.name.to_lower()
 
-func init_menu(set_character: CharacterData, set_parent: Control) -> void:
-	print("hi")
+func init_menu(set_character: CharacterData, set_parent: Node) -> void:
 	set_character.connect("initialized", double_check)
 	character = set_character
 	#idx = set_character.party_order
@@ -56,11 +54,6 @@ func double_check(set_character: CharacterData) -> void:
 	hp_container.get_child(1).max_value = max_hp
 	hp_container.get_child(1).value = hp
 
-func swap(new_mode: String) -> void:
-	if animation_player.is_playing(): return
-	
-	swap_menus.emit(new_mode)
-
 func change_hp(new_value: int) -> void:
 	var change = new_value-hp
 	if change != 0:
@@ -68,11 +61,11 @@ func change_hp(new_value: int) -> void:
 		damage.text = str(change)
 		add_child(damage)
 		hp = new_value
-		print(hp)
 		hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
 		hp_container.get_child(1).value = hp
 
 func use_attack(attack: String) -> void:
 	print(attack)
 	# Find attack details, apply buffs, etc
+	parent.log_attack(character.style.char_name + " used " + attack + "!")
 	parent.damage_boss(10)
