@@ -1,6 +1,8 @@
 class_name Game
 extends Node
 
+@export var character_data: Array[CharacterData]
+
 enum Modes {
 	WORLD, COMBAT
 }
@@ -14,15 +16,18 @@ var items: Dictionary[String, Dictionary] = {}
 var enemies_dead_pos: Array[Vector2]
 
 func _ready() -> void:
-	var char_data_files: PackedStringArray = DirAccess.get_files_at("res://assets/char_data/")
-	for file_name in char_data_files:
-		if file_name.ends_with(".tres"):
-			var file = "res://assets/char_data/" + file_name
-			var loaded_data: Resource = load(file)
-			if loaded_data is CharacterData and not loaded_data.char_id.is_empty():
-				var char_data: CharacterData = loaded_data
-				characters[char_data.char_id] = char_data
-				print("Loaded char: " + char_data.char_id)
+	#var char_data_files: PackedStringArray = DirAccess.get_files_at("res://assets/char_data/")
+	#for file_name in char_data_files:
+		#if file_name.ends_with(".tres"):
+			#var file = "res://assets/char_data/" + file_name
+			#var loaded_data: Resource = load(file)
+			#if loaded_data is CharacterData and not loaded_data.char_id.is_empty():
+				#var char_data: CharacterData = loaded_data
+				#characters[char_data.char_id] = char_data
+	for character in character_data:
+		if character.char_id:
+			characters[character.char_id] = character
+			print("Loaded char: " + character.char_id)
 	
 	# Get Party, sorted
 	for character: CharacterData in characters.values():

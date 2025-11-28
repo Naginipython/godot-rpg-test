@@ -3,11 +3,9 @@ extends CombatState
 @export var text_ui: TextUI
 
 func enter(_prev: String) -> void:
-	text_ui.temp_disable_face_size()
 	#var point: StoryManager.StoryPoint = StoryManager.dialogue_check(player.facing_npc.dialogue.keys())
 	var text: Conversation = Conversation.new()
 	for line in combat.lines:
-		print(line)
 		text.lines.push_back(DialogueLine.new(line))
 	
 	var boss_line: String = ""
@@ -17,7 +15,8 @@ func enter(_prev: String) -> void:
 		boss_line = "Why are you attacking me? Is it just because I took over the kingdom? You can just take over a different one too, if you want."
 	text.lines.push_back(DialogueLine.new(
 		boss_line,
-		load("res://assets/TextboxStyle/jelly_temp.tres")
+		load("res://assets/TextboxStyle/jelly_temp.tres"),
+		TextUI.Face.Temp
 	))
 	text_ui.enable_text(text)
 

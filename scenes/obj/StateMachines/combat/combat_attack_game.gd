@@ -25,7 +25,7 @@ func get_three_random_players() -> void:
 	players_attacked.sort()
 		
 	for i in range(0, players_attacked.size()):
-		battle.set_panel_to_char(i, players_attacked[i], Game_singleton.party[players_attacked[i]].style.color)
+		battle.set_panel_to_char(i, players_attacked[i], GameManager.party[players_attacked[i]].style.color)
 
 func end_game() -> void:
 	change_state.emit(self, "main")

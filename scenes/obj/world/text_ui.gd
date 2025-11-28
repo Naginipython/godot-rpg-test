@@ -2,19 +2,19 @@ extends MarginContainer
 class_name TextUI
 
 enum Face {
-	Happy, Sad, Surpirsed
+	Happy, Sad, Surpirsed, Temp
 }
-var face_pos: Dictionary[Face, Vector2] = {
-	Face.Happy: Vector2(0,0),
-	Face.Sad: Vector2(80,0),
-	Face.Surpirsed: Vector2(80,80)
+var face_pos: Dictionary[Face, Rect2] = {
+	Face.Happy: Rect2(0,0,40,40),
+	Face.Sad: Rect2(80,0,40,40),
+	Face.Surpirsed: Rect2(80,80,40,40),
+	Face.Temp: Rect2(0,0,0,0)
 }
 var emotion_colors: Dictionary[Face, Color] = {
 	Face.Happy: Color(1.0, 1.0, 0.0, 1.0),
 	Face.Sad: Color(0.0, 0.0, 1.0, 1.0),
 	Face.Surpirsed: Color(0.0, 1.0, 1.0, 1.0)
 }
-var temp_face_size: Vector2 = Vector2(40,40)
 
 # UI variables
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -32,6 +32,7 @@ var curr_tween: Tween
 var can_skip = false
 
 signal line_finished
+signal convo_finished
 
 func _ready() -> void:
 	text.text = ""
@@ -54,9 +55,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			next_text()
 
-func temp_disable_face_size() -> void:
-	temp_face_size = Vector2(0,0)
-
 func enable_text(convo: Conversation) -> void:
 	$SkipCooldown.start()
 	animation_player.play("enable_text")
@@ -66,12 +64,12 @@ func enable_text(convo: Conversation) -> void:
 	is_enabled = true
 
 func disable_textbox() -> void:
-	temp_face_size = Vector2(40,40)
 	animation_player.play("disable_text")
 	await animation_player.animation_finished
 	text.text = ""
 	setup_char()
 	is_enabled = false
+	convo_finished.emit()
 
 func set_line() -> void:
 	can_skip = false
@@ -130,7 +128,7 @@ func set_face() -> void:
 	if queue.front():
 		var face: Face = queue.front().face
 		var pic: AtlasTexture = portrait.texture
-		pic.region = Rect2(face_pos[face], temp_face_size)
+		pic.region = face_pos[face]
 		change_emotion(face)
 
 func change_emotion(new_emotion: Face) -> void:

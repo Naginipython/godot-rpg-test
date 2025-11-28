@@ -17,8 +17,8 @@ var boss_max_hp: int = 100
 var lines: Array[String] = []
 
 func _ready() -> void:
-	Game_singleton.sort_party()
-	for character in Game_singleton.party:
+	GameManager.sort_party()
+	for character in GameManager.party:
 		var menu_inst: PlayerMenu = menu.instantiate()
 		menu_inst.init_menu(character, $StateMachine/Main)
 		%PlayerMenuContainer.add_child(menu_inst)
@@ -30,9 +30,8 @@ func _process(_delta: float) -> void:
 	if not player_menus.is_empty():
 		
 		if Input.is_action_just_pressed("temp_battle_end"):
-			StoryManager.story_progress += 1;
-			StoryManager.enable_flag(StoryManager.StoryPoint.fBoss_Defeated)
-			Game_singleton.change_mode(Game_singleton.Modes.WORLD)
+			StoryManager.enable_flag(StoryManager.StoryPoint.fBossDefeated)
+			GameManager.change_mode(GameManager.Modes.WORLD)
 		if Input.is_action_just_pressed("temp_enemy_attack"):
 			pass
 		# Menu change test

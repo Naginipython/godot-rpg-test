@@ -37,7 +37,7 @@ func _process(_delta: float) -> void:
 	enabled = state_machine.curr_state.name == "AttackGame"
 	
 	#if Input.is_key_pressed(KEY_ESCAPE):
-		#Game_singleton.change_mode(Game_singleton.Modes.WORLD)
+		#GameManager.change_mode(GameManager.Modes.WORLD)
 	# Starts game
 	if enabled and $KeySpawnTimer.is_stopped() and not stop_spawn:
 		$KeySpawnTimer.start()
@@ -96,7 +96,7 @@ func click_input(action: String, panel_idx: int, queue: Array[AttackBlock]) -> v
 		attack.queue_free()
 
 func damage(panel_idx: int, dmg: int) -> void:
-	Game_singleton.party[panel_char_idx[panel_idx]].health -= dmg
+	GameManager.party[panel_char_idx[panel_idx]].health -= dmg
 
 func createBlock(panel: Panel) -> Panel:
 	var attack_inst: AttackBlock = ATTACK.instantiate()

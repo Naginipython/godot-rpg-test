@@ -4,31 +4,34 @@ class_name Story
 var story_progress: int = 1
 
 enum Chapter {
-	Saga = StoryPoint.Saga_Begins, 
-	Jelly = StoryPoint.Alien_Princess, 
-	Euphoria = StoryPoint.Sinister_Invasion, 
-	Alias = StoryPoint.Secret_Society
+	Saga = StoryPoint.SagaBegins, 
+	Jelly = StoryPoint.AlienPrincess, 
+	Euphoria = StoryPoint.SinisterInvasion, 
+	Alias = StoryPoint.SecretSociety
 }
 enum StoryPoint {
 	# Flags
 	fTest = -2,
-	fBoss_Defeated,
+	fBossDefeated,
 	# Default
 	Default = 0,
 	# Saga
-	Saga_Begins = 1,
-	Exit_Library,
+	SagaBegins = 1,
+	ExitLibrary,
 	# Jelly
-	Alien_Princess,
+	AlienPrincess,
 	# Euphoria
-	Sinister_Invasion,
+	SinisterInvasion,
 	# Alias
-	Secret_Society,
+	SecretSociety,
 }
 
-var flags: Array[bool] = [
-	false, #is_boss_defeated
-]
+var flags: Array[bool]
+
+func _ready() -> void:
+	var flagAmount: int = 2
+	for f in flagAmount:
+		flags.push_back(false)
 
 func story_point_from_string(point: String) -> StoryPoint:
 	var result = StoryPoint.get(point, 0)

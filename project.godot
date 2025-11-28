@@ -17,8 +17,8 @@ config/icon="uid://cp7opcyvgowcp"
 
 [autoload]
 
-Game_singleton="*res://Singleton.gd"
-StoryManager="*res://story_manager.gd"
+GameManager="*res://scenes/game_singleton.tscn"
+StoryManager="*res://scenes/obj/story_manager.gd"
 
 [display]
 
@@ -45,6 +45,7 @@ Npcs=""
 Enemies=""
 Player=""
 WorldDamage=""
+CutScene=""
 
 [input]
 

@@ -12,8 +12,11 @@ var target_pos: Vector2
 var prev_pos: Vector2
 var facing_dir: Vector2 = Vector2.DOWN
 
+var is_in_cutscene: bool = false
+
 func enter(prev: String) -> void:
 	target_pos = player.global_position
+	is_in_cutscene = false
 	if prev == "talking":
 		interact_cooldown.start()
 
@@ -52,6 +55,8 @@ func handle_move(delta: float) -> void:
 		# If reached tile, stop or chain next tile if still holding input
 		if player.global_position == target_pos:
 			is_moving = false
+			if is_in_cutscene:
+				change_state.emit(self, "cutscene")
 
 func is_facing_towards(target: Node2D) -> bool:
 	var target_dir: Vector2
@@ -80,14 +85,17 @@ func damage_pushback() -> void:
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("Enemies"):
-		Game_singleton.enemies_dead_pos.push_back(area.get_parent().spawnpoint.global_position)
-		Game_singleton.record_pos(Game_singleton.worldpos_to_tilepos(target_pos))
-		Game_singleton.change_mode(Game_singleton.Modes.COMBAT)
+		GameManager.enemies_dead_pos.push_back(area.get_parent().spawnpoint.global_position)
+		GameManager.record_pos(GameManager.worldpos_to_tilepos(target_pos))
+		GameManager.change_mode(GameManager.Modes.COMBAT)
 	if area.get_parent().is_in_group("Npcs"):
 		area.get_parent().toggle_hint_visibility(true)
 		player.npcs_in_range.push_back(area.get_parent())
 	if area.is_in_group("WorldDamage"):
 		damage_pushback()
+	if area.is_in_group("CutScene"):
+		player.cutscene_area = area
+		is_in_cutscene = true
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.get_parent().is_in_group("Npcs"):

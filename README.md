@@ -28,6 +28,7 @@ In world:
 - Environmental damage that pushes back
 - NPCs have a dialogue manager, with temporary dialogue upon flag triggers, default dialogue, and dialogue for if story progresses
 	- Yellow NPC has flag trigger dialogue and orange one has story progress dialogue (both viewable when beat enemy (press r))
+- Going to the left will trigger a cutscene, which will only trigger with prior story. Small position check added too
 
 In combat:
 
@@ -64,11 +65,10 @@ combat:
 - Attack details
 
 world:
-- cutscenes
 - interactables
 - player follow
 - retain HP & stats
-- damaging tiles
+- damaging tiles (1/2 working)
 - pushables
 
 Art (paid):

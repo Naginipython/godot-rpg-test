@@ -9,7 +9,7 @@ signal change_state(state: State, new_state: String)
 func enter(_prev: String) -> void:
 	pass
 
-func unhandled_input(event: InputEvent) -> void:
+func unhandled_input(_event: InputEvent) -> void:
 	pass
 
 func process(_delta: float) -> void:

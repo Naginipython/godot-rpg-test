@@ -17,7 +17,7 @@ func enter(_prev: String) -> void:
 	secondary_container.visible = true
 	btn_idx = 0
 	if attacks.is_empty():
-		attacks = Game_singleton.get_attacks(player_menu.char_id)
+		attacks = GameManager.get_attacks(player_menu.char_id)
 	
 		# Add buttons
 		if attacks.is_empty(): return
