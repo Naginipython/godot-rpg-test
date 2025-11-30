@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://b1mqycx2b2n65"]
+
+[ext_resource type="Resource" uid="uid://dekrg23r0e1mc" path="res://assets/resource/TextboxStyle/wilhelmina_temp.tres" id="2_uw4q4"]
+[ext_resource type="Resource" uid="uid://c4kkc3aslcs6" path="res://assets/resource/Actions/temp (keeps being DELETED)/mina_atk.tres" id="3_8uxo8"]
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="4_uw4q4"]
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="4_vs4ca"]
+[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/resource/char_data/char_data.gd" id="5_y0egx"]
+
+[resource]
+script = ExtResource("5_y0egx")
+char_id = "wilhelmina"
+active = true
+style = ExtResource("2_uw4q4")
+attacks = Dictionary[String, ExtResource("4_vs4ca")]({
+"Diligent Slash": ExtResource("3_8uxo8")
+})
+metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

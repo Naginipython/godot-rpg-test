@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://bojv85j2nxifa"]
+
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_s7p6e"]
+
+[resource]
+script = ExtResource("1_s7p6e")
+name = "Spoon Smack"
+desc = "Self descriptive"
+power = 30
+metadata/_custom_type_script = "uid://cjkpjaawc01k4"

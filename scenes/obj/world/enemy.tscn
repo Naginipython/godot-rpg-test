@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cteao3keo4fuj"]
 
-[ext_resource type="Texture2D" uid="uid://cxbj82euhoxiq" path="res://assets/world_sprites/Orc.png" id="1_tl6cs"]
+[ext_resource type="Texture2D" uid="uid://cxbj82euhoxiq" path="res://assets/art/world_sprites/Orc.png" id="1_tl6cs"]
 [ext_resource type="Script" uid="uid://e4s3ff25s73l" path="res://scenes/obj/world/enemy.gd" id="2_tglch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tl6cs"]

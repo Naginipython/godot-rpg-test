@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://c5o6sj0acov8a"]
+
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_wg1ke"]
+
+[resource]
+script = ExtResource("1_wg1ke")
+name = "Energy Siphen"
+desc = "Tis what an energy vampire does"
+power = 60
+metadata/_custom_type_script = "uid://cjkpjaawc01k4"

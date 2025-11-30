@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Action" load_steps=7 format=3 uid="uid://dxt5vodkolppv"]
+
+[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/resource/dialogue/conversation.gd" id="1_tuuut"]
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="2_4ullm"]
+[ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/resource/dialogue/dialogue_line.gd" id="2_a7ris"]
+[ext_resource type="Resource" uid="uid://bt1acavxccpur" path="res://assets/resource/TextboxStyle/bibi_temp.tres" id="3_e8meq"]
+
+[sub_resource type="Resource" id="Resource_1vijr"]
+script = ExtResource("2_a7ris")
+text = "I hope you enjoy!!"
+speaker = ExtResource("3_e8meq")
+face = 3
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_a3g5h"]
+script = ExtResource("1_tuuut")
+lines = Array[ExtResource("2_a7ris")]([SubResource("Resource_1vijr")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[resource]
+script = ExtResource("2_4ullm")
+name = "Lil Treat"
+desc = "Handmade!"
+type = 4
+amount = 10
+extraLines = Array[ExtResource("1_tuuut")]([SubResource("Resource_a3g5h")])
+metadata/_custom_type_script = "uid://um1iui5rrhk4"

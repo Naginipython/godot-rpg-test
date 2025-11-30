@@ -14,7 +14,7 @@ var turn: int = 0
 var boss_hp: int = 100
 var boss_max_hp: int = 100
 
-var lines: Array[String] = []
+var lines: Array[DialogueLine] = []
 
 func _ready() -> void:
 	GameManager.sort_party()

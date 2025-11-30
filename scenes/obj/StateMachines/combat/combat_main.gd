@@ -8,10 +8,21 @@ func enter(_prev: String) -> void:
 	turn = 0
 
 func log_attack(line: String) -> void:
-	combat.lines.push_back(line)
+	combat.lines.push_back(DialogueLine.new(line))
 
-func damage_boss(dmg: int) -> void:
+func dialogue(convo: Conversation) -> void:
+	for line in convo.lines:
+		combat.lines.push_back(line)
+
+func damage_boss(dmg: int) -> int:
 	combat.boss_hp -= dmg
+	next_turn()
+	return combat.boss_hp
+
+func action() -> void:
+	next_turn()
+
+func use_item(item: Item) -> void:
 	next_turn()
 
 func next_turn() -> void:

@@ -18,7 +18,8 @@ config/icon="uid://cp7opcyvgowcp"
 [autoload]
 
 GameManager="*res://scenes/game_singleton.tscn"
-StoryManager="*res://scenes/obj/story_manager.gd"
+StoryManager="*res://scenes/story_manager.gd"
+SaveManager="*res://scenes/save_manager.gd"
 
 [display]
 
@@ -35,6 +36,7 @@ version_control/autoload_on_startup=true
 
 folder_colors={
 "res://assets/": "blue",
+"res://scenes/": "gray",
 "res://scenes/main/": "red",
 "res://scenes/obj/": "yellow"
 }

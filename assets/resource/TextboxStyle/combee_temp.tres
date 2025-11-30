@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextboxStyle" load_steps=3 format=3 uid="uid://biol4inm2ltpu"]
+
+[ext_resource type="Script" uid="uid://cbypi08gv5ts1" path="res://assets/resource/TextboxStyle/textbox_style.gd" id="1_qygv8"]
+[ext_resource type="Texture2D" uid="uid://dux88ljpoq63i" path="res://assets/art/portraits/temp-combee.png" id="1_rba7y"]
+
+[resource]
+script = ExtResource("1_qygv8")
+char_name = "Combee"
+title = "Destroyer of Worlds"
+color = Color(1, 1, 0, 1)
+portrait = ExtResource("1_rba7y")
+metadata/_custom_type_script = "uid://cbypi08gv5ts1"

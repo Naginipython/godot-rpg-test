@@ -3,17 +3,21 @@ class_name PlayerMenu
 
 #@export var idx: int = 0
 @export var selected: bool = false
+@export var curr_state: String
+var parent: Node
+var prev_animation_playing: bool = false
+# Style
+var character: CharacterData = preload("uid://cad3qxc5u3kse")
 var char_id: String = ""
 var img: CompressedTexture2D = preload("uid://cbcfedh8onyr7")
 var color: Color = Color8(255, 81, 112, 255)
 var hp: int = 100
 var max_hp: int = 100
-var character: CharacterData = preload("uid://cad3qxc5u3kse")
-var parent: Node
-var prev_animation_playing: bool = false
+var attacks: Dictionary[String, Attack] = {}
+var actions: Dictionary[String, Action] = {}
+var items: Array[Item] = []
 
-@export var curr_state: String
-
+# nodes
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var char_icon: TextureRect = %CharIcon
 @onready var stats_panel: PanelContainer = $StatsPanel
@@ -29,6 +33,13 @@ func _ready() -> void:
 	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
 	hp_container.get_child(1).max_value = max_hp
 	hp_container.get_child(1).value = hp
+	
+	attacks = GameManager.get_attacks(char_id)
+	print(attacks)
+	actions = GameManager.get_actions(char_id)
+	items = GameManager.get_items()
+	setup_btns(attacks.keys(), %AtkBtnsContainer)
+	setup_btns(actions.keys(), %ActBtnsContainer)
 
 func _process(_delta: float) -> void:
 	$SelectedContainer.visible = selected
@@ -54,6 +65,16 @@ func double_check(set_character: CharacterData) -> void:
 	hp_container.get_child(1).max_value = max_hp
 	hp_container.get_child(1).value = hp
 
+func setup_btns(category: Array[String], container: VBoxContainer) -> void:
+	# Add buttons
+	if category.is_empty(): return
+	var button = container.get_child(0)
+	button.text = category[0]
+	for i in range(1, category.size()):
+		var dup = button.duplicate()
+		dup.text = category[i]
+		container.add_child(dup)
+
 func change_hp(new_value: int) -> void:
 	var change = new_value-hp
 	if change != 0:
@@ -64,8 +85,34 @@ func change_hp(new_value: int) -> void:
 		hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
 		hp_container.get_child(1).value = hp
 
-func use_attack(attack: String) -> void:
-	print(attack)
+# ----- ATTACK -----
+func _on_use_attack(attack: String) -> void:
 	# Find attack details, apply buffs, etc
-	parent.log_attack(character.style.char_name + " used " + attack + "!")
-	parent.damage_boss(10)
+	var atk: Attack = attacks[attack]
+	var dmg = character.curr_str * (atk.power as float/100)
+	print(dmg)
+	var remaining = parent.damage_boss(10)
+	if remaining >= 0:
+		parent.log_attack(character.style.char_name + " used " + attack + "!")
+
+# ----- ACTION -----
+func _on_use_action(action: String) -> void:
+	# Find action details, set buffs, etc
+	var act: Action = actions[action]
+	parent.log_attack(character.style.char_name + " used " + action + "!")
+	if not act.extraLines.is_empty():
+		var convo: Conversation = act.extraLines[0]
+		if act.extraLines.size() > 1:
+			var rand = randi() % (act.extraLines.size()-1)
+			convo = act.extraLines[rand]
+		parent.dialogue(convo)
+	parent.action()
+
+# ----- ITEM -----
+func _on_use_item(_item: String) -> void:
+	var idx: int = items.find_custom(func (x): return x.name == _item)
+	print(idx) #TODO FIX
+	var item: Item = items[idx]
+	item.quantity -= 1
+	parent.log_attack(character.style.char_name + " used " + _item + "!")
+	parent.use_item(item)

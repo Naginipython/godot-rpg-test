@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://4x3ucikm0mka"]
+
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_j4hok"]
+
+[resource]
+script = ExtResource("1_j4hok")
+name = "Bun Kisser"
+desc = "Nitty's special lil bat <3"
+power = 50
+metadata/_custom_type_script = "uid://cjkpjaawc01k4"

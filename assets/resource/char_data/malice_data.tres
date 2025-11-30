@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://c2w6a4dwau6hc"]
+
+[ext_resource type="Resource" uid="uid://b8yvglwye5xp3" path="res://assets/resource/TextboxStyle/malice_temp.tres" id="2_1psdj"]
+[ext_resource type="Resource" uid="uid://bxvb36y0b7xtq" path="res://assets/resource/Actions/temp (keeps being DELETED)/malice_act.tres" id="2_j0t33"]
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="4_1psdj"]
+[ext_resource type="Resource" uid="uid://c5o6sj0acov8a" path="res://assets/resource/Actions/temp (keeps being DELETED)/malice_atk.tres" id="4_3djmy"]
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="4_nvj86"]
+[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/resource/char_data/char_data.gd" id="5_3djmy"]
+
+[resource]
+script = ExtResource("5_3djmy")
+char_id = "malice"
+active = true
+style = ExtResource("2_1psdj")
+base_max_health = 75
+base_spd = 8
+attacks = Dictionary[String, ExtResource("4_nvj86")]({
+"Energy Siphen": ExtResource("4_3djmy")
+})
+actions = Dictionary[String, ExtResource("4_1psdj")]({
+"Intense Aura": ExtResource("2_j0t33")
+})
+metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

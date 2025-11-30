@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://ln07ko6ijr6h"]
+
+[ext_resource type="Theme" uid="uid://imva2s0s6ao3" path="res://assets/resource/MainMenuTheme.tres" id="1_5vafy"]
+[ext_resource type="Script" uid="uid://b1pmg10ug2mh7" path="res://scenes/main/main_menu.gd" id="2_byqcc"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5vafy")
+script = ExtResource("2_byqcc")
+
+[node name="Bg" type="ColorRect" parent="."]
+self_modulate = Color(0.72, 0.72, 0.72, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5vafy")
+color = Color(0.8862745, 0, 0.49411765, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "RPG Test game!"
+
+[node name="NewGameBtn" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Game!"
+
+[node name="LoadBtn" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 67.0
+theme_override_font_sizes/font_size = 16
+text = "UI design is my passion"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/NewGameBtn" to="." method="_on_new_game_btn_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/LoadBtn" to="." method="_on_load_btn_pressed"]

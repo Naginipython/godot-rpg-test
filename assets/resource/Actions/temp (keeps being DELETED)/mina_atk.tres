@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://c4kkc3aslcs6"]
+
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_uob60"]
+
+[resource]
+script = ExtResource("1_uob60")
+name = "Diligent Slash"
+desc = "The well trained slash of a serious knight"
+power = 50
+metadata/_custom_type_script = "uid://cjkpjaawc01k4"

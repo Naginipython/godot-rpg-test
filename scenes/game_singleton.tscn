@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://bkp54o05bb17"]
 
-[ext_resource type="Script" uid="uid://dma6n64775jrt" path="res://scenes/obj/Singleton.gd" id="1_gk3rn"]
-[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/char_data/char_data.gd" id="2_xu0iq"]
-[ext_resource type="Resource" uid="uid://w8ogndpmr2ft" path="res://assets/char_data/bibi_data.tres" id="3_bfdbe"]
-[ext_resource type="Resource" uid="uid://cad3qxc5u3kse" path="res://assets/char_data/nitya_data.tres" id="4_krnt0"]
-[ext_resource type="Resource" uid="uid://c2w6a4dwau6hc" path="res://assets/char_data/malice_data.tres" id="5_tgsex"]
-[ext_resource type="Resource" uid="uid://b1mqycx2b2n65" path="res://assets/char_data/wilhelmina_data.tres" id="6_iivhh"]
+[ext_resource type="Script" uid="uid://dma6n64775jrt" path="res://scenes/game_manager.gd" id="1_gk3rn"]
+[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/resource/char_data/char_data.gd" id="2_xu0iq"]
+[ext_resource type="Resource" uid="uid://w8ogndpmr2ft" path="res://assets/resource/char_data/bibi_data.tres" id="3_bfdbe"]
+[ext_resource type="Resource" uid="uid://cad3qxc5u3kse" path="res://assets/resource/char_data/nitya_data.tres" id="4_krnt0"]
+[ext_resource type="Resource" uid="uid://c2w6a4dwau6hc" path="res://assets/resource/char_data/malice_data.tres" id="5_tgsex"]
+[ext_resource type="Resource" uid="uid://b1mqycx2b2n65" path="res://assets/resource/char_data/wilhelmina_data.tres" id="6_iivhh"]
 
 [node name="GameSingleton" type="Node"]
 script = ExtResource("1_gk3rn")

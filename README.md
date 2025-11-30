@@ -70,6 +70,8 @@ world:
 - retain HP & stats
 - damaging tiles (1/2 working)
 - pushables
+- change party
+- save
 
 Art (paid):
 - World Sprites

@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="Action" load_steps=8 format=3 uid="uid://t45vkv0x5rcq"]
+
+[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/resource/dialogue/conversation.gd" id="1_gcy0v"]
+[ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/resource/dialogue/dialogue_line.gd" id="2_t3epr"]
+[ext_resource type="Resource" uid="uid://dekrg23r0e1mc" path="res://assets/resource/TextboxStyle/wilhelmina_temp.tres" id="3_8m4uo"]
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="4_rlb32"]
+
+[sub_resource type="Resource" id="Resource_680se"]
+script = ExtResource("2_t3epr")
+text = "We can do this!"
+speaker = ExtResource("3_8m4uo")
+face = 3
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_mu3xo"]
+script = ExtResource("2_t3epr")
+text = "Ah... It... It's not like I believe in us or anything! Baka!"
+speaker = ExtResource("3_8m4uo")
+face = 3
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_vfh0c"]
+script = ExtResource("1_gcy0v")
+lines = Array[ExtResource("2_t3epr")]([SubResource("Resource_680se"), SubResource("Resource_mu3xo")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[resource]
+script = ExtResource("4_rlb32")
+name = "Raise Morale"
+desc = "As good as a tsun can do"
+type = 1
+amount = 10
+extraLines = Array[ExtResource("1_gcy0v")]([SubResource("Resource_vfh0c")])
+metadata/_custom_type_script = "uid://um1iui5rrhk4"

@@ -9,3 +9,8 @@ Issues:
 	How to animate chars? Animation player?
 	Dialogue pauses ani_player? After ending (current), continues animation, then new dialogue?
 	How do I store dialogue?
+
+
+Combat:
+action_item -> player_menu -> Main (Combat) -> GameManager
+choice -> quant/use/log -> turn/hp -> eventually, record item quantity

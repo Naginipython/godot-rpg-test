@@ -1,22 +1,22 @@
-[gd_scene load_steps=53 format=4 uid="uid://bg6g61feiv3rm"]
+[gd_scene load_steps=56 format=4 uid="uid://bg6g61feiv3rm"]
 
 [ext_resource type="Script" uid="uid://cyja04a4wmrkk" path="res://scenes/main/world.gd" id="1_526id"]
 [ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="2_7te0o"]
-[ext_resource type="Texture2D" uid="uid://d0bv8cabsbfk6" path="res://assets/tilemap_packed.png" id="2_526id"]
+[ext_resource type="Texture2D" uid="uid://d0bv8cabsbfk6" path="res://assets/art/tilemap_packed.png" id="2_526id"]
 [ext_resource type="PackedScene" uid="uid://57pgol331lfm" path="res://scenes/obj/world/player.tscn" id="3_0aorq"]
-[ext_resource type="Texture2D" uid="uid://crlvgovb0l1yt" path="res://assets/tilemap_packed2.png" id="4_0aorq"]
+[ext_resource type="Texture2D" uid="uid://crlvgovb0l1yt" path="res://assets/art/tilemap_packed2.png" id="4_0aorq"]
 [ext_resource type="Script" uid="uid://83jl6t2urywe" path="res://scenes/obj/world/cut_scene_area.gd" id="5_2p2jg"]
 [ext_resource type="PackedScene" uid="uid://dbyfr2017ij20" path="res://scenes/obj/world/npc.tscn" id="6_yshnf"]
-[ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/dialogue/dialogue_line.gd" id="7_3c7vn"]
-[ext_resource type="FontFile" uid="uid://cxeqijtrpv80q" path="res://assets/fonts/PixelOperator8.ttf" id="7_r1or7"]
+[ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/resource/dialogue/dialogue_line.gd" id="7_3c7vn"]
+[ext_resource type="FontFile" uid="uid://cxeqijtrpv80q" path="res://assets/art/fonts/PixelOperator8.ttf" id="7_r1or7"]
 [ext_resource type="PackedScene" uid="uid://bcjtgsbbhxbeu" path="res://scenes/obj/world/world_damage_area.tscn" id="8_7te0o"]
-[ext_resource type="Resource" uid="uid://biol4inm2ltpu" path="res://assets/TextboxStyle/combee_temp.tres" id="8_sag5l"]
-[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/dialogue/conversation.gd" id="8_xwd6a"]
+[ext_resource type="Resource" uid="uid://biol4inm2ltpu" path="res://assets/resource/TextboxStyle/combee_temp.tres" id="8_sag5l"]
+[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/resource/dialogue/conversation.gd" id="8_xwd6a"]
 [ext_resource type="PackedScene" uid="uid://dk0gksulrujr0" path="res://scenes/obj/world/enemy_spawn_pos.tscn" id="9_smv1n"]
-[ext_resource type="Resource" uid="uid://14n8gqa74fdh" path="res://assets/TextboxStyle/rotom_temp.tres" id="10_xwd6a"]
-[ext_resource type="Resource" uid="uid://dyx2gp4jpnlxb" path="res://assets/TextboxStyle/Clio Aite.tres" id="11_sag5l"]
-[ext_resource type="Resource" uid="uid://rgjmc231x4f3" path="res://assets/TextboxStyle/nitya_temp.tres" id="16_0w3ym"]
-[ext_resource type="Resource" uid="uid://dekrg23r0e1mc" path="res://assets/TextboxStyle/wilhelmina_temp.tres" id="17_ailbm"]
+[ext_resource type="Resource" uid="uid://14n8gqa74fdh" path="res://assets/resource/TextboxStyle/rotom_temp.tres" id="10_xwd6a"]
+[ext_resource type="Resource" uid="uid://dyx2gp4jpnlxb" path="res://assets/resource/TextboxStyle/Clio Aite.tres" id="11_sag5l"]
+[ext_resource type="Resource" uid="uid://rgjmc231x4f3" path="res://assets/resource/TextboxStyle/nitya_temp.tres" id="16_0w3ym"]
+[ext_resource type="Resource" uid="uid://dekrg23r0e1mc" path="res://assets/resource/TextboxStyle/wilhelmina_temp.tres" id="17_ailbm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
 texture = ExtResource("2_526id")
@@ -851,7 +851,7 @@ metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
 
 [sub_resource type="Animation" id="Animation_0w3ym"]
 resource_name = "NewAreaFound"
-length = 2.5
+length = 2.55
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -897,6 +897,39 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Resource" id="Resource_f21wu"]
+script = ExtResource("7_3c7vn")
+text = "Yippee game started!"
+speaker = ExtResource("16_0w3ym")
+face = 3
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_5lnpn"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_f21wu")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Animation" id="Animation_0fler"]
+resource_name = "NewGame"
+length = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"animation_started"
+}, {
+"args": [SubResource("Resource_5lnpn")],
+"method": &"pause_for_dialogue"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_ailbm"]
 length = 0.001
 tracks/0/type = "value"
@@ -927,6 +960,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3wopa"]
 _data = {
 &"NewAreaFound": SubResource("Animation_0w3ym"),
+&"NewGame": SubResource("Animation_0fler"),
 &"RESET": SubResource("Animation_ailbm")
 }
 
@@ -939,6 +973,7 @@ text_ui = NodePath("UI/TextUI")
 [node name="TextUI" parent="UI" instance=ExtResource("2_7te0o")]
 
 [node name="WackyTextTest" type="RichTextLabel" parent="UI"]
+visible = false
 offset_right = 120.0
 offset_bottom = 88.0
 bbcode_enabled = true
@@ -957,7 +992,7 @@ tile_set = SubResource("TileSet_7te0o")
 [node name="NewAreaFound" type="Area2D" parent="." node_paths=PackedStringArray("marker") groups=["CutScene"]]
 position = Vector2(248, 24)
 script = ExtResource("5_2p2jg")
-cutscene_id = 2
+cutscene_id = 3
 marker = NodePath("Start")
 
 [node name="Start" type="Marker2D" parent="NewAreaFound"]
@@ -1006,7 +1041,7 @@ position = Vector2(-72, 39.999996)
 convo = SubResource("Resource_3c7vn")
 dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_3c7vn"),
-2: SubResource("Resource_kt1us")
+3: SubResource("Resource_kt1us")
 })
 
 [node name="DebugClio" parent="NPCs" instance=ExtResource("6_yshnf")]

@@ -1,12 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://dw3dvjch2rhhn"]
+[gd_scene load_steps=17 format=3 uid="uid://dw3dvjch2rhhn"]
 
 [ext_resource type="Theme" uid="uid://bw3k707omyot" path="res://scenes/main/combat.tres" id="1_by8td"]
 [ext_resource type="Script" uid="uid://cxd1py173lwnk" path="res://scenes/obj/battle/player_menu.gd" id="1_mmqh1"]
-[ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/portraits/Nitya_Nil_temp.jpg" id="2_5a86b"]
+[ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/art/portraits/Nitya_Nil_temp.jpg" id="2_5a86b"]
 [ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="4_ntii7"]
-[ext_resource type="Script" uid="uid://dce55blm8f7qc" path="res://scenes/obj/StateMachines/player_menu/player_menu_main.gd" id="5_ewjb8"]
-[ext_resource type="Script" uid="uid://dyba5s0qc4ef0" path="res://scenes/obj/StateMachines/player_menu/player_menu_actions.gd" id="6_ewjb8"]
-[ext_resource type="Script" uid="uid://cooqvhlmy8nub" path="res://scenes/obj/StateMachines/player_menu/player_menu_action_attack.gd" id="7_cqoq7"]
+[ext_resource type="Script" uid="uid://dce55blm8f7qc" path="res://scenes/obj/StateMachines/player_menu/pm_main.gd" id="5_ewjb8"]
+[ext_resource type="Script" uid="uid://dyba5s0qc4ef0" path="res://scenes/obj/StateMachines/player_menu/pm_actions.gd" id="6_ewjb8"]
+[ext_resource type="Script" uid="uid://cooqvhlmy8nub" path="res://scenes/obj/StateMachines/player_menu/pm_action_attack.gd" id="7_cqoq7"]
+[ext_resource type="Script" uid="uid://be7rlcwmxbfqw" path="res://scenes/obj/StateMachines/player_menu/pm_action_action.gd" id="8_2qlau"]
+[ext_resource type="Script" uid="uid://dlbyof7ifyl4l" path="res://scenes/obj/StateMachines/player_menu/pm_action_item.gd" id="9_wvkwu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkfpv"]
 content_margin_left = 0.0
@@ -230,6 +232,7 @@ text = "V"
 
 [node name="StatsPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -338,7 +341,6 @@ text = "Item"
 
 [node name="SecondaryContainer" type="ScrollContainer" parent="ActionsPanel"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
@@ -353,14 +355,38 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="BtnsContainer" type="VBoxContainer" parent="ActionsPanel/SecondaryContainer/MarginContainer"]
+[node name="AtkBtnsContainer" type="VBoxContainer" parent="ActionsPanel/SecondaryContainer/MarginContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="ActionsPanel/SecondaryContainer/MarginContainer/BtnsContainer"]
+[node name="Button" type="Button" parent="ActionsPanel/SecondaryContainer/MarginContainer/AtkBtnsContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "< Back"
+
+[node name="ActBtnsContainer" type="VBoxContainer" parent="ActionsPanel/SecondaryContainer/MarginContainer"]
 unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="ActionsPanel/SecondaryContainer/MarginContainer/ActBtnsContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "< Back"
+
+[node name="ItmBtnsContainer" type="VBoxContainer" parent="ActionsPanel/SecondaryContainer/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="ActionsPanel/SecondaryContainer/MarginContainer/ItmBtnsContainer"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "< Back"
@@ -370,6 +396,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_by8td")
 }
 autoplay = "0Default"
+
+[node name="ShowDetailsTimer" type="Timer" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
 script = ExtResource("4_ntii7")
@@ -384,4 +412,16 @@ script = ExtResource("6_ewjb8")
 [node name="Action_Attack" type="Node" parent="StateMachine"]
 script = ExtResource("7_cqoq7")
 
+[node name="Action_Action" type="Node" parent="StateMachine"]
+script = ExtResource("8_2qlau")
+
+[node name="Action_Item" type="Node" parent="StateMachine"]
+script = ExtResource("9_wvkwu")
+
 [connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/AttackBtn" to="StateMachine/Actions" method="_on_attack_btn_pressed"]
+[connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/ActionBtn" to="StateMachine/Actions" method="_on_action_btn_pressed"]
+[connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/CollabBtn" to="StateMachine/Actions" method="_on_collab_btn_pressed"]
+[connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/ItemBtn" to="StateMachine/Actions" method="_on_item_btn_pressed"]
+[connection signal="use_attack" from="StateMachine/Action_Attack" to="." method="_on_use_attack"]
+[connection signal="use_action" from="StateMachine/Action_Action" to="." method="_on_use_action"]
+[connection signal="use_item" from="StateMachine/Action_Item" to="." method="_on_use_item"]

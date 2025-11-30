@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbyfr2017ij20"]
 
-[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/world_sprites/Soldier.png" id="1_p4ujx"]
+[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/art/world_sprites/Soldier.png" id="1_p4ujx"]
 [ext_resource type="Script" uid="uid://bxx0maxc0rhs" path="res://scenes/obj/world/npc.gd" id="2_7e86v"]
-[ext_resource type="FontFile" uid="uid://cxeqijtrpv80q" path="res://assets/fonts/PixelOperator8.ttf" id="3_w5aun"]
+[ext_resource type="FontFile" uid="uid://cxeqijtrpv80q" path="res://assets/art/fonts/PixelOperator8.ttf" id="3_w5aun"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p4ujx"]
 radius = 6.2499995

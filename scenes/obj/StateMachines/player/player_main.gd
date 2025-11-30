@@ -20,6 +20,10 @@ func enter(prev: String) -> void:
 	if prev == "talking":
 		interact_cooldown.start()
 
+func process(_delta: float) -> void:
+	if player.cutscene_player.is_playing():
+		change_state.emit(self, "cutscene")
+
 func physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("select") and interact_cooldown.is_stopped():
 		interact()

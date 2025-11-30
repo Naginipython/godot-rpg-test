@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://imva2s0s6ao3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uot2h"]
+bg_color = Color(0.36577106, 0.5867404, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[resource]
+Button/font_sizes/font_size = 48
+Label/font_sizes/font_size = 48
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_uot2h")
+VBoxContainer/constants/separation = 10

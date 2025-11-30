@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://cad3qxc5u3kse"]
+
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_v404j"]
+[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/resource/char_data/char_data.gd" id="2_7axvp"]
+[ext_resource type="Resource" uid="uid://dtuqijt2kp6ol" path="res://assets/resource/Actions/temp (keeps being DELETED)/nitya_act.tres" id="2_u84g4"]
+[ext_resource type="Resource" uid="uid://rgjmc231x4f3" path="res://assets/resource/TextboxStyle/nitya_temp.tres" id="3_xredb"]
+[ext_resource type="Resource" uid="uid://4x3ucikm0mka" path="res://assets/resource/Actions/temp (keeps being DELETED)/nitya_atk.tres" id="4_ebltk"]
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="4_ufkon"]
+
+[resource]
+script = ExtResource("2_7axvp")
+char_id = "nitya"
+active = true
+base_max_health = 110
+base_spd = 12
+attacks = Dictionary[String, ExtResource("1_v404j")]({
+"Bun Kisser": ExtResource("4_ebltk")
+})
+actions = Dictionary[String, ExtResource("4_ufkon")]({
+"Mock": ExtResource("2_u84g4")
+})
+metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

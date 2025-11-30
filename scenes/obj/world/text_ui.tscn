@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://da0wvg4q66fyv"]
 
 [ext_resource type="Script" uid="uid://bxo01r4gjw6ao" path="res://scenes/obj/world/text_ui.gd" id="1_b12xu"]
-[ext_resource type="Texture2D" uid="uid://dux88ljpoq63i" path="res://assets/portraits/temp-combee.png" id="2_v0jta"]
+[ext_resource type="Texture2D" uid="uid://dux88ljpoq63i" path="res://assets/art/portraits/temp-combee.png" id="2_v0jta"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3egqr"]
-bg_color = Color(0, 0, 0, 0.6)
+bg_color = Color(0, 0, 0, 0.7647059)
 border_width_left = 4
 border_width_top = 10
 border_width_right = 3

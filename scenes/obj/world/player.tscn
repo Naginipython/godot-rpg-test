@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://57pgol331lfm"]
 
-[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/world_sprites/Soldier.png" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/art/world_sprites/Soldier.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bd34lqlgcaqxh" path="res://scenes/obj/world/player.gd" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="3_qxi25"]
 [ext_resource type="Script" uid="uid://bx6s1nuv3vdv" path="res://scenes/obj/StateMachines/player/player_main.gd" id="4_yw0es"]

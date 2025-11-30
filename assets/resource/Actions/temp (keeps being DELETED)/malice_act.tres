@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Action" load_steps=7 format=3 uid="uid://bxvb36y0b7xtq"]
+
+[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/resource/dialogue/conversation.gd" id="1_rv5ym"]
+[ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/resource/dialogue/dialogue_line.gd" id="2_citbn"]
+[ext_resource type="Resource" uid="uid://b8yvglwye5xp3" path="res://assets/resource/TextboxStyle/malice_temp.tres" id="3_1fk3v"]
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="4_0t77x"]
+
+[sub_resource type="Resource" id="Resource_0b228"]
+script = ExtResource("2_citbn")
+text = "Oh? You're approaching me?"
+speaker = ExtResource("3_1fk3v")
+face = 3
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_hkenh"]
+script = ExtResource("1_rv5ym")
+lines = Array[ExtResource("2_citbn")]([SubResource("Resource_0b228")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[resource]
+script = ExtResource("4_0t77x")
+name = "Intense Aura"
+desc = "Powerful"
+type = 3
+amount = 10
+extraLines = Array[ExtResource("1_rv5ym")]([SubResource("Resource_hkenh")])
+metadata/_custom_type_script = "uid://um1iui5rrhk4"
