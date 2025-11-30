@@ -1,7 +1,7 @@
 class_name Game
 extends Node
 
-#@export var character_data: Array[CharacterData]
+@export var temp_character_data: Array[CharacterData]
 
 enum Modes {
 	MAIN_MENU, WORLD, COMBAT

@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://ijfooy6bkk8"]
+
+[ext_resource type="Script" uid="uid://d2n7euqgjlvsl" path="res://scenes/main/pause_menu.gd" id="1_qo3ou"]
+
+[node name="PauseMenu" type="PanelContainer"]
+process_mode = 2
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qo3ou")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="SaveBtnTemp" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Save Game (temp)"
+
+[connection signal="pressed" from="CenterContainer/SaveBtnTemp" to="." method="_on_save_btn_temp_pressed"]

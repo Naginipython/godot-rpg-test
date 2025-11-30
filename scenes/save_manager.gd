@@ -24,24 +24,49 @@ func new_game() -> void:
 		"char_data": char_data,
 		"world_data": world_data
 	}
-	send_to_game_manager()
+	send_to_managers()
 
 func load_game() -> void:
 	if FileAccess.file_exists(PATH + file_name):
 		var file = FileAccess.open_encrypted_with_pass(PATH + file_name, FileAccess.READ, key)
 		data = JSON.parse_string(file.get_as_text())
 		file.close()
+		print(data)
+		
+		char_data = data['char_data']
+		world_data = data['world_data']
+		send_to_managers()
+		print(char_data)
 
 func save_game() -> void:
 	# Get data from GameManager, save to respective areas
+	char_data = GameManager.characters.values()
+	print(char_data)
+	world_data = {
+		"story_progress": StoryManager.story_progress,
+		"player_pos": GameManager.player_pos
+	}
+	data = {
+		"char_data": char_data,
+		"world_data": world_data
+	}
+	if not DirAccess.dir_exists_absolute(PATH):
+		DirAccess.make_dir_recursive_absolute(PATH)
+		
 	var file = FileAccess.open_encrypted_with_pass(PATH + file_name, FileAccess.WRITE, key)
+	if not file:
+		print("Error saving: ", FileAccess.get_open_error())
+		return
+	
 	file.store_string(JSON.stringify(data))
 	file.close()
+	var real_path = ProjectSettings.globalize_path(PATH)
+	print("My absolute path is: ", real_path)
 
 func is_saved_data() -> bool:
 	return FileAccess.file_exists(PATH + file_name)
 
-func send_to_game_manager() -> void:
-	GameManager.player_pos = world_data['player_pos']
+func send_to_managers() -> void:
 	GameManager.load_chars(char_data)
+	GameManager.player_pos = world_data['player_pos']
 	StoryManager.story_progress = world_data['story_progress']

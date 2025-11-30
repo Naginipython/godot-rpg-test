@@ -1,9 +1,10 @@
-[gd_scene load_steps=56 format=4 uid="uid://bg6g61feiv3rm"]
+[gd_scene load_steps=57 format=4 uid="uid://bg6g61feiv3rm"]
 
 [ext_resource type="Script" uid="uid://cyja04a4wmrkk" path="res://scenes/main/world.gd" id="1_526id"]
 [ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="2_7te0o"]
 [ext_resource type="Texture2D" uid="uid://d0bv8cabsbfk6" path="res://assets/art/tilemap_packed.png" id="2_526id"]
 [ext_resource type="PackedScene" uid="uid://57pgol331lfm" path="res://scenes/obj/world/player.tscn" id="3_0aorq"]
+[ext_resource type="PackedScene" uid="uid://ijfooy6bkk8" path="res://scenes/main/pause_menu.tscn" id="3_3wopa"]
 [ext_resource type="Texture2D" uid="uid://crlvgovb0l1yt" path="res://assets/art/tilemap_packed2.png" id="4_0aorq"]
 [ext_resource type="Script" uid="uid://83jl6t2urywe" path="res://scenes/obj/world/cut_scene_area.gd" id="5_2p2jg"]
 [ext_resource type="PackedScene" uid="uid://dbyfr2017ij20" path="res://scenes/obj/world/npc.tscn" id="6_yshnf"]
@@ -965,6 +966,7 @@ _data = {
 }
 
 [node name="World" type="Node" node_paths=PackedStringArray("text_ui")]
+process_mode = 1
 script = ExtResource("1_526id")
 text_ui = NodePath("UI/TextUI")
 
@@ -979,6 +981,11 @@ offset_bottom = 88.0
 bbcode_enabled = true
 text = "[shake rate=50 level=20]TEST[/shake]
 [i][wave amp=25 freq=5]woosh[/wave][/i]"
+
+[node name="PauseMenu" parent="UI" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_3wopa")]
+visible = false
+player = NodePath("../../Player")
+world = NodePath("../..")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1

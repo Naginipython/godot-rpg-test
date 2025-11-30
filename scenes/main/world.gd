@@ -7,15 +7,22 @@ var is_animation_finished: bool = true # Possibly don't need
 @onready var cut_scene_player: AnimationPlayer = $CutScenePlayer
 
 func _ready() -> void:
+	if GameManager.characters.is_empty():
+		GameManager.load_chars(GameManager.temp_character_data)
 	# Starting dialogue (for new game test)
 	if StoryManager.story_progress == Story.StoryPoint.SagaBegins:
 		cut_scene_player.play("NewGame")
 		StoryManager.story_progress += 1
-	print(GameManager.characters)
-	
-	# Place player
-	$Player.global_position = GameManager.tilepos_to_worldpos(GameManager.player_pos)
-	GameManager.items.push_back(Item.createCommonItem(Item.CommonItems.SmHpPot, 2))
+		$Player.global_position = GameManager.tilepos_to_worldpos(GameManager.player_pos)
+		GameManager.items.push_back(Item.createCommonItem(Item.CommonItems.SmHpPot, 2))
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("return"):
+		toggle_paused()
+
+func toggle_paused() -> void:
+	get_tree().paused = not get_tree().paused
+	$UI/PauseMenu.visible = not $UI/PauseMenu.visible
 
 # Cutscene Manager (for now?)
 

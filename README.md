@@ -15,6 +15,10 @@ Inside the turn-based combat, wasd for selection, 'e' and spacebar are used for 
 In Rhythm game, asd are used to press the keys
 
 ## Current features:
+menus:
+
+- Main Menu creates new save
+
 In world:
 
 - Tile-based movement, with collisions (Castle doesn't have colliders on purpose)
@@ -33,9 +37,9 @@ In world:
 In combat:
 
 - Cute player menu animation
-- Attack button selection (Others are WIP)
-- Attack selection
-- Attack box expansion & closing
+- Attack/Action/Item button selection
+- Attack/Action/Item selection
+- Attack/Action/Item box expansion & closing
 - Turn-based moves (1 > 2 > 3 > 4 > boss > 1> ...)
 - Attacks damage boss (WIP: Text to say it does)
 - Boss attacks in a rhythm game
@@ -51,33 +55,46 @@ In combat:
 There is a slight chance the data in `assets/char_data/` get their array of strings called `attacks` deleted. If you double-click the `.tres` files, in the right menu, you can click Combat dropdown > click 'PackedStringArray' next to 'attacks', then add element of a random name where `<null>` is
 
 ## Planned features
+menus:
+
+- Loads data
+- change party
+
 combat:
-- Actions
+
+- Action/Item chooses character
+- Attack implementation
+- Attack details
 - Actions buff strategy pattern
+- Items implementation & decrement
 - Collab bar (built on attack_game)
 - Collabs (what does this do?)
-- Items
 - attack_game uses tiles instead of timer
 - attack_game differing patterns (2 hits, sliding, holding)
 - multiple enemies w/combined attacks (that coordinate)
 - Dead characters can't attack or be attacked (even mid attack_game)
 - Full attack list
-- Attack details
+- Full action list
+- Item list
+- Boss special interactions
 
 world:
+
 - interactables
+	- Sign
+	- Choices NPC? (Clio to game?)
 - player follow
-- retain HP & stats
+- retain HP, stats, and items
 - damaging tiles (1/2 working)
 - pushables
-- change party
-- save
+- save (correctly, when full dataset is settled)
 
 Art (paid):
 - World Sprites
 	- Walking (4 directions)
 	- Simple attack?
 - Enemy Full body sprites
+- Player attack/action animation sprites
 - Portraits (like: https://sprites.pmdcollab.org/)
 	- Normal
 	- Happy

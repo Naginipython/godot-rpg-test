@@ -9,4 +9,4 @@
 
 [node name="GameSingleton" type="Node"]
 script = ExtResource("1_gk3rn")
-character_data = Array[ExtResource("2_xu0iq")]([ExtResource("3_bfdbe"), ExtResource("4_krnt0"), ExtResource("5_tgsex"), ExtResource("6_iivhh")])
+temp_character_data = Array[ExtResource("2_xu0iq")]([ExtResource("4_krnt0"), ExtResource("6_iivhh"), ExtResource("5_tgsex"), ExtResource("3_bfdbe")])

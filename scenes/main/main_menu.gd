@@ -14,4 +14,5 @@ func _on_new_game_btn_pressed() -> void:
 	GameManager.change_mode(Game.Modes.WORLD)
 
 func _on_load_btn_pressed() -> void:
-	pass # Replace with function body.
+	SaveManager.load_game()
+	#GameManager.change_mode(Game.Modes.WORLD)
