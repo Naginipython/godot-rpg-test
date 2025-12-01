@@ -10,7 +10,17 @@ Issues:
 	Dialogue pauses ani_player? After ending (current), continues animation, then new dialogue?
 	How do I store dialogue?
 
+How to apply stat to choice:
+action choice -> profile choice -> apply buff to profile
+action_action -> player_menu  ->  Choice (Combat)  ->  Main (combat)
+choice -> adds to tempStat array -> exit applies to Combat -> log
 
 Combat:
+action_attack -> player_menu -> Main (Combat)
+choice -> use/log -> changes hp state state
+
+action_action -> player_menu -> Main (Combat)
+choice -> 
+
 action_item -> player_menu -> Main (Combat) -> GameManager
 choice -> quant/use/log -> turn/hp -> eventually, record item quantity

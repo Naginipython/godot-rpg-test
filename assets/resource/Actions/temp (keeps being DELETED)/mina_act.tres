@@ -30,5 +30,6 @@ name = "Raise Morale"
 desc = "As good as a tsun can do"
 type = 1
 amount = 10
+is_target_all = true
 extraLines = Array[ExtResource("1_gcy0v")]([SubResource("Resource_vfh0c")])
 metadata/_custom_type_script = "uid://um1iui5rrhk4"

@@ -25,12 +25,12 @@ func load_chars(character_data: Array[CharacterData]) -> void:
 	# Get Party, sorted
 	for character: CharacterData in characters.values():
 		if character.active:
-			party.push_back(character.duplicate())
+			party.push_back(character)
 
 # ----- Get Char Data -----
 func get_char_data(id: String) -> CharacterData:
 	if characters.has(id):
-		return characters[id].duplicate()
+		return characters[id]
 	push_error("Error: Char ID %s not found", id)
 	return null
 func get_attacks(id: String) -> Dictionary[String, Attack]:

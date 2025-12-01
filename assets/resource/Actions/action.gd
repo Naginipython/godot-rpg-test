@@ -2,7 +2,7 @@ extends Resource
 class_name Action
 
 enum ActionType {
-	AdditionBuff, MultiplyBuff, AdditionDebuff, MultiplyDebuff, Heal
+	AddBuff, MultBuff, AddDebuff, MultDebuff, Heal
 }
 
 # Action: { desc, class, amount, animation, extraLines(Array<Convo>), etc }
@@ -10,4 +10,6 @@ enum ActionType {
 @export var desc: String
 @export var type: ActionType
 @export var amount: int
+@export var is_target_all: bool
+@export var can_target_self: bool
 @export var extraLines: Array[Conversation]

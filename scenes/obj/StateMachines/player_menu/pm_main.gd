@@ -15,13 +15,15 @@ func enter(_prev: String) -> void:
 	actions_panel.visible = true
 	main_grid.visible = true
 
-func process(_delta: float) -> void:
-	arrow_bounce()
-	if (menu.selected and 
-		Input.is_action_just_pressed("select") and 
+func unhandled_input(event: InputEvent) -> void:
+	if (event.is_action_pressed("select") and 
+		menu.selected and 
 		not menu.animation_player.is_playing() and
 		not menu.prev_animation_playing):
 		change_state.emit(self, "actions")
+
+func process(_delta: float) -> void:
+	arrow_bounce()
 
 func arrow_bounce() -> void:
 	if enable_arrow_bounce:

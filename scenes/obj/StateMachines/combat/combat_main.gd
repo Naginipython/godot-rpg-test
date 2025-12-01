@@ -1,11 +1,15 @@
 extends CombatState
 
-var menu_idx: int = 0
-var turn: int = 0
+func enter(prev: String) -> void:
+	if prev == "attackgame":
+		combat.player_menus[0].selected = true
+		combat.turn = 0
 
-func enter(_prev: String) -> void:
-	combat.player_menus[0].selected = true
-	turn = 0
+func process(_delta: float) -> void:
+	if combat.choose_char_act:
+		change_state.emit(self, "choice")
+	if combat.turn == 4:
+		change_state.emit(self, "dialogue")
 
 func log_attack(line: String) -> void:
 	combat.lines.push_back(DialogueLine.new(line))
@@ -16,27 +20,18 @@ func dialogue(convo: Conversation) -> void:
 
 func damage_boss(dmg: int) -> int:
 	combat.boss_hp -= dmg
-	next_turn()
+	combat.next_turn()
 	return combat.boss_hp
 
-func action() -> void:
-	next_turn()
+func action(char_name: String, act: Action) -> void:
+	# TODO Choice for enemy
+	if act.type == Action.ActionType.AddDebuff || act.type == Action.ActionType.MultDebuff:
+		pass
+	else:
+		if act.is_target_all:
+			pass # heal or buff all
+		else:
+			combat.choose_char_act = act
 
 func use_item(item: Item) -> void:
-	next_turn()
-
-func next_turn() -> void:
-	combat.player_menus[menu_idx].selected = false
-	turn += 1
-	turn %= 5
-	if turn != 4:
-		combat.player_menus[menu_idx+1].prev_animation_playing = true
-		menu_idx = turn
-		combat.player_menus[menu_idx].selected = true
-		# Ensures menu isn't automatically in actions
-		await combat.player_menus[menu_idx-1].animation_player.animation_finished
-		combat.player_menus[menu_idx].prev_animation_playing = false
-	else:
-		change_state.emit(self, "dialogue")
-		#change_state.emit(self, "attackgame")
-		menu_idx = 0
+	combat.next_turn()

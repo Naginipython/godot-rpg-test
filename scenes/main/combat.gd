@@ -8,13 +8,14 @@ class_name Combat
 
 var player_menus: Array[PlayerMenu]
 var cute_panels: Array[PanelContainer]
-var on_attack_game: bool = false
-var menu_idx: int = 0
-var turn: int = 0
 var boss_hp: int = 100
 var boss_max_hp: int = 100
 
+# Global state vars
+var turn: int = 0
+var menu_idx: int = 0
 var lines: Array[DialogueLine] = []
+var choose_char_act: Action = null
 
 func _ready() -> void:
 	GameManager.sort_party()
@@ -25,6 +26,10 @@ func _ready() -> void:
 		player_menus.push_back(menu_inst)
 		
 		create_cute_panels.call_deferred(character.style.color, menu_inst)
+	
+	
+	player_menus[0].selected = true
+	turn = 0
 
 func _process(_delta: float) -> void:
 	if not player_menus.is_empty():
@@ -47,3 +52,20 @@ func create_cute_panels(color: Color, playerMenu: PlayerMenu) -> void:
 	panel_inst.z_index = -1
 	cute_panels.push_back(panel_inst)
 	add_child(panel_inst)
+
+func next_turn() -> void:
+	player_menus[menu_idx].selected = false
+	turn += 1
+	turn %= 5
+	print(turn)
+	if turn != 4:
+		player_menus[menu_idx+1].prev_animation_playing = true
+		menu_idx = turn
+		player_menus[menu_idx].selected = true
+		# Ensures menu isn't automatically in actions
+		await player_menus[menu_idx-1].animation_player.animation_finished
+		player_menus[menu_idx].prev_animation_playing = false
+	else:
+		#%StateMachine.curr_state.change_state.emit(self, "dialogue")
+		#change_state.emit(self, "attackgame")
+		menu_idx = 0

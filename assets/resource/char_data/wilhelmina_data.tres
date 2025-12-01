@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://b1mqycx2b2n65"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://b1mqycx2b2n65"]
 
+[ext_resource type="Resource" uid="uid://t45vkv0x5rcq" path="res://assets/resource/Actions/temp (keeps being DELETED)/mina_act.tres" id="2_gpe4l"]
 [ext_resource type="Resource" uid="uid://dekrg23r0e1mc" path="res://assets/resource/TextboxStyle/wilhelmina_temp.tres" id="2_uw4q4"]
 [ext_resource type="Resource" uid="uid://c4kkc3aslcs6" path="res://assets/resource/Actions/temp (keeps being DELETED)/mina_atk.tres" id="3_8uxo8"]
 [ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="4_uw4q4"]
@@ -13,5 +14,8 @@ active = true
 style = ExtResource("2_uw4q4")
 attacks = Dictionary[String, ExtResource("4_vs4ca")]({
 "Diligent Slash": ExtResource("3_8uxo8")
+})
+actions = Dictionary[String, ExtResource("4_uw4q4")]({
+"Raise Morale": ExtResource("2_gpe4l")
 })
 metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

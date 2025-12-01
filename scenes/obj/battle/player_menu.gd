@@ -3,9 +3,9 @@ class_name PlayerMenu
 
 #@export var idx: int = 0
 @export var selected: bool = false
-@export var curr_state: String
 var parent: Node
 var prev_animation_playing: bool = false
+var is_disabled = false
 # Style
 var character: CharacterData = preload("uid://cad3qxc5u3kse")
 var char_id: String = ""
@@ -35,7 +35,6 @@ func _ready() -> void:
 	hp_container.get_child(1).value = hp
 	
 	attacks = GameManager.get_attacks(char_id)
-	print(attacks)
 	actions = GameManager.get_actions(char_id)
 	items = GameManager.get_items()
 	setup_btns(attacks.keys(), %AtkBtnsContainer)
@@ -43,7 +42,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	$SelectedContainer.visible = selected
-	curr_state = $StateMachine.curr_state.name.to_lower()
 
 func init_menu(set_character: CharacterData, set_parent: Node) -> void:
 	set_character.connect("initialized", double_check)
@@ -75,23 +73,37 @@ func setup_btns(category: Array[String], container: VBoxContainer) -> void:
 		dup.text = category[i]
 		container.add_child(dup)
 
+# ----- THE GOOD STUFF -----
+
+func disable() -> void:
+	is_disabled = true
+	modulate = Color.from_hsv(modulate.h, modulate.s, 0.5, modulate.a)
+func enable() -> void:
+	is_disabled = false
+	modulate = Color.from_hsv(modulate.h, modulate.s, 1.0, modulate.a)
+
 func change_hp(new_value: int) -> void:
 	var change = new_value-hp
-	if change != 0:
+	if change <= 0:
 		var damage: Label = preload("uid://b878c367s711p").instantiate()
 		damage.text = str(change)
 		add_child(damage)
-		hp = new_value
-		hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
-		hp_container.get_child(1).value = hp
+	elif change > 0:
+		var heal: Label = preload("uid://b878c367s711p").instantiate()
+		heal.text = "+" + str(change)
+		add_child(heal)
+		heal.get_child(0).play("Heal")
+	hp = new_value
+	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
+	hp_container.get_child(1).value = hp
 
 # ----- ATTACK -----
 func _on_use_attack(attack: String) -> void:
 	# Find attack details, apply buffs, etc
+	# TODO: enemy choice, apply buffs
 	var atk: Attack = attacks[attack]
 	var dmg = character.curr_str * (atk.power as float/100)
-	print(dmg)
-	var remaining = parent.damage_boss(10)
+	var remaining = parent.damage_boss(dmg)
 	if remaining >= 0:
 		parent.log_attack(character.style.char_name + " used " + attack + "!")
 
@@ -99,6 +111,8 @@ func _on_use_attack(attack: String) -> void:
 func _on_use_action(action: String) -> void:
 	# Find action details, set buffs, etc
 	var act: Action = actions[action]
+	
+	# TODO: log later
 	parent.log_attack(character.style.char_name + " used " + action + "!")
 	if not act.extraLines.is_empty():
 		var convo: Conversation = act.extraLines[0]
@@ -106,12 +120,12 @@ func _on_use_action(action: String) -> void:
 			var rand = randi() % (act.extraLines.size()-1)
 			convo = act.extraLines[rand]
 		parent.dialogue(convo)
-	parent.action()
+	parent.action(character.style.char_name, act)
 
 # ----- ITEM -----
 func _on_use_item(_item: String) -> void:
 	var idx: int = items.find_custom(func (x): return x.name == _item)
-	print(idx) #TODO FIX
+	print("idx") #TODO FIX
 	var item: Item = items[idx]
 	item.quantity -= 1
 	parent.log_attack(character.style.char_name + " used " + _item + "!")

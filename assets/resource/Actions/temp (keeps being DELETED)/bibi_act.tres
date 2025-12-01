@@ -23,5 +23,6 @@ name = "Lil Treat"
 desc = "Handmade!"
 type = 4
 amount = 10
+can_target_self = true
 extraLines = Array[ExtResource("1_tuuut")]([SubResource("Resource_a3g5h")])
 metadata/_custom_type_script = "uid://um1iui5rrhk4"

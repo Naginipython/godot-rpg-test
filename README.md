@@ -40,8 +40,9 @@ In combat:
 - Attack/Action/Item button selection
 - Attack/Action/Item selection
 - Attack/Action/Item box expansion & closing
+- Actions implementation completed: Healing
 - Turn-based moves (1 > 2 > 3 > 4 > boss > 1> ...)
-- Attacks damage boss (WIP: Text to say it does)
+- Attacks damage boss
 - Boss attacks in a rhythm game
 - Boss attacks damage players
 - Rhythm game press zones defined (May be tweaked)
@@ -50,9 +51,6 @@ In combat:
 - Beating enemy (pressing r) triggers dialogue flag for Boss_Defeated
 - Beating enemy (pressing r) progresses story tracker
 - Text UI now works in combat
-
-## Issues
-There is a slight chance the data in `assets/char_data/` get their array of strings called `attacks` deleted. If you double-click the `.tres` files, in the right menu, you can click Combat dropdown > click 'PackedStringArray' next to 'attacks', then add element of a random name where `<null>` is
 
 ## Planned features
 menus:
@@ -65,7 +63,7 @@ combat:
 - Action/Item chooses character
 - Attack implementation
 - Attack details
-- Actions buff strategy pattern
+- Actions implementation: buffs and debuffs
 - Items implementation & decrement
 - Collab bar (built on attack_game)
 - Collabs (what does this do?)

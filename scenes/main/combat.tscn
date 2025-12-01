@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dmug1hdq3eney"]
+[gd_scene load_steps=16 format=3 uid="uid://dmug1hdq3eney"]
 
 [ext_resource type="Theme" uid="uid://bw3k707omyot" path="res://scenes/main/combat.tres" id="1_sjsul"]
 [ext_resource type="Script" uid="uid://7icirmn3pf0o" path="res://scenes/main/combat.gd" id="2_d2w21"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dnjuk0e2t7l52" path="res://scenes/obj/StateMachines/combat/combat_main.gd" id="7_2s4uo"]
 [ext_resource type="Script" uid="uid://b4g2t1etxddkh" path="res://scenes/obj/StateMachines/combat/combat_attack_game.gd" id="9_2m6id"]
 [ext_resource type="Script" uid="uid://c2y0hgc3q6if" path="res://scenes/obj/StateMachines/combat/combat_dialogue.gd" id="10_xt4u0"]
+[ext_resource type="Script" uid="uid://c62kxipsd66w1" path="res://scenes/obj/StateMachines/combat/combat_choice.gd" id="11_pi5q0"]
 
 [sub_resource type="Animation" id="Animation_yurpa"]
 length = 0.001
@@ -283,6 +284,19 @@ libraries = {
 &"": SubResource("AnimationLibrary_nyhuc")
 }
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -73.75
+offset_right = 13.0
+offset_bottom = 73.75
+grow_vertical = 2
+value = 50.0
+fill_mode = 3
+show_percentage = false
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
 unique_name_in_owner = true
 script = ExtResource("7_1l022")
@@ -298,17 +312,7 @@ script = ExtResource("9_2m6id")
 script = ExtResource("10_xt4u0")
 text_ui = NodePath("../../CanvasLayer/TextUI")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -73.75
-offset_right = 13.0
-offset_bottom = 73.75
-grow_vertical = 2
-value = 50.0
-fill_mode = 3
-show_percentage = false
+[node name="Choice" type="Node" parent="StateMachine"]
+script = ExtResource("11_pi5q0")
 
 [connection signal="convo_finished" from="CanvasLayer/TextUI" to="StateMachine/Dialogue" method="_on_text_ui_convo_finished"]
