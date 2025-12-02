@@ -6,8 +6,6 @@ extends PlayerMenuState
 @onready var secondary_container: ScrollContainer = %SecondaryContainer
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
-signal use_attack(attack: String)
-
 var btns: Array[Button] 
 var btn_idx: int
 
@@ -33,7 +31,7 @@ func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("return"):
 		change_state.emit(self, "actions")
 	elif event.is_action_pressed("select"):
-		use_attack.emit(btns[btn_idx].text)
+		menu.use_attack.emit(menu.attacks[btns[btn_idx].text])
 		change_state.emit(self, "main")
 
 func process(_delta: float) -> void:

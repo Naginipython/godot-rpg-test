@@ -7,10 +7,11 @@ var parent: Node
 var prev_animation_playing: bool = false
 var is_disabled = false
 # Style
-var character: CharacterData = preload("uid://cad3qxc5u3kse")
 var char_id: String = ""
-var img: CompressedTexture2D = preload("uid://cbcfedh8onyr7")
-var color: Color = Color8(255, 81, 112, 255)
+#var character: CharacterData = preload("uid://cad3qxc5u3kse")
+#var img: CompressedTexture2D = preload("uid://cbcfedh8onyr7")
+#var color: Color = Color8(255, 81, 112, 255)
+
 var hp: int = 100
 var max_hp: int = 100
 var attacks: Dictionary[String, Attack] = {}
@@ -24,11 +25,22 @@ var items: Array[Item] = []
 @onready var selected_container: CenterContainer = $SelectedContainer
 @onready var hp_container: VBoxContainer = $StatsPanel/HBoxContainer/HpContainer
 
+@warning_ignore_start("unused_signal")
+signal prev_turn
+signal use_attack(attack: Attack)
+signal use_action(action: Action)
+signal use_item(item: Item)
+
 func _ready() -> void:
-	char_icon.texture = img
+	var ch: CharacterData = GameManager.get_char_data(char_id)
 	var stylebox := stats_panel.get_theme_stylebox("panel").duplicate()
-	stylebox.set("bg_color", color)
+	stylebox.set("bg_color", ch.style.color)
 	stats_panel.add_theme_stylebox_override("panel", stylebox)
+	char_icon.texture = ch.style.portrait
+	
+	hp = ch.health
+	max_hp = ch.curr_max_health
+	ch.health_changed.connect(change_hp)
 	
 	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
 	hp_container.get_child(1).max_value = max_hp
@@ -36,7 +48,7 @@ func _ready() -> void:
 	
 	attacks = GameManager.get_attacks(char_id)
 	actions = GameManager.get_actions(char_id)
-	items = GameManager.get_items()
+	items = GameManager.items
 	setup_btns(attacks.keys(), %AtkBtnsContainer)
 	setup_btns(actions.keys(), %ActBtnsContainer)
 
@@ -44,24 +56,8 @@ func _process(_delta: float) -> void:
 	$SelectedContainer.visible = selected
 
 func init_menu(set_character: CharacterData, set_parent: Node) -> void:
-	set_character.connect("initialized", double_check)
-	character = set_character
-	#idx = set_character.party_order
-	img = set_character.style.portrait
-	color = set_character.style.color
-	#selected = set_character.party_order == 0
 	char_id = set_character.char_id
-	hp = set_character.health
-	max_hp = set_character.curr_max_health
-	set_character.health_changed.connect(change_hp)
 	parent = set_parent
-
-func double_check(set_character: CharacterData) -> void:
-	hp = set_character.health
-	max_hp = set_character.curr_max_health
-	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
-	hp_container.get_child(1).max_value = max_hp
-	hp_container.get_child(1).value = hp
 
 func setup_btns(category: Array[String], container: VBoxContainer) -> void:
 	# Add buttons
@@ -97,33 +93,9 @@ func change_hp(new_value: int) -> void:
 	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
 	hp_container.get_child(1).value = hp
 
-# ----- ATTACK -----
-func _on_use_attack(attack: String) -> void:
-	# Find attack details, apply buffs, etc
-	# TODO: enemy choice, apply buffs
-	var atk: Attack = attacks[attack]
-	var dmg = character.curr_str * (atk.power as float/100)
-	var remaining = parent.damage_boss(dmg)
-	if remaining >= 0:
-		parent.log_attack(character.style.char_name + " used " + attack + "!")
-
-# ----- ACTION -----
-func _on_use_action(action: String) -> void:
-	# Find action details, set buffs, etc
-	var act: Action = actions[action]
-	
-	# TODO: log later
-	parent.log_attack(character.style.char_name + " used " + action + "!")
-	if not act.extraLines.is_empty():
-		var convo: Conversation = act.extraLines[0]
-		if act.extraLines.size() > 1:
-			var rand = randi() % (act.extraLines.size()-1)
-			convo = act.extraLines[rand]
-		parent.dialogue(convo)
-	parent.action(character.style.char_name, act)
-
 # ----- ITEM -----
 func _on_use_item(_item: String) -> void:
+	var character: CharacterData = GameManager.get_char_data(char_id)
 	var idx: int = items.find_custom(func (x): return x.name == _item)
 	print("idx") #TODO FIX
 	var item: Item = items[idx]

@@ -16,11 +16,17 @@ func enter(_prev: String) -> void:
 	main_grid.visible = true
 
 func unhandled_input(event: InputEvent) -> void:
-	if (event.is_action_pressed("select") and 
-		menu.selected and 
+	if (menu.selected and 
 		not menu.animation_player.is_playing() and
-		not menu.prev_animation_playing):
-		change_state.emit(self, "actions")
+		not menu.prev_animation_playing
+		):
+		if event.is_action_pressed("select"):
+			change_state.emit(self, "actions")
+		if event.is_action_pressed("return"):
+			get_viewport().set_input_as_handled()
+			menu.prev_turn.emit()
+			pass # somehow prev turn in Combat
+	
 
 func process(_delta: float) -> void:
 	arrow_bounce()

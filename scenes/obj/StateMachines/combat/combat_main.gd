@@ -4,24 +4,18 @@ func enter(prev: String) -> void:
 	if prev == "attackgame":
 		combat.player_menus[0].selected = true
 		combat.turn = 0
+	#if prev == "choice":
+		#combat.player_menus[combat.turn].selected = true
 
 func process(_delta: float) -> void:
-	if combat.choose_char_act:
+	if combat.choose_char_act or combat.choose_char_itm:
 		change_state.emit(self, "choice")
 	if combat.turn == 4:
-		change_state.emit(self, "dialogue")
-
-func log_attack(line: String) -> void:
-	combat.lines.push_back(DialogueLine.new(line))
+		change_state.emit(self, "applymoves")
 
 func dialogue(convo: Conversation) -> void:
 	for line in convo.lines:
 		combat.lines.push_back(line)
-
-func damage_boss(dmg: int) -> int:
-	combat.boss_hp -= dmg
-	combat.next_turn()
-	return combat.boss_hp
 
 func action(char_name: String, act: Action) -> void:
 	# TODO Choice for enemy

@@ -421,6 +421,4 @@ script = ExtResource("9_wvkwu")
 [connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/ActionBtn" to="StateMachine/Actions" method="_on_action_btn_pressed"]
 [connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/CollabBtn" to="StateMachine/Actions" method="_on_collab_btn_pressed"]
 [connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/ItemBtn" to="StateMachine/Actions" method="_on_item_btn_pressed"]
-[connection signal="use_attack" from="StateMachine/Action_Attack" to="." method="_on_use_attack"]
-[connection signal="use_action" from="StateMachine/Action_Action" to="." method="_on_use_action"]
 [connection signal="use_item" from="StateMachine/Action_Item" to="." method="_on_use_item"]

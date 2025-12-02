@@ -14,7 +14,8 @@ func _ready() -> void:
 		cut_scene_player.play("NewGame")
 		StoryManager.story_progress += 1
 		$Player.global_position = GameManager.tilepos_to_worldpos(GameManager.player_pos)
-		GameManager.items.push_back(Item.createCommonItem(Item.CommonItems.SmHpPot, 2))
+		GameManager.add_item(Item.createCommonItem(Item.CommonItems.SmHpPot, 2))
+		GameManager.add_item(Item.createCommonItem(Item.CommonItems.SmHpPot, 2))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("return"):

@@ -41,6 +41,7 @@ In combat:
 - Attack/Action/Item selection
 - Attack/Action/Item box expansion & closing
 - Actions implementation completed: Healing
+- Action can choose player (where applicable)
 - Turn-based moves (1 > 2 > 3 > 4 > boss > 1> ...)
 - Attacks damage boss
 - Boss attacks in a rhythm game
@@ -60,8 +61,8 @@ menus:
 
 combat:
 
-- Action/Item chooses character
-- Attack implementation
+- Item chooses character
+- Attack implementation: w/ buff
 - Attack details
 - Actions implementation: buffs and debuffs
 - Items implementation & decrement

@@ -27,7 +27,7 @@ func load_chars(character_data: Array[CharacterData]) -> void:
 		if character.active:
 			party.push_back(character)
 
-# ----- Get Char Data -----
+# ----- Get Data -----
 func get_char_data(id: String) -> CharacterData:
 	if characters.has(id):
 		return characters[id]
@@ -37,12 +37,21 @@ func get_attacks(id: String) -> Dictionary[String, Attack]:
 	if characters.has(id):
 		return characters[id].attacks.duplicate()
 	return {}
+func get_atk(id: String, atk_id: String) -> Attack:
+	if characters.has(id):
+		if characters[id].attacks.has(atk_id):
+			return characters[id].attacks[atk_id]
+	return null
 func get_actions(id: String) -> Dictionary[String, Action]:
 	if characters.has(id):
 		return characters[id].actions.duplicate()
 	return {}
-func get_items() -> Array[Item]:
-	return items.duplicate()
+func get_item(item_name: String) -> Item:
+	var idx: int = items.find_custom(func (i): return i.name == item_name)
+	if idx != -1:
+		return items.get(idx)
+	return null
+
 func sort_party() -> void:
 	party.sort_custom(func(a: CharacterData, b: CharacterData):
 		return a.curr_spd > b.curr_spd)
@@ -52,6 +61,11 @@ func sort_party() -> void:
 # Change party order
 # Change party active
 # Change party hp
+func add_item(item: Item) -> void:
+	var idx: int = items.find_custom(func (i): return i.name == item.name)
+	
+	if idx != -1: items[idx].quantity += item.quantity
+	else: items.push_back(item)
 
 # ----- Location Assistance -----
 func worldpos_to_tilepos(worldpos: Vector2) -> Vector2:

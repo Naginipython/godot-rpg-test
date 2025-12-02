@@ -14,19 +14,24 @@ var boss_max_hp: int = 100
 # Global state vars
 var turn: int = 0
 var menu_idx: int = 0
-var lines: Array[DialogueLine] = []
+var lines: Array[DialogueLine] = [] # to delete
+var moves: Array = [] # Array[ Tuple [ Attack/Action/Item, char_id, _target ] ]
+# Choice vars
 var choose_char_act: Action = null
+var choose_char_itm: Item = null
 
 func _ready() -> void:
 	GameManager.sort_party()
 	for character in GameManager.party:
 		var menu_inst: PlayerMenu = menu.instantiate()
 		menu_inst.init_menu(character, $StateMachine/Main)
+		menu_inst.use_attack.connect(weenerweenerpenisfart)
+		menu_inst.use_action.connect(_on_use_action)
+		menu_inst.prev_turn.connect(prev_turn)
 		%PlayerMenuContainer.add_child(menu_inst)
 		player_menus.push_back(menu_inst)
 		
 		create_cute_panels.call_deferred(character.style.color, menu_inst)
-	
 	
 	player_menus[0].selected = true
 	turn = 0
@@ -57,7 +62,6 @@ func next_turn() -> void:
 	player_menus[menu_idx].selected = false
 	turn += 1
 	turn %= 5
-	print(turn)
 	if turn != 4:
 		player_menus[menu_idx+1].prev_animation_playing = true
 		menu_idx = turn
@@ -69,3 +73,36 @@ func next_turn() -> void:
 		#%StateMachine.curr_state.change_state.emit(self, "dialogue")
 		#change_state.emit(self, "attackgame")
 		menu_idx = 0
+
+func prev_turn() -> void:
+	if turn == 0: return
+	player_menus[menu_idx].selected = false
+	turn -= 1
+	menu_idx = turn
+	player_menus[menu_idx].selected = true
+
+func apply_target(target_id: String) -> void:
+	var data: Array = moves.back()
+	data.push_back(target_id)
+
+#func log_move(line: String) -> void:
+	#lines.push_back(DialogueLine.new(line))
+
+# it was pissing me off that I got errors using _on_use_attack
+func weenerweenerpenisfart(attack: Attack) -> void:
+	var data = [attack, player_menus[menu_idx].char_id]
+	moves.push_back(data)
+	next_turn()
+
+func _on_use_action(action: Action) -> void:
+	if action.type == Action.ActionType.AddDebuff || action.type == Action.ActionType.MultDebuff:
+		pass
+	else:
+		if action.is_target_all:
+			pass # heal or buff all
+			#next_turn()
+		else:
+			choose_char_act = action
+			# next_turn after choice
+	var data = [action, player_menus[menu_idx].char_id]
+	moves.push_back(data)
