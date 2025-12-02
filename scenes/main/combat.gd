@@ -80,6 +80,7 @@ func prev_turn() -> void:
 	turn -= 1
 	menu_idx = turn
 	player_menus[menu_idx].selected = true
+	moves.pop_back()
 
 func apply_target(target_id: String) -> void:
 	var data: Array = moves.back()

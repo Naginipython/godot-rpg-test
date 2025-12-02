@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dmug1hdq3eney"]
+[gd_scene load_steps=16 format=3 uid="uid://dmug1hdq3eney"]
 
 [ext_resource type="Theme" uid="uid://bw3k707omyot" path="res://scenes/main/combat.tres" id="1_sjsul"]
 [ext_resource type="Script" uid="uid://7icirmn3pf0o" path="res://scenes/main/combat.gd" id="2_d2w21"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://dnjuk0e2t7l52" path="res://scenes/obj/StateMachines/combat/combat_main.gd" id="7_2s4uo"]
 [ext_resource type="Script" uid="uid://b4g2t1etxddkh" path="res://scenes/obj/StateMachines/combat/combat_attack_game.gd" id="9_2m6id"]
 [ext_resource type="Script" uid="uid://cfb1f3vw51wgf" path="res://scenes/obj/StateMachines/combat/combat_apply_moves.gd" id="10_oalg1"]
-[ext_resource type="Script" uid="uid://c2y0hgc3q6if" path="res://scenes/obj/StateMachines/combat/combat_dialogue.gd" id="10_xt4u0"]
 [ext_resource type="Script" uid="uid://c62kxipsd66w1" path="res://scenes/obj/StateMachines/combat/combat_choice.gd" id="11_pi5q0"]
 
 [sub_resource type="Animation" id="Animation_yurpa"]
@@ -312,11 +311,7 @@ script = ExtResource("11_pi5q0")
 [node name="ApplyMoves" type="Node" parent="StateMachine"]
 script = ExtResource("10_oalg1")
 
-[node name="Dialogue" type="Node" parent="StateMachine" node_paths=PackedStringArray("text_ui")]
-script = ExtResource("10_xt4u0")
-text_ui = NodePath("../../CanvasLayer/TextUI")
-
 [node name="AttackGame" type="Node" parent="StateMachine"]
 script = ExtResource("9_2m6id")
 
-[connection signal="convo_finished" from="CanvasLayer/TextUI" to="StateMachine/Dialogue" method="_on_text_ui_convo_finished"]
+[connection signal="convo_finished" from="CanvasLayer/TextUI" to="StateMachine/ApplyMoves" method="_on_text_ui_convo_finished"]

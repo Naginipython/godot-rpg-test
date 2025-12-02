@@ -27,9 +27,10 @@ func enter(_prev: String) -> void:
 			hide_full_hp()
 	
 	# Select non-disabled
-	for menu in player_menus:
-		if not menu.is_disabled:
-			menu.selected = true
+	for i in range(0, player_menus.size()):
+		if not player_menus[i].is_disabled:
+			idx = i
+			player_menus[i].selected = true
 			break
 
 func unhandled_input(event: InputEvent) -> void:
@@ -61,6 +62,8 @@ func unhandled_input(event: InputEvent) -> void:
 		if combat.choose_char_itm and not all_hp_full:
 			pass
 	if event.is_action_pressed("return"):
+		get_viewport().set_input_as_handled()
+		combat.moves.pop_back()
 		change_state.emit(self, "main")
 
 func exit(_next: String) -> void:

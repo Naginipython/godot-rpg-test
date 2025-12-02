@@ -43,14 +43,14 @@ In combat:
 - Actions implementation completed: Healing
 - Action can choose player (where applicable)
 - Turn-based moves (1 > 2 > 3 > 4 > boss > 1> ...)
+- Turns can go canceled & go backwards (4 > 3 > 2 > 1)
 - Attacks damage boss
 - Boss attacks in a rhythm game
 - Boss attacks damage players
 - Rhythm game press zones defined (May be tweaked)
 - Cute player damage animation
 - Cute boss attack start/end animation
-- Beating enemy (pressing r) triggers dialogue flag for Boss_Defeated
-- Beating enemy (pressing r) progresses story tracker
+- Beating enemy triggers dialogue flag for Boss_Defeated
 - Text UI now works in combat
 
 ## Planned features
