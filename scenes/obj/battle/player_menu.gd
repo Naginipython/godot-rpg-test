@@ -80,7 +80,7 @@ func enable() -> void:
 
 func change_hp(new_value: int) -> void:
 	var change = new_value-hp
-	if change <= 0:
+	if change < 0:
 		var damage: Label = preload("uid://b878c367s711p").instantiate()
 		damage.text = str(change)
 		add_child(damage)
@@ -92,13 +92,3 @@ func change_hp(new_value: int) -> void:
 	hp = new_value
 	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
 	hp_container.get_child(1).value = hp
-
-# ----- ITEM -----
-func _on_use_item(_item: String) -> void:
-	var character: CharacterData = GameManager.get_char_data(char_id)
-	var idx: int = items.find_custom(func (x): return x.name == _item)
-	print("idx") #TODO FIX
-	var item: Item = items[idx]
-	item.quantity -= 1
-	#parent.log_attack(character.style.char_name + " used " + _item + "!")
-	#parent.use_item(item)
