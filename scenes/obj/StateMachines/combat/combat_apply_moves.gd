@@ -12,6 +12,11 @@ func enter(_prev: String) -> void:
 	#await get_tree().process_frame # Cute issue with adding to arr and this being called
 	#change_state.emit.call_deferred(self, "dialogue")
 
+func unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("select"):
+		get_viewport().set_input_as_handled()
+		text_ui.pressed_select()
+
 func exit(_next: String) -> void:
 	combat.moves = []
 
@@ -25,12 +30,13 @@ func _on_text_ui_convo_finished() -> void:
 		if combat.boss_hp <= 0:
 			text.lines.push_back(DialogueLine.new("You gained -- exp!"))
 		
-		text_ui.enable_text(text)
+		text_ui.next_text(text)
 		is_finished = true
 	elif is_finished:
 		if combat.boss_hp <= 0:
 			GameManager.change_mode(Game.Modes.WORLD)
 		else:
+			text_ui.disable_text()
 			change_state.emit(self, "attackgame")
 	
 
@@ -54,7 +60,10 @@ func use_move() -> bool:
 	# Dialogue
 	var text: Conversation = Conversation.new()
 	text.lines = combat.lines
-	text_ui.enable_text(text)
+	if not text_ui.is_enabled:
+		text_ui.enable_text(text)
+	else:
+		text_ui.next_text(text)
 	combat.lines.clear()
 	combat.moves.pop_front()
 	return true

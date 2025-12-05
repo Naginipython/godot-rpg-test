@@ -279,11 +279,6 @@ layout_mode = 2
 theme = ExtResource("1_sjsul")
 theme_override_constants/separation = 75
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_nyhuc")
-}
-
 [node name="CollabBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 4
@@ -296,6 +291,11 @@ grow_vertical = 2
 value = 50.0
 fill_mode = 3
 show_percentage = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nyhuc")
+}
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
 unique_name_in_owner = true

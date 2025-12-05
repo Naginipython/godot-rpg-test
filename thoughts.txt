@@ -10,17 +10,22 @@ Issues:
 	Dialogue pauses ani_player? After ending (current), continues animation, then new dialogue?
 	How do I store dialogue?
 
-How to apply stat to choice:
-action choice -> profile choice -> apply buff to profile
-action_action -> player_menu  ->  Choice (Combat)  ->  Main (combat)
-choice -> adds to tempStat array -> exit applies to Combat -> log
 
-Combat:
-action_attack -> player_menu -> Main (Combat)
-choice -> use/log -> changes hp state state
+Cool Gameplay Ideas:
+Attacks deal damage & sometimes add buffs
+Actions add buffs/debuffs/heals, and provide opportunity to spare
+buffs/debuff effect str, def, spd, acc, evad
+collabs are still ???
 
-action_action -> player_menu -> Main (Combat)
-choice -> 
+possible attack_game buffs/debuffs: more/less special attacks, faster/slower (per lane?), build 
+	more/less collab, 
 
-action_item -> player_menu -> Main (Combat) -> GameManager
-choice -> quant/use/log -> turn/hp -> eventually, record item quantity
+Type change would be wild (Sinon going from Seiso -> Yabai etc)
+
+AI suggestions:
+	Type system ideas: Seiso, Yabai, Pon(katsu) (rock-paper-scissors). Yabai > Seiso > Pon
+	Possible alt: Idol, Gamer, Comedian. Gamer > Idol > Comedian
+	game speed: "Hype" stat. Hype up makes meter build faster & u deal more dmg, Chill Out opposite
+	Attack_game notes: "lag" makes it freeze & then hit the zone. "Spam" can hide the board
+	stats: spd widens perfect window, evad make a hit possibly "ghosted"
+	actions cost "super chats", basically mana

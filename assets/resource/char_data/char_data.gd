@@ -19,12 +19,14 @@ signal health_changed(new_value: int)
 @export var base_str: int = 10 # Damage is str * (move_power/10)
 @export var base_def: int = 10
 @export var base_spd: int = 10
+@export var base_acc: int = 10
+@export var base_evad: int = 10
 # Move: { desc, power, effect, animation, idk }
 @export var attacks: Dictionary[String, Attack] = {}
 # Action: { desc, class, amount, animation, extraLines(Array<Convo>), etc }
 @export var actions: Dictionary[String, Action] = {}
 
-enum BuffableStats { MAX_HEALTH, STR, DEF, SPD }
+enum BuffableStats { MAX_HEALTH, STR, DEF, SPD, ACC, EVAD }
 const STAT_CURVES: Dictionary[BuffableStats, Curve] = {
 	BuffableStats.MAX_HEALTH: preload("uid://dohe3fy834op7"),
 	BuffableStats.STR: preload("uid://bp7di76adwpav"),
@@ -54,13 +56,10 @@ func is_alive() -> bool:
 
 func recalculate_stats() -> void:
 	var stat_sample_pos: float = (float(level) / 100.0) - 0.01
-	@warning_ignore("narrowing_conversion")
+	@warning_ignore_start("narrowing_conversion")
 	curr_max_health = base_max_health * STAT_CURVES[BuffableStats.MAX_HEALTH].sample(stat_sample_pos)
-	@warning_ignore("narrowing_conversion")
 	curr_str = base_str * STAT_CURVES[BuffableStats.STR].sample(stat_sample_pos)
-	@warning_ignore("narrowing_conversion")
 	curr_def = base_def * STAT_CURVES[BuffableStats.DEF].sample(stat_sample_pos)
-	@warning_ignore("narrowing_conversion")
 	curr_spd = base_spd * STAT_CURVES[BuffableStats.SPD].sample(stat_sample_pos)
 
 func _on_health_set(new_value: int) -> void:

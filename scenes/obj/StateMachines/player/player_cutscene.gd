@@ -1,9 +1,13 @@
 extends PlayerState
 
+var unconnected: bool = true
+
 func enter(_prev: String) -> void:
 	if not player.cutscene_player:
 		change_state.emit(self, "main")
-	
+	if unconnected:
+		player.text_ui.connect("convo_finished", _on_convo_finished)
+		unconnected = false
 	# TODO: tween to cutscene_area's marker 2d, duration based on tiles * 0.2
 	# TODO: Check for non-sequential, keep a list of cutscene_area that have been trigger
 	# when not sequential (story progress vs simple thingy idk)
@@ -25,6 +29,13 @@ func enter(_prev: String) -> void:
 		else:
 			change_state.emit(self, "main")
 
+func unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("select"):
+		player.text_ui.pressed_select()
+
 func process(_delta: float) -> void:
 	if player.world.is_animation_finished:
 		change_state.emit(self, "main")
+
+func _on_convo_finished() -> void:
+	player.text_ui.disable_text()

@@ -40,6 +40,8 @@ func _on_text_ui_convo_finished() -> void:
 	if is_waiting_for_dialogue:
 		is_waiting_for_dialogue = false
 		$CutScenePlayer.play()
+	else:
+		text_ui.disable_text()
 
 func _on_cut_scene_player_animation_finished(_anim_name: StringName) -> void:
 	is_animation_finished = true

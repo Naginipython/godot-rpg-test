@@ -48,28 +48,30 @@ func _process(_delta: float) -> void:
 	else:
 		%EndHintLabel.modulate = Color(1,1,1,1)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("select") and is_enabled:
+func pressed_select() -> void:
+	if is_enabled:
 		if is_printing and can_skip:
 			impatient()
-		else:
-			next_text()
+		elif text.visible_ratio == 1:
+			next()
 
 func enable_text(convo: Conversation) -> void:
 	$SkipCooldown.start()
 	animation_player.play("enable_text")
+	next_text(convo)
+	is_enabled = true
+
+func next_text(convo: Conversation) -> void:
 	text.text = ""
 	queue = convo.lines.duplicate()
 	set_line()
-	is_enabled = true
 
-func disable_textbox() -> void:
+func disable_text() -> void:
 	animation_player.play("disable_text")
 	await animation_player.animation_finished
 	text.text = ""
 	setup_char()
 	is_enabled = false
-	convo_finished.emit()
 
 func set_line() -> void:
 	can_skip = false
@@ -116,9 +118,10 @@ func setup_char(speaker: TextboxStyle = null) -> void:
 	var style: StyleBoxFlat = text_box.get_theme_stylebox("panel")
 	style.border_color = color
 
-func next_text() -> void:
+func next() -> void:
 	if queue.is_empty():
-		disable_textbox()
+		#disable_textbox()
+		convo_finished.emit()
 	else:
 		text.text = ""
 		set_line()

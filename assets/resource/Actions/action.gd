@@ -9,6 +9,7 @@ enum ActionType {
 @export var name: String
 @export var desc: String
 @export var type: ActionType
+@export var stat: CharacterData.BuffableStats
 @export var amount: int
 @export var is_target_all: bool
 @export var can_target_self: bool

@@ -61,11 +61,11 @@ menus:
 
 combat:
 
-- Item chooses character
 - Attack implementation: w/ buff
 - Attack details
 - Actions implementation: buffs and debuffs
 - Items implementation & decrement
+- Item chooses character
 - Collab bar (built on attack_game)
 - Collabs (what does this do?)
 - attack_game uses tiles instead of timer
