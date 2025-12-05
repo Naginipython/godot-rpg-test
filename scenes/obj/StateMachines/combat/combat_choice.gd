@@ -20,10 +20,7 @@ func enter(_prev: String) -> void:
 		if combat.choose_char_act.type == Action.ActionType.Heal:
 			hide_full_hp()
 	if combat.choose_char_itm:
-		if (
-			combat.choose_char_itm.type == Item.ItemType.SingleHeal or
-			combat.choose_char_act.type == Item.ItemType.MultHeal
-			):
+		if combat.choose_char_itm.type == Item.ItemType.Heal:
 			hide_full_hp()
 	
 	# Select non-disabled
@@ -68,7 +65,8 @@ func unhandled_input(event: InputEvent) -> void:
 
 func exit(_next: String) -> void:
 	for pm in player_menus:
-		pm.enable()
+		if pm.hp != 0:
+			pm.enable()
 	player_menus[idx].selected = false
 	combat.choose_char_act = null
 

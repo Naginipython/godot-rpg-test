@@ -16,22 +16,33 @@ var turn: int = 0
 var menu_idx: int = 0
 var lines: Array[DialogueLine] = [] # to delete
 var moves: Array = [] # Array[ Tuple [ Attack/Action/Item, char_id, _target ] ]
+var player_stat_changes: Array[Dictionary] = []
 # Choice vars
 var choose_char_act: Action = null
 var choose_char_itm: Item = null
 
 func _ready() -> void:
+	# TEMP
+	GameManager.get_char_data("bibi").health = 0
 	GameManager.sort_party()
 	for character in GameManager.party:
 		var menu_inst: PlayerMenu = menu.instantiate()
-		menu_inst.init_menu(character, $StateMachine/Main)
+		menu_inst.init_menu(character)
 		menu_inst.use_attack.connect(weenerweenerpenisfart)
 		menu_inst.use_action.connect(_on_use_action)
+		menu_inst.use_item.connect(_on_use_item)
 		menu_inst.prev_turn.connect(prev_turn)
 		%PlayerMenuContainer.add_child(menu_inst)
 		player_menus.push_back(menu_inst)
 		
 		create_cute_panels.call_deferred(character.style.color, menu_inst)
+		player_stat_changes.push_back({
+			"atk": 0,
+			"def": 0,
+			"spd": 0,
+			"acc": 0,
+			"evad": 0
+		})
 	
 	player_menus[0].selected = true
 	turn = 0
@@ -62,12 +73,18 @@ func next_turn() -> void:
 	player_menus[menu_idx].selected = false
 	turn += 1
 	turn %= 5
+	var offset = 1
+	while player_menus[turn].is_disabled:
+		turn += 1
+		offset += 1
+		if turn == 4: break
+	
 	if turn != 4:
-		player_menus[menu_idx+1].prev_animation_playing = true
+		player_menus[menu_idx+offset].prev_animation_playing = true
 		menu_idx = turn
 		player_menus[menu_idx].selected = true
 		# Ensures menu isn't automatically in actions
-		await player_menus[menu_idx-1].animation_player.animation_finished
+		await player_menus[menu_idx-offset].animation_player.animation_finished
 		player_menus[menu_idx].prev_animation_playing = false
 	else:
 		#%StateMachine.curr_state.change_state.emit(self, "dialogue")
@@ -96,8 +113,8 @@ func weenerweenerpenisfart(attack: Attack) -> void:
 	next_turn()
 
 func _on_use_action(action: Action) -> void:
-	if action.type == Action.ActionType.AddDebuff || action.type == Action.ActionType.MultDebuff:
-		pass
+	if action.type == Action.ActionType.Debuff:
+		pass # Enemy select
 	else:
 		if action.is_target_all:
 			pass # heal or buff all
@@ -106,4 +123,15 @@ func _on_use_action(action: Action) -> void:
 			choose_char_act = action
 			# next_turn after choice
 	var data = [action, player_menus[menu_idx].char_id]
+	moves.push_back(data)
+
+func _on_use_item(item: Item) -> void:
+	if item.type == Item.ItemType.Debuff:
+		pass # Enemy select
+	else:
+		if item.is_target_all:
+			pass
+		else:
+			choose_char_itm = item
+	var data = [item, player_menus[menu_idx].char_id]
 	moves.push_back(data)

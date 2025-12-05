@@ -1,9 +1,7 @@
 extends Control
 class_name PlayerMenu
 
-#@export var idx: int = 0
 @export var selected: bool = false
-var parent: Node
 var prev_animation_playing: bool = false
 var is_disabled = false
 # Style
@@ -54,10 +52,11 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	$SelectedContainer.visible = selected
+	if hp == 0 and not is_disabled:
+		disable()
 
-func init_menu(set_character: CharacterData, set_parent: Node) -> void:
+func init_menu(set_character: CharacterData) -> void:
 	char_id = set_character.char_id
-	parent = set_parent
 
 func setup_btns(category: Array[String], container: VBoxContainer) -> void:
 	# Add buttons
@@ -73,7 +72,8 @@ func setup_btns(category: Array[String], container: VBoxContainer) -> void:
 
 func disable() -> void:
 	is_disabled = true
-	modulate = Color.from_hsv(modulate.h, modulate.s, 0.5, modulate.a)
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.from_hsv(modulate.h, modulate.s, 0.5, modulate.a), 0.1)
 func enable() -> void:
 	is_disabled = false
 	modulate = Color.from_hsv(modulate.h, modulate.s, 1.0, modulate.a)
@@ -100,5 +100,5 @@ func _on_use_item(_item: String) -> void:
 	print("idx") #TODO FIX
 	var item: Item = items[idx]
 	item.quantity -= 1
-	parent.log_attack(character.style.char_name + " used " + _item + "!")
-	parent.use_item(item)
+	#parent.log_attack(character.style.char_name + " used " + _item + "!")
+	#parent.use_item(item)

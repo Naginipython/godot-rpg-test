@@ -52,6 +52,7 @@ In combat:
 - Cute boss attack start/end animation
 - Beating enemy triggers dialogue flag for Boss_Defeated
 - Text UI now works in combat
+- Dead characters cannot attack
 
 ## Planned features
 menus:
@@ -71,7 +72,6 @@ combat:
 - attack_game uses tiles instead of timer
 - attack_game differing patterns (2 hits, sliding, holding)
 - multiple enemies w/combined attacks (that coordinate)
-- Dead characters can't attack or be attacked (even mid attack_game)
 - Full attack list
 - Full action list
 - Item list

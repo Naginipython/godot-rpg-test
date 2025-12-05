@@ -4,6 +4,7 @@ extends CombatState
 # TODO: items, action buffs, attack buffing
 @onready var text_ui: TextUI = $"../../CanvasLayer/TextUI"
 var is_finished: bool
+var idx: int = 0
 
 func enter(_prev: String) -> void:
 	# Take a moves tuple array, data: [Attack/Action/Item, char_id, target]
@@ -23,6 +24,7 @@ func exit(_next: String) -> void:
 # _on_convo_finished: next move -> TextUI -> convo_finished -> nextmove
 # Leave when moves is empty
 func _on_text_ui_convo_finished() -> void:
+	idx += 1
 	if not use_move() and not is_finished: # uses move, does below when no more moves
 		var text: Conversation = Conversation.new()
 		temp_boss_lines(text)
@@ -69,10 +71,12 @@ func use_move() -> bool:
 	return true
 
 func apply_attack(atk: Attack, ch: CharacterData, target: String) -> void:
-	# Calc dmg from char str
 	# Apply buffs/debuffs
 	# Log attack & damage
-	var dmg = ch.curr_str * (atk.power as float/100)
+	var dmg = ceil(ch.curr_str * (atk.power as float/100))
+	print(dmg)
+	dmg += ceil(ch.curr_str * (combat.player_stat_changes[0]["atk"] as float/100))
+	print(dmg)
 	combat.boss_hp -= dmg
 	var line: String = ch.style.char_name + " used " + atk.name
 	if not target.is_empty(): line += "on " + target # TODO
@@ -83,7 +87,7 @@ func apply_attack(atk: Attack, ch: CharacterData, target: String) -> void:
 func apply_action(act: Action, ch: CharacterData, target: String) -> void:
 	# Deal with dialogue
 	var line: String = ch.style.char_name + " used " + act.name
-	if not target.is_empty(): 
+	if not target.is_empty() and target != ch.char_id:
 		var ch2 = GameManager.get_char_data(target)
 		if ch2:
 			line += " on " + ch2.style.char_name # TODO
@@ -101,17 +105,20 @@ func apply_action(act: Action, ch: CharacterData, target: String) -> void:
 	# Set buffs/debuffs/heals
 	match act.type:
 		# ----- HEAL -----
-		Action.ActionType.Heal:
-			if act.is_target_all:
-				pass # todo
-			else:
-				if not target.is_empty(): 
-					var ch2 = GameManager.get_char_data(target)
-					if ch2:
-						ch2.health += act.amount
+		Action.ActionType.Heal: heal(target, act)
 		# ----- idk -----
 		_:
 			print("oops not made yet")
+
+# ----- HEAL/BUFF/DEBUFFS -----
+func heal(target: String, act: Action) -> void:
+	if act.is_target_all:
+		pass # todo
+	else:
+		if not target.is_empty(): 
+			var ch2 = GameManager.get_char_data(target)
+			if ch2:
+				ch2.health += act.amount
 
 func temp_boss_lines(text: Conversation) -> void:
 	var boss_line: String = ""

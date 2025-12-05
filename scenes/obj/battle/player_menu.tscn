@@ -338,14 +338,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Item"
 
-[node name="SecondaryContainer" type="ScrollContainer" parent="ActionsPanel"]
+[node name="AttackContainer" type="ScrollContainer" parent="ActionsPanel"]
 unique_name_in_owner = true
 layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/SecondaryContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -354,38 +354,70 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="AtkBtnsContainer" type="VBoxContainer" parent="ActionsPanel/SecondaryContainer/MarginContainer"]
+[node name="AtkBtnsContainer" type="VBoxContainer" parent="ActionsPanel/AttackContainer/MarginContainer"]
 unique_name_in_owner = true
-visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="ActionsPanel/SecondaryContainer/MarginContainer/AtkBtnsContainer"]
+[node name="Button" type="Button" parent="ActionsPanel/AttackContainer/MarginContainer/AtkBtnsContainer"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "< Back"
 
-[node name="ActBtnsContainer" type="VBoxContainer" parent="ActionsPanel/SecondaryContainer/MarginContainer"]
+[node name="ActionContainer" type="ScrollContainer" parent="ActionsPanel"]
 unique_name_in_owner = true
-visible = false
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/ActionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ActBtnsContainer" type="VBoxContainer" parent="ActionsPanel/ActionContainer/MarginContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="ActionsPanel/SecondaryContainer/MarginContainer/ActBtnsContainer"]
+[node name="Button" type="Button" parent="ActionsPanel/ActionContainer/MarginContainer/ActBtnsContainer"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "< Back"
 
-[node name="ItmBtnsContainer" type="VBoxContainer" parent="ActionsPanel/SecondaryContainer/MarginContainer"]
+[node name="ItemContainer" type="ScrollContainer" parent="ActionsPanel"]
 unique_name_in_owner = true
-visible = false
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/ItemContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ItmBtnsContainer" type="VBoxContainer" parent="ActionsPanel/ItemContainer/MarginContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="ActionsPanel/SecondaryContainer/MarginContainer/ItmBtnsContainer"]
+[node name="Button" type="Button" parent="ActionsPanel/ItemContainer/MarginContainer/ItmBtnsContainer"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "< Back"
@@ -421,4 +453,3 @@ script = ExtResource("9_wvkwu")
 [connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/ActionBtn" to="StateMachine/Actions" method="_on_action_btn_pressed"]
 [connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/CollabBtn" to="StateMachine/Actions" method="_on_collab_btn_pressed"]
 [connection signal="pressed" from="ActionsPanel/MainContainer/MainGrid/ItemBtn" to="StateMachine/Actions" method="_on_item_btn_pressed"]
-[connection signal="use_item" from="StateMachine/Action_Item" to="." method="_on_use_item"]

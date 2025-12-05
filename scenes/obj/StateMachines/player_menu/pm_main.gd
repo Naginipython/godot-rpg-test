@@ -2,8 +2,6 @@ extends PlayerMenuState
 
 @onready var selected_container: CenterContainer = %SelectedContainer
 @onready var stats_panel: PanelContainer = %StatsPanel
-@onready var actions_panel: PanelContainer = %ActionsPanel
-@onready var main_grid: GridContainer = %MainGrid
 
 var enable_arrow_bounce: bool = true
 var arrow_bounce_up: bool = true

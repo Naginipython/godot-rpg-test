@@ -14,10 +14,6 @@ func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
 		player.text_ui.pressed_select()
 
-#func process(_delta: float) -> void:
-	#if not player.text_ui.is_enabled:
-		#change_state.emit(self, "main")
-
 func _on_convo_finished() -> void:
 	player.text_ui.disable_text()
 	change_state.emit(self, "main")
