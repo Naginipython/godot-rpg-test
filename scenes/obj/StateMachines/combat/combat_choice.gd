@@ -31,7 +31,7 @@ func enter(_prev: String) -> void:
 			break
 
 func unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("left") and not all_hp_full:
+	if event.is_action_pressed("left") and not player_menus.all(func (x: PlayerMenu): return x.is_disabled):
 		player_menus[idx].selected = false
 		idx -= 1
 		if idx < 0: 
@@ -41,7 +41,7 @@ func unhandled_input(event: InputEvent) -> void:
 			if idx < 0: 
 				idx = 3
 		player_menus[idx].selected = true
-	if event.is_action_pressed("right") and not all_hp_full:
+	if event.is_action_pressed("right") and not player_menus.all(func (x: PlayerMenu): return x.is_disabled):
 		player_menus[idx].selected = false
 		idx += 1
 		if idx > 3:

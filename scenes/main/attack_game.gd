@@ -37,8 +37,6 @@ func _process(_delta: float) -> void:
 	
 	enabled = state_machine.curr_state.name == "AttackGame"
 	
-	#if Input.is_key_pressed(KEY_ESCAPE):
-		#GameManager.change_mode(GameManager.Modes.WORLD)
 	# Starts game
 	if enabled and $KeySpawnTimer.is_stopped() and not stop_spawn:
 		$KeySpawnTimer.start()
@@ -112,14 +110,6 @@ func set_panel_to_char(panel_idx: int, char_idx: int) -> void:
 	if not char_idx in range(0, 4): return
 	panel_char_idx[panel_idx] = char_idx
 	enabled_panels[panel_idx] = true
-	#var panel: Panel
-	#match panel_idx:
-		#0: panel = panel_q
-		#1: panel = panel_w
-		#2: panel = panel_e
-	#var stylebox := panel.get_theme_stylebox("panel").duplicate()
-	#stylebox.set("bg_color", Color(color, 0.75))
-	#panel.add_theme_stylebox_override("panel", stylebox)
 
 func _on_key_spawn_timer_timeout() -> void:
 	var panel = randi_range(0, 2)
