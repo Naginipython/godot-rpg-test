@@ -6,6 +6,7 @@ var btn_idx: int = 0
 
 func enter(prev: String) -> void:
 	if prev.to_lower() == "main":
+		btn_idx = 0
 		animation_player.play("CardSwapToActions")
 		%MainGrid.get_child(btn_idx).grab_focus()
 

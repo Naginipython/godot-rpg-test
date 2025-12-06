@@ -16,11 +16,14 @@ func enter(_prev: String) -> void:
 	%ItmBtnsContainer.modulate = Color(1,1,1,1)
 	# Change the size to make scroll bar irrelevant (to a point (later))
 	resize_panel(%ActionContainer)
+	start_timer()
 
 func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("return"):
+		disable_details()
 		change_state.emit(self, "actions")
 	elif event.is_action_pressed("select"):
+		disable_details()
 		menu.use_item.emit(menu.items[btn_idx])
 		change_state.emit(self, "main")
 	

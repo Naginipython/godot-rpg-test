@@ -27,9 +27,10 @@ func _ready() -> void:
 	#GameManager.get_char_data("bibi").health = 0
 	#GameManager.get_char_data("wilhelmina").health = 0
 	GameManager.sort_party()
+	var idx: int = 0
 	for character in GameManager.party:
 		var menu_inst: PlayerMenu = menu.instantiate()
-		menu_inst.init_menu(character)
+		menu_inst.init_menu(character, idx == 3)
 		menu_inst.use_attack.connect(_on_use_attack)
 		menu_inst.use_action.connect(_on_use_action)
 		menu_inst.use_item.connect(_on_use_item)
@@ -45,6 +46,7 @@ func _ready() -> void:
 			CharacterData.BuffableStats.ACC: 0,
 			CharacterData.BuffableStats.EVAD: 0
 		}
+		idx += 1
 	
 	player_menus[0].selected = true
 	turn = 0
@@ -97,8 +99,11 @@ func next_turn() -> void:
 
 func prev_turn() -> void:
 	if turn == 0: return
-	player_menus[menu_idx].selected = false
 	turn -= 1
+	while player_menus[turn].is_disabled:
+		turn -= 1
+		if turn == 0: return
+	player_menus[menu_idx].selected = false
 	menu_idx = turn
 	player_menus[menu_idx].selected = true
 	moves.pop_back()
@@ -107,7 +112,6 @@ func apply_target(target_id: String) -> void:
 	var data: Array = moves.back()
 	data.push_back(target_id)
 
-# it was pissing me off that I got errors using _on_use_attack
 func _on_use_attack(attack: Attack) -> void:
 	var data = [attack, player_menus[menu_idx].char_id]
 	moves.push_back(data)

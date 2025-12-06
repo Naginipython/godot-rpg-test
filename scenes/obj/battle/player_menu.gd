@@ -6,15 +6,15 @@ var prev_animation_playing: bool = false
 var is_disabled = false
 # Style
 var char_id: String = ""
-#var character: CharacterData = preload("uid://cad3qxc5u3kse")
-#var img: CompressedTexture2D = preload("uid://cbcfedh8onyr7")
-#var color: Color = Color8(255, 81, 112, 255)
+# temp
+var is_details_flipped: bool = false
 
 var hp: int = 100
 var max_hp: int = 100
 var attacks: Dictionary[String, Attack] = {}
 var actions: Dictionary[String, Action] = {}
 var items: Array[Item] = []
+var curr_details: String = ""
 
 # nodes
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -49,14 +49,18 @@ func _ready() -> void:
 	items = GameManager.items
 	setup_btns(attacks.keys(), %AtkBtnsContainer)
 	setup_btns(actions.keys(), %ActBtnsContainer)
+	if is_details_flipped:
+		var details: PanelContainer = %DetailsContainer
+		details.global_position.x = self.global_position.x - 255
 
 func _process(_delta: float) -> void:
 	$SelectedContainer.visible = selected
 	if hp == 0 and not is_disabled:
 		disable()
 
-func init_menu(set_character: CharacterData) -> void:
+func init_menu(set_character: CharacterData, flip_details: bool = false) -> void:
 	char_id = set_character.char_id
+	is_details_flipped = flip_details
 
 func setup_btns(category: Array[String], container: VBoxContainer) -> void:
 	# Add buttons

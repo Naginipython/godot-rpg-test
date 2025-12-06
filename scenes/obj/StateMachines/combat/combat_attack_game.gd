@@ -19,12 +19,13 @@ func exit(_next: String) -> void:
 # TODO: disable lane where mor than 1 players are dead
 func get_three_random_players() -> void:
 	players_attacked = []
-	if combat.player_menus.any(func (x): return x.is_disabled):
+	# If 3 or less
+	if combat.player_menus.any(func (x): return not x.hp == 0):
 		var i: int = 0
 		for menu in combat.player_menus:
-			if not menu.is_disabled: players_attacked.push_back(i)
+			if not menu.hp == 0: players_attacked.push_back(i)
 			i += 1
-	else:
+	else: # All 4 up
 		while players_attacked.size() < 3:
 			var n = randi_range(0, 3)
 			if players_attacked.find(n) == -1:

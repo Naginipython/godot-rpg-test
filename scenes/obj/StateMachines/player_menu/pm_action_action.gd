@@ -13,15 +13,22 @@ func enter(_prev: String) -> void:
 	btns[btn_idx].grab_focus()
 	# Change the size to make scroll bar irrelevant (to a point (later))
 	resize_panel(%ActionContainer)
+	# Details container items
+	menu.curr_details = btns[btn_idx].text
+	start_timer()
 
 func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("return"):
+		disable_details()
 		change_state.emit(self, "actions")
 	elif event.is_action_pressed("select"):
+		disable_details()
 		menu.use_action.emit(menu.actions[btns[btn_idx].text])
 		change_state.emit(self, "main")
 	
-	btn_idx = scroll_menu_buttons_input(event, btns, btn_idx)
+	if %ActBtnsContainer.modulate.a == 1:
+		btn_idx = scroll_menu_buttons_input(event, btns, btn_idx)
+		menu.curr_details = btns[btn_idx].text
 
 func exit(next: String) -> void:
 	reset_box(%ActBtnsContainer)
