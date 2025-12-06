@@ -26,9 +26,9 @@ signal health_changed(new_value: int)
 # Action: { desc, class, amount, animation, extraLines(Array<Convo>), etc }
 @export var actions: Dictionary[String, Action] = {}
 
-enum BuffableStats { MAX_HEALTH, STR, DEF, SPD, ACC, EVAD }
+enum BuffableStats { HP, STR, DEF, SPD, ACC, EVAD }
 const STAT_CURVES: Dictionary[BuffableStats, Curve] = {
-	BuffableStats.MAX_HEALTH: preload("uid://dohe3fy834op7"),
+	BuffableStats.HP: preload("uid://dohe3fy834op7"),
 	BuffableStats.STR: preload("uid://bp7di76adwpav"),
 	BuffableStats.DEF: preload("uid://cclgsyrbicql1"),
 	BuffableStats.SPD: preload("uid://bfw3phwk4kthv")
@@ -57,7 +57,7 @@ func is_alive() -> bool:
 func recalculate_stats() -> void:
 	var stat_sample_pos: float = (float(level) / 100.0) - 0.01
 	@warning_ignore_start("narrowing_conversion")
-	curr_max_health = base_max_health * STAT_CURVES[BuffableStats.MAX_HEALTH].sample(stat_sample_pos)
+	curr_max_health = base_max_health * STAT_CURVES[BuffableStats.HP].sample(stat_sample_pos)
 	curr_str = base_str * STAT_CURVES[BuffableStats.STR].sample(stat_sample_pos)
 	curr_def = base_def * STAT_CURVES[BuffableStats.DEF].sample(stat_sample_pos)
 	curr_spd = base_spd * STAT_CURVES[BuffableStats.SPD].sample(stat_sample_pos)

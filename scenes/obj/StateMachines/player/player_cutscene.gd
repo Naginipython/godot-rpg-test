@@ -8,7 +8,6 @@ func enter(_prev: String) -> void:
 	if unconnected:
 		player.text_ui.connect("convo_finished", _on_convo_finished)
 		unconnected = false
-	# TODO: tween to cutscene_area's marker 2d, duration based on tiles * 0.2
 	# TODO: Check for non-sequential, keep a list of cutscene_area that have been trigger
 	# when not sequential (story progress vs simple thingy idk)
 	if player.cutscene_area:

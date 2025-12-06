@@ -1,6 +1,5 @@
 extends CombatState
 
-# TODO: combine dialogue, so text aligns with applying (for animation later)
 # TODO: items, action buffs, attack buffing
 @onready var text_ui: TextUI = $"../../CanvasLayer/TextUI"
 var is_finished: bool
@@ -75,7 +74,8 @@ func apply_attack(atk: Attack, ch: CharacterData, target: String) -> void:
 	# Log attack & damage
 	var dmg = ceil(ch.curr_str * (atk.power as float/100))
 	print(dmg)
-	dmg += ceil(ch.curr_str * (combat.player_stat_changes[0]["atk"] as float/100))
+	var stats: Dictionary = combat.player_stat_changes[ch.char_id]
+	dmg += ceil(ch.curr_str * (stats[CharacterData.BuffableStats.STR] as float/100))
 	print(dmg)
 	combat.boss_hp -= dmg
 	var line: String = ch.style.char_name + " used " + atk.name
@@ -106,19 +106,31 @@ func apply_action(act: Action, ch: CharacterData, target: String) -> void:
 	match act.type:
 		# ----- HEAL -----
 		Action.ActionType.Heal: heal(target, act)
+		Action.ActionType.Buff: buff(target, act)
 		# ----- idk -----
 		_:
 			print("oops not made yet")
 
 # ----- HEAL/BUFF/DEBUFFS -----
-func heal(target: String, act: Action) -> void:
+func heal(target: String, act) -> void:
 	if act.is_target_all:
-		pass # todo
+		pass # TODO
 	else:
 		if not target.is_empty(): 
 			var ch2 = GameManager.get_char_data(target)
 			if ch2:
 				ch2.health += act.amount
+func buff(target: String, act) -> void:
+	if act.is_target_all:
+		for player in combat.player_stat_changes:
+			var stats: Dictionary = combat.player_stat_changes[player]
+			for stat in act.stat:
+				stats[stat] += act.amount
+	else:
+		if not target.is_empty():
+			var stats: Dictionary = combat.player_stat_changes[target]
+			for stat in act.stat:
+				stats[stat] += act.amount
 
 func temp_boss_lines(text: Conversation) -> void:
 	var boss_line: String = ""

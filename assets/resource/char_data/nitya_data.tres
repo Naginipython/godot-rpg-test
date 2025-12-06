@@ -1,11 +1,34 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=10 format=3 uid="uid://cad3qxc5u3kse"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=15 format=3 uid="uid://cad3qxc5u3kse"]
 
 [ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_v404j"]
 [ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/resource/char_data/char_data.gd" id="2_7axvp"]
 [ext_resource type="Resource" uid="uid://dtuqijt2kp6ol" path="res://assets/resource/Actions/temp (keeps being DELETED)/nitya_act.tres" id="2_u84g4"]
+[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/resource/dialogue/conversation.gd" id="3_ufkon"]
 [ext_resource type="Resource" uid="uid://rgjmc231x4f3" path="res://assets/resource/TextboxStyle/nitya_temp.tres" id="3_xredb"]
 [ext_resource type="Resource" uid="uid://4x3ucikm0mka" path="res://assets/resource/Actions/temp (keeps being DELETED)/nitya_atk.tres" id="4_ebltk"]
+[ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/resource/dialogue/dialogue_line.gd" id="4_kbr6w"]
 [ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="4_ufkon"]
+
+[sub_resource type="Resource" id="Resource_or3rg"]
+script = ExtResource("4_kbr6w")
+text = "You can do it!!!"
+speaker = ExtResource("3_xredb")
+face = 3
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_hkq31"]
+script = ExtResource("3_ufkon")
+lines = Array[ExtResource("4_kbr6w")]([SubResource("Resource_or3rg")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_ktei0"]
+script = ExtResource("4_ufkon")
+name = "Encourage"
+desc = "Cute <3"
+stat = Array[int]([1])
+amount = 20
+extraLines = Array[ExtResource("3_ufkon")]([SubResource("Resource_hkq31")])
+metadata/_custom_type_script = "uid://um1iui5rrhk4"
 
 [sub_resource type="Resource" id="Resource_u84g4"]
 script = ExtResource("1_v404j")
@@ -35,6 +58,7 @@ attacks = Dictionary[String, ExtResource("1_v404j")]({
 "Test3": SubResource("Resource_ufkon")
 })
 actions = Dictionary[String, ExtResource("4_ufkon")]({
+"Encourage": SubResource("Resource_ktei0"),
 "Mock": ExtResource("2_u84g4")
 })
 metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

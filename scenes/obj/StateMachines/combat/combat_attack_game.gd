@@ -16,6 +16,7 @@ func exit(_next: String) -> void:
 	animation_player.play("end_attack_game")
 	cute_panel_animate_end()
 
+# TODO: disable lane where mor than 1 players are dead
 func get_three_random_players() -> void:
 	players_attacked = []
 	while players_attacked.size() < 3:

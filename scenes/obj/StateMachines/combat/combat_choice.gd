@@ -71,7 +71,7 @@ func exit(_next: String) -> void:
 	combat.choose_char_act = null
 
 func use_action(selected_idx: int) -> void:
-	if combat.choose_char_act.type == Action.ActionType.Heal:
+	if combat.choose_char_act.type == Action.ActionType.Heal or combat.choose_char_act.type == Action.ActionType.Buff:
 		combat.apply_target(player_menus[selected_idx].char_id)
 		combat.next_turn()
 		change_state.emit(self, "main")
