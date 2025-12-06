@@ -40,7 +40,8 @@ In combat:
 - Attack/Action/Item button selection
 - Attack/Action/Item selection
 - Attack/Action/Item box expansion & closing
-- Actions implementation completed: Healing
+- Attack implementation: w/ buff
+- Actions implementation completed: Healing, Buffs
 - Action can choose player (where applicable)
 - Turn-based moves (1 > 2 > 3 > 4 > boss > 1> ...)
 - Turns can go canceled & go backwards (4 > 3 > 2 > 1)
@@ -53,6 +54,7 @@ In combat:
 - Beating enemy triggers dialogue flag for Boss_Defeated
 - Text UI now works in combat
 - Dead characters cannot attack
+- attack_game loses rows w/dead player
 
 ## Planned features
 menus:
@@ -62,11 +64,11 @@ menus:
 
 combat:
 
-- Attack implementation: w/ buff
 - Attack details
-- Actions implementation: buffs and debuffs
+- Actions implementation: debuffs
 - Items implementation & decrement
 - Item chooses character
+- Stat implementation: DEF, SPD, ACC, EVAD
 - Collab bar (built on attack_game)
 - Collabs (what does this do?)
 - attack_game uses tiles instead of timer

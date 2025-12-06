@@ -19,26 +19,48 @@ func exit(_next: String) -> void:
 # TODO: disable lane where mor than 1 players are dead
 func get_three_random_players() -> void:
 	players_attacked = []
-	while players_attacked.size() < 3:
-		var n = randi_range(0, 3)
-		if players_attacked.find(n) == -1:
-			players_attacked.push_back(n)
+	if combat.player_menus.any(func (x): return x.is_disabled):
+		var i: int = 0
+		for menu in combat.player_menus:
+			if not menu.is_disabled: players_attacked.push_back(i)
+			i += 1
+	else:
+		while players_attacked.size() < 3:
+			var n = randi_range(0, 3)
+			if players_attacked.find(n) == -1:
+				players_attacked.push_back(n)
 	players_attacked.sort()
-		
-	for i in range(0, players_attacked.size()):
-		battle.set_panel_to_char(i, players_attacked[i], GameManager.party[players_attacked[i]].style.color)
+	
+	if players_attacked.size() == 3:
+		for i in range(0, players_attacked.size()):
+			battle.set_panel_to_char(i, players_attacked[i])
+	elif players_attacked.size() == 2:
+		var rand = randi_range(0,1)
+		battle.set_panel_to_char(rand, players_attacked[0])
+		if rand == 1: rand = 2
+		else: rand = randi_range(1,2)
+		battle.set_panel_to_char(rand, players_attacked[1])
+	elif players_attacked.size() == 1:
+		var random = randi_range(0, 2)
+		battle.set_panel_to_char(random, players_attacked[0])
 
 func end_game() -> void:
 	change_state.emit(self, "main")
 
 func cute_panel_animate_start() -> void:
-	for i in range(0, 3):
+	var enabled_panels_used = [false, false, false]
+	for i in range(0, players_attacked.size()):
 		combat.cute_panels[players_attacked[i]].visible = true
+		# Finds panel that char is enabled
 		var panel: Panel
-		match i:
-			0: panel = battle.panel_q
-			1: panel = battle.panel_w
-			2: panel = battle.panel_e
+		for idx in range(0,3):
+			if battle.enabled_panels[idx] and not enabled_panels_used[idx]:
+				match idx:
+					0: panel = battle.panel_q
+					1: panel = battle.panel_w
+					2: panel = battle.panel_e
+				enabled_panels_used[idx] = true
+				break
 		var tween = create_tween()
 		var center: Vector2 = Vector2(
 			panel.global_position.x + panel.size.x/2 - combat.cute_panels[players_attacked[i]].size.x/2, 
@@ -52,7 +74,7 @@ func cute_panel_animate_start() -> void:
 func cute_panel_animate_end() -> void:
 	var player_menus = combat.player_menus
 	var cute_panels = combat.cute_panels
-	for i in range(0, 3):
+	for i in range(0, players_attacked.size()):
 		var center: Vector2 = Vector2(
 			player_menus[players_attacked[i]].global_position.x + player_menus[players_attacked[i]].size.x/2 - cute_panels[players_attacked[i]].size.x/2, 
 			player_menus[players_attacked[i]].global_position.y)

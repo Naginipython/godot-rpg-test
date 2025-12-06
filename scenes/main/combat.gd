@@ -23,7 +23,9 @@ var choose_char_itm: Item = null
 
 func _ready() -> void:
 	# TEMP
+	GameManager.get_char_data("malice").health = 0
 	GameManager.get_char_data("bibi").health = 0
+	#GameManager.get_char_data("wilhelmina").health = 0
 	GameManager.sort_party()
 	for character in GameManager.party:
 		var menu_inst: PlayerMenu = menu.instantiate()
@@ -74,10 +76,11 @@ func next_turn() -> void:
 	turn += 1
 	turn %= 5
 	var offset = 1
-	while player_menus[turn].is_disabled:
-		turn += 1
-		offset += 1
-		if turn == 4: break
+	if turn < 4:
+		while player_menus[turn].is_disabled:
+			turn += 1
+			offset += 1
+			if turn == 4: break
 	
 	if turn != 4:
 		player_menus[menu_idx+offset].prev_animation_playing = true

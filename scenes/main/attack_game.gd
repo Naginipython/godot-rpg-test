@@ -13,7 +13,8 @@ var bottom_y: float
 var queue_q: Array[AttackBlock] = []
 var queue_w: Array[AttackBlock] = []
 var queue_e: Array[AttackBlock] = []
-var panel_char_idx: Array = [0,1,2] #temp
+var panel_char_idx: Array[int] = [0,1,2] #temp
+var enabled_panels: Array[bool] = [false, false, false]
 
 const PERFECT_THRESHOLD: float = 10
 const GREAT_THRESHOLD: float = 25
@@ -52,6 +53,7 @@ func _process(_delta: float) -> void:
 				blocks_remained = true
 				break
 		if not blocks_remained and enabled:
+			enabled_panels = [false, false, false]
 			state_machine.curr_state.end_game()
 
 func start() -> void:
@@ -105,21 +107,24 @@ func createBlock(panel: Panel) -> Panel:
 	add_child(attack_inst)
 	return attack_inst
 
-func set_panel_to_char(panel_idx: int, char_idx: int, color: Color) -> void:
+func set_panel_to_char(panel_idx: int, char_idx: int) -> void:
 	if not panel_idx in range(0, 3): return
 	if not char_idx in range(0, 4): return
 	panel_char_idx[panel_idx] = char_idx
-	var panel: Panel
-	match panel_idx:
-		0: panel = panel_q
-		1: panel = panel_w
-		2: panel = panel_e
-	var stylebox := panel.get_theme_stylebox("panel").duplicate()
-	stylebox.set("bg_color", Color(color, 0.75))
-	panel.add_theme_stylebox_override("panel", stylebox)
+	enabled_panels[panel_idx] = true
+	#var panel: Panel
+	#match panel_idx:
+		#0: panel = panel_q
+		#1: panel = panel_w
+		#2: panel = panel_e
+	#var stylebox := panel.get_theme_stylebox("panel").duplicate()
+	#stylebox.set("bg_color", Color(color, 0.75))
+	#panel.add_theme_stylebox_override("panel", stylebox)
 
 func _on_key_spawn_timer_timeout() -> void:
 	var panel = randi_range(0, 2)
+	while not enabled_panels[panel]:
+		panel = randi_range(0, 2)
 	match panel:
 		0: queue_q.push_back(createBlock(panel_q))
 		1: queue_w.push_back(createBlock(panel_w))

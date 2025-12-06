@@ -114,7 +114,9 @@ func apply_action(act: Action, ch: CharacterData, target: String) -> void:
 # ----- HEAL/BUFF/DEBUFFS -----
 func heal(target: String, act) -> void:
 	if act.is_target_all:
-		pass # TODO
+		var party: Array[CharacterData] = GameManager.party
+		for chara in party:
+			chara.health += act.amount
 	else:
 		if not target.is_empty(): 
 			var ch2 = GameManager.get_char_data(target)
