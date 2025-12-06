@@ -13,7 +13,6 @@ var boss_max_hp: int = 100
 
 # Global state vars
 var turn: int = 0
-var menu_idx: int = 0
 var lines: Array[DialogueLine] = [] # to delete
 var moves: Array = [] # Array[ Tuple [ Attack/Action/Item, char_id, _target ] ]
 var player_stat_changes: Dictionary[String, Dictionary] = {}
@@ -49,7 +48,6 @@ func _ready() -> void:
 		idx += 1
 	
 	player_menus[0].selected = true
-	turn = 0
 
 func _process(_delta: float) -> void:
 	if not player_menus.is_empty():
@@ -74,38 +72,27 @@ func create_cute_panels(color: Color, playerMenu: PlayerMenu) -> void:
 	add_child(panel_inst)
 
 func next_turn() -> void:
-	player_menus[menu_idx].selected = false
-	turn += 1
-	turn %= 5
-	var offset = 1
+	if turn >= 4: 
+		turn = 0
+	else: 
+		player_menus[turn].selected = false
+		turn += 1
+	
 	if turn < 4:
 		while player_menus[turn].is_disabled:
 			turn += 1
-			offset += 1
-			if turn == 4: break
-	
-	if turn != 4:
-		player_menus[menu_idx+offset].prev_animation_playing = true
-		menu_idx = turn
-		player_menus[menu_idx].selected = true
-		# Ensures menu isn't automatically in actions
-		if player_menus[menu_idx-offset].animation_player.is_playing():
-			await player_menus[menu_idx-offset].animation_player.animation_finished
-		player_menus[menu_idx].prev_animation_playing = false
-	else:
-		#%StateMachine.curr_state.change_state.emit(self, "dialogue")
-		#change_state.emit(self, "attackgame")
-		menu_idx = 0
+			if turn >= 4: break
+		player_menus[turn].selected = true
 
 func prev_turn() -> void:
 	if turn == 0: return
+	var prev = turn
 	turn -= 1
 	while player_menus[turn].is_disabled:
 		turn -= 1
 		if turn == 0: return
-	player_menus[menu_idx].selected = false
-	menu_idx = turn
-	player_menus[menu_idx].selected = true
+	player_menus[prev].selected = false
+	player_menus[turn].selected = true
 	moves.pop_back()
 
 func apply_target(target_id: String) -> void:
@@ -113,12 +100,12 @@ func apply_target(target_id: String) -> void:
 	data.push_back(target_id)
 
 func _on_use_attack(attack: Attack) -> void:
-	var data = [attack, player_menus[menu_idx].char_id]
+	var data = [attack, player_menus[turn].char_id]
 	moves.push_back(data)
 	next_turn()
 
 func _on_use_action(action: Action) -> void:
-	var data = [action, player_menus[menu_idx].char_id]
+	var data = [action, player_menus[turn].char_id]
 	moves.push_back(data)
 	if action.type == Action.ActionType.Debuff:
 		pass # TODO: Enemy select
@@ -138,5 +125,5 @@ func _on_use_item(item: Item) -> void:
 		else:
 			choose_char_itm = item
 			# next_turn after choice
-	var data = [item, player_menus[menu_idx].char_id]
+	var data = [item, player_menus[turn].char_id]
 	moves.push_back(data)

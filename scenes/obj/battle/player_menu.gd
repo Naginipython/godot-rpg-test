@@ -2,7 +2,6 @@ extends Control
 class_name PlayerMenu
 
 @export var selected: bool = false
-var prev_animation_playing: bool = false
 var is_disabled = false
 # Style
 var char_id: String = ""

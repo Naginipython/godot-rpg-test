@@ -14,10 +14,7 @@ func enter(_prev: String) -> void:
 	main_grid.visible = true
 
 func unhandled_input(event: InputEvent) -> void:
-	if (menu.selected and 
-		not menu.animation_player.is_playing() and
-		not menu.prev_animation_playing
-		):
+	if menu.selected and not menu.animation_player.is_playing():
 		if event.is_action_pressed("select"):
 			change_state.emit(self, "actions")
 		if event.is_action_pressed("return"):
