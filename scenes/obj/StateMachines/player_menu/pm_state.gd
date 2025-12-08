@@ -25,8 +25,8 @@ func start_timer() -> void:
 @onready var actions_panel: PanelContainer = %ActionsPanel
 
 func get_buttons(container: VBoxContainer) -> Array[Button]:
-	if not is_timer_connected: connect_timer()
 	var btns: Array[Button] = []
+	if not is_timer_connected: connect_timer()
 	#container.visible = true
 	container.modulate = Color(1,1,1,1)
 	for child in container.get_children():
@@ -66,7 +66,7 @@ func reset_box(container: VBoxContainer) -> void:
 func enable_details() -> void:
 	var curr_container: VBoxContainer
 	if %DetailsContainer.modulate.a == 0:
-		# Change Detail info & y location
+		# Change Detail info
 		if %AtkBtnsContainer.modulate.a == 1:
 			curr_container = %AtkBtnsContainer
 			var atk: Attack = menu.attacks[menu.curr_details]
@@ -97,12 +97,34 @@ func enable_details() -> void:
 			%DetailsText.text += "\n" + act.desc
 		elif %ItmBtnsContainer.modulate.a == 1:
 			curr_container = %ItmBtnsContainer
-			print("itm")
+			%DetailsText.text = "Effect: "
+			var itm_idx: int = menu.items.find_custom(func (x: Item): return x.name == menu.curr_details)
+			if itm_idx != -1:
+				var itm: Item = menu.items.get(itm_idx)
+				match itm.type: 
+					Item.ItemType.Heal: %DetailsText.text += "Heals for +" + str(itm.amount)
+					Item.ItemType.Buff:
+						if itm.amount >= 15: %DetailsText.text += "Slight "
+						for i in range(0, itm.stat.size()):
+							if i != 0: %DetailsText.text += ", "
+							elif i == itm.stat.size()-1 and i != 0: %DetailsText.text += " & "
+							%DetailsText.text += CharacterData.BuffableStats.find_key(itm.stat[i])
+						%DetailsText.text += " buff"
+					Action.ActionType.Debuff:
+						if itm.amount >= 15: %DetailsText.text += "Slight "
+						for i in range(0, itm.stat.size()):
+							if i != 0: %DetailsText.text += ", "
+							elif i == itm.stat.size()-1 and i != 0: %DetailsText.text += " & "
+							%DetailsText.text += CharacterData.BuffableStats.find_key(itm.stat[i])
+						%DetailsText.text += " enemy debuff"
+					Action.ActionType.Revive: %DetailsText.text += "Revives a character"
+					_: %DetailsText.text += "lmao TODO"
+				if itm.is_target_all: %DetailsText.text += ", for all"
 		
 		# Change y value to button y
 		for btn in curr_container.get_children():
-			if btn.text == menu.curr_details:
-				%DetailsContainer.global_position.y = btn.global_position.y
+			if btn.text.contains(menu.curr_details):
+				%DetailsContainer.global_position.y = btn.global_position.y - 10
 		
 		# animate box
 		var tween: Tween = create_tween()
@@ -113,4 +135,4 @@ func disable_details() -> void:
 	var details: PanelContainer = %DetailsContainer
 	if details.modulate.a > 0:
 		var tween: Tween = create_tween()
-		tween.tween_property(details, "modulate", Color(1,1,1,0), 0.5)
+		tween.tween_property(details, "modulate", Color(1,1,1,0), 0.2)

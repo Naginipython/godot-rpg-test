@@ -33,23 +33,19 @@ func enter(_prev: String) -> void:
 func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left") and not player_menus.all(func (x: PlayerMenu): return x.is_disabled):
 		player_menus[idx].selected = false
-		idx -= 1
-		if idx < 0: 
-			idx = 3
-		while player_menus[idx].is_disabled:
+		while true:
 			idx -= 1
 			if idx < 0: 
 				idx = 3
+			if not player_menus[idx].is_disabled: break
 		player_menus[idx].selected = true
 	if event.is_action_pressed("right") and not player_menus.all(func (x: PlayerMenu): return x.is_disabled):
 		player_menus[idx].selected = false
-		idx += 1
-		if idx > 3:
-			idx = 0
-		while player_menus[idx].is_disabled:
+		while true:
 			idx += 1
 			if idx > 3:
 				idx = 0
+			if not player_menus[idx].is_disabled: break
 		player_menus[idx].selected = true
 	
 	if event.is_action_pressed("select"):
@@ -57,7 +53,7 @@ func unhandled_input(event: InputEvent) -> void:
 		if combat.choose_char_act and not all_hp_full:
 			use_action(idx)
 		if combat.choose_char_itm and not all_hp_full:
-			pass
+			use_item(idx)
 	if event.is_action_pressed("return"):
 		get_viewport().set_input_as_handled()
 		combat.moves.pop_back()
@@ -69,12 +65,7 @@ func exit(_next: String) -> void:
 			pm.enable()
 	player_menus[idx].selected = false
 	combat.choose_char_act = null
-
-func use_action(selected_idx: int) -> void:
-	if combat.choose_char_act.type == Action.ActionType.Heal or combat.choose_char_act.type == Action.ActionType.Buff:
-		combat.apply_target(player_menus[selected_idx].char_id)
-		combat.next_turn()
-		change_state.emit(self, "main")
+	combat.choose_char_itm = null
 
 func hide_full_hp() -> void:
 	# Check if all are full
@@ -85,3 +76,17 @@ func hide_full_hp() -> void:
 	for pm in player_menus:
 		if pm.max_hp == pm.hp:
 			pm.disable()
+
+func use_action(selected_idx: int) -> void:
+	if combat.choose_char_act.type == Action.ActionType.Heal or combat.choose_char_act.type == Action.ActionType.Buff:
+		combat.apply_target(player_menus[selected_idx].char_id)
+		combat.next_turn()
+		change_state.emit(self, "main")
+
+func use_item(selected_idx: int) -> void:
+	if combat.choose_char_itm.type == Action.ActionType.Heal or combat.choose_char_itm.type == Action.ActionType.Buff:
+		combat.choose_char_itm.quantity -= 1
+		combat.apply_target(player_menus[selected_idx].char_id)
+		# decrement item count
+		combat.next_turn()
+		change_state.emit(self, "main")

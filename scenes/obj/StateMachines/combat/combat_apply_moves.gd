@@ -55,9 +55,7 @@ func use_move() -> bool:
 	if move[0] is Action:
 		apply_action(move[0], ch, target_id)
 	if move[0] is Item:
-		# Apply buff/heal/debuff/revive (move[2] is target)
-		# Log who used item & effect/heal on who
-		pass
+		apply_item(move[0], ch, target_id)
 	# Dialogue
 	var text: Conversation = Conversation.new()
 	text.lines = combat.lines
@@ -70,19 +68,18 @@ func use_move() -> bool:
 	return true
 
 func apply_attack(atk: Attack, ch: CharacterData, target: String) -> void:
-	# Apply buffs/debuffs
 	# Log attack & damage
+	var line: String = ch.style.char_name + " used " + atk.name
+	if not target.is_empty(): line += "on " + target # TODO
+	line += "!"
+	combat.lines.push_back(DialogueLine.new(line))
+	# Apply buffs/debuffs
 	var dmg = ceil(ch.curr_str * (atk.power as float/100))
 	print(dmg)
 	var stats: Dictionary = combat.player_stat_changes[ch.char_id]
 	dmg += ceil(ch.curr_str * (stats[CharacterData.BuffableStats.STR] as float/100))
 	print(dmg)
 	combat.boss_hp -= dmg
-	var line: String = ch.style.char_name + " used " + atk.name
-	if not target.is_empty(): line += "on " + target # TODO
-	line += "!"
-		
-	combat.lines.push_back(DialogueLine.new(line))
 
 func apply_action(act: Action, ch: CharacterData, target: String) -> void:
 	# Deal with dialogue
@@ -94,6 +91,7 @@ func apply_action(act: Action, ch: CharacterData, target: String) -> void:
 	line += "!"
 	combat.lines.push_back(DialogueLine.new(line))
 	
+	# Extra Lines
 	if not act.extraLines.is_empty():
 		var convo: Conversation = act.extraLines[0]
 		if act.extraLines.size() > 1:
@@ -104,12 +102,30 @@ func apply_action(act: Action, ch: CharacterData, target: String) -> void:
 	
 	# Set buffs/debuffs/heals
 	match act.type:
-		# ----- HEAL -----
 		Action.ActionType.Heal: heal(target, act)
 		Action.ActionType.Buff: buff(target, act)
-		# ----- idk -----
-		_:
-			print("oops not made yet")
+		_: print("oops not made yet")
+
+func apply_item(itm: Item, ch: CharacterData, target: String) -> void:
+	# Deal with dialogue
+	var line: String = ch.style.char_name + " used " + itm.name
+	if not target.is_empty() and target != ch.char_id:
+		var ch2 = GameManager.get_char_data(target)
+		if ch2:
+			line += " on " + ch2.style.char_name # TODO
+	line += "!"
+	combat.lines.push_back(DialogueLine.new(line))
+	
+	# Set buffs/debuffs/heals
+	match itm.type:
+		Item.ItemType.Heal: heal(target, itm)
+		Item.ItemType.Buff: buff(target, itm)
+		_: print("oops not made yet")
+	
+	# Decrement item
+	itm.quantity -= 1
+	if itm.quantity <= 0 and GameManager.items.find(itm) != -1:
+		GameManager.items.remove_at(GameManager.items.find(itm))
 
 # ----- HEAL/BUFF/DEBUFFS -----
 func heal(target: String, act) -> void:

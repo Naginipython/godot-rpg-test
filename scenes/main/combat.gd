@@ -93,7 +93,9 @@ func prev_turn() -> void:
 		if turn == 0: return
 	player_menus[prev].selected = false
 	player_menus[turn].selected = true
-	moves.pop_back()
+	var move = moves.pop_back()
+	if move[0] is Item:
+		move[0].quantity += 1
 
 func apply_target(target_id: String) -> void:
 	var data: Array = moves.back()
@@ -117,6 +119,8 @@ func _on_use_action(action: Action) -> void:
 			# next_turn after choice
 
 func _on_use_item(item: Item) -> void:
+	var data = [item, player_menus[turn].char_id]
+	moves.push_back(data)
 	if item.type == Item.ItemType.Debuff:
 		pass # TODO: Enemy select
 	else:
@@ -125,5 +129,3 @@ func _on_use_item(item: Item) -> void:
 		else:
 			choose_char_itm = item
 			# next_turn after choice
-	var data = [item, player_menus[turn].char_id]
-	moves.push_back(data)

@@ -42,8 +42,9 @@ In combat:
 - Attack/Action/Item box expansion & closing
 - Attack implementation: w/ buff
 - Actions implementation completed: Healing, Buffs
+- Items implementation & decrement: Heals, Buffs
 - Action can choose player (where applicable)
-- Attack & Action details
+- Attack, Action, & Item details
 - Turn-based moves (1 > 2 > 3 > 4 > boss > 1> ...)
 - Turns can go canceled & go backwards (4 > 3 > 2 > 1)
 - Attacks damage boss
@@ -66,9 +67,6 @@ menus:
 combat:
 
 - Actions implementation: debuffs
-- Items implementation & decrement
-- Item chooses character
-- Item details
 - Stat implementation: DEF, SPD, ACC, EVAD
 - Collab bar (built on attack_game)
 - Collabs (what does this do?)

@@ -203,6 +203,7 @@ _data = {
 }
 
 [node name="PlayerMenu" type="Control"]
+self_modulate = Color(0, 1, 0, 1)
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 3
 anchors_preset = 15
@@ -232,7 +233,6 @@ text = "V"
 
 [node name="StatsPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
