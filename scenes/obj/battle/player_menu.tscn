@@ -267,7 +267,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
+[node name="NameLabel" type="Label" parent="StatsPanel/HBoxContainer/HpContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nitya"
+horizontal_alignment = 1
+clip_text = true
+
 [node name="HpLabel" type="Label" parent="StatsPanel/HBoxContainer/HpContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "100/100"
@@ -275,6 +283,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HpBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/HpContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

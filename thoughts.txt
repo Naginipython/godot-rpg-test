@@ -29,3 +29,13 @@ AI suggestions:
 	Attack_game notes: "lag" makes it freeze & then hit the zone. "Spam" can hide the board
 	stats: spd widens perfect window, evad make a hit possibly "ghosted"
 	actions cost "super chats", basically mana
+
+Bedtime thoughts:
+	Need to worry about branching dialogue
+	Action type or whatever should be array bc it can buff 2 stats
+	What about actions that change type?
+	Each enemy has special actions to spare, but each one requires a certain type available 
+		(aggressive enemies have seiso spare actions, then maybe yab idk) 
+		(this can be a different data set with IDs for char)
+	Battle dialogue used once per battle in array of that resource (easy compare)
+		Used line recycling bin array via reference checking

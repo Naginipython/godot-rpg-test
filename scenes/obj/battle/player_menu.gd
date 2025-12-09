@@ -20,7 +20,7 @@ var curr_details: String = ""
 @onready var char_icon: TextureRect = %CharIcon
 @onready var stats_panel: PanelContainer = $StatsPanel
 @onready var selected_container: CenterContainer = $SelectedContainer
-@onready var hp_container: VBoxContainer = $StatsPanel/HBoxContainer/HpContainer
+@onready var name_label: Label = %NameLabel
 
 @warning_ignore_start("unused_signal")
 signal prev_turn
@@ -34,14 +34,16 @@ func _ready() -> void:
 	stylebox.set("bg_color", ch.style.color)
 	stats_panel.add_theme_stylebox_override("panel", stylebox)
 	char_icon.texture = ch.style.portrait
+	name_label.text = char_id
+	name_label.text[0] = name_label.text[0].to_upper()
 	
 	hp = ch.health
 	max_hp = ch.curr_max_health
 	ch.health_changed.connect(change_hp)
 	
-	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
-	hp_container.get_child(1).max_value = max_hp
-	hp_container.get_child(1).value = hp
+	%HpLabel.text = str(hp) + "/" + str(max_hp)
+	%HpBar.max_value = max_hp
+	%HpBar.value = hp
 	
 	attacks = GameManager.get_attacks(char_id)
 	actions = GameManager.get_actions(char_id)
@@ -93,5 +95,5 @@ func change_hp(new_value: int) -> void:
 		add_child(heal)
 		heal.get_child(0).play("Heal")
 	hp = new_value
-	hp_container.get_child(0).text = str(hp) + "/" + str(max_hp)
-	hp_container.get_child(1).value = hp
+	%HpLabel.text = str(hp) + "/" + str(max_hp)
+	%HpBar.value = hp
