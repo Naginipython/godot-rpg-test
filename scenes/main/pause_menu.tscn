@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ijfooy6bkk8"]
+[gd_scene load_steps=11 format=3 uid="uid://ijfooy6bkk8"]
 
 [ext_resource type="Script" uid="uid://d2n7euqgjlvsl" path="res://scenes/main/pause_menu.gd" id="1_qo3ou"]
 [ext_resource type="PackedScene" uid="uid://bkl3k4tk33tl4" path="res://scenes/obj/world/pause_player_menu.tscn" id="2_sxsxs"]
 [ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="3_o3hrf"]
 [ext_resource type="Script" uid="uid://bgl1giwabnm6q" path="res://scenes/obj/StateMachines/pause_menu/pause_main.gd" id="4_xgeum"]
-[ext_resource type="Script" uid="uid://d0atgx3y85rmu" path="res://scenes/obj/StateMachines/pause_menu/char_select.gd" id="5_riycc"]
+[ext_resource type="Script" uid="uid://d0atgx3y85rmu" path="res://scenes/obj/StateMachines/pause_menu/pause_char_select.gd" id="5_riycc"]
+[ext_resource type="Script" uid="uid://46r0tnp6tfkq" path="res://scenes/obj/StateMachines/pause_menu/pause_char_edit.gd" id="6_duj7x"]
 
 [sub_resource type="Animation" id="Animation_sxsxs"]
 length = 0.001
@@ -222,6 +223,20 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
 text = "V"
 
+[node name="StatMenuTemplate" parent="." instance=ExtResource("2_sxsxs")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -225.0
+offset_right = 500.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="PlayerMenuHBox" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 150)
@@ -231,12 +246,14 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -150.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 15
 alignment = 1
 
-[node name="PausePlayerMenu" parent="PlayerMenuHBox" instance=ExtResource("2_sxsxs")]
+[node name="TempPausePlayerMenu" parent="PlayerMenuHBox" instance=ExtResource("2_sxsxs")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -260,7 +277,9 @@ save_temp_btn = NodePath("../../MarginContainer/MenuBtnContainer/SaveBtnTemp")
 [node name="CharSelect" type="Node" parent="StateMachine"]
 script = ExtResource("5_riycc")
 
-[node name="CharEdit" type="Node" parent="StateMachine"]
+[node name="CharEdit" type="Node" parent="StateMachine" node_paths=PackedStringArray("stat_menu_template")]
+script = ExtResource("6_duj7x")
+stat_menu_template = NodePath("../../StatMenuTemplate")
 
 [node name="ItemMenu" type="Node" parent="StateMachine"]
 

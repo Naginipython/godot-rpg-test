@@ -18,3 +18,14 @@ func _ready() -> void:
 
 func init_menu(ch: CharacterData) -> void:
 	character_data = ch
+
+func set_stats() -> void:
+	var held_label: RichTextLabel = %HeldLabel
+	var stat_num_label: RichTextLabel = %StatNumLabel
+	held_label.text = "WEAPON: " + "TBD" + "\n" +\
+					  "CHARM: " + "TBD"
+	stat_num_label.text = "STR: " + str(character_data.curr_str) + "\n" +\
+						  "DEF: " + str(character_data.curr_def) + "\n" +\
+						  "SPD: " + str(character_data.curr_spd) + "\n" +\
+						  "ACC: " + "temp" + "\n" +\
+						  "EVAD: " + "temp" + "\n"

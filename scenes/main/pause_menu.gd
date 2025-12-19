@@ -7,12 +7,11 @@ const PAUSE_PLAYER_MENU = preload("uid://bkl3k4tk33tl4")
 @export var world: Node
 
 var party: Array[CharacterData]
-#var selected_idx: int = 0
-#var selected_char_idx: int = 0
-#var pick_char: bool = false
+var char_selected: int = -1
 
 func _ready() -> void:
-	%PausePlayerMenu.queue_free()
+	%TempPausePlayerMenu.queue_free()
+	$StatMenuTemplate.visible = false
 	setup_box.call_deferred()
 
 func setup_box() -> void:

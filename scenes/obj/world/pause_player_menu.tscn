@@ -1,12 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkl3k4tk33tl4"]
+[gd_scene load_steps=8 format=3 uid="uid://bkl3k4tk33tl4"]
 
 [ext_resource type="Script" uid="uid://cep532rinjrb0" path="res://scenes/obj/world/pause_player_menu.gd" id="1_2353p"]
 [ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/art/portraits/Nitya_Nil_temp.jpg" id="1_kufck"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_2353p"]
+color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="Theme" id="Theme_2353p"]
+HSeparator/styles/separator = SubResource("StyleBoxLine_2353p")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 2
+Label/font_sizes/font_size = 24
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/outline_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2353p"]
 bg_color = Color(0, 1, 0, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vpdnt"]
 bg_color = Color(0.6, 0.6, 0.6, 0.7529412)
@@ -15,32 +28,39 @@ bg_color = Color(0.6, 0.6, 0.6, 0.7529412)
 bg_color = Color(1, 0, 0, 1)
 
 [node name="PausePlayerMenu" type="PanelContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(255, 150)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1025.0
-offset_bottom = -570.0
-grow_horizontal = 2
-grow_vertical = 2
+clip_children = 2
+custom_minimum_size = Vector2(275, 170)
+offset_right = 1000.0
+offset_bottom = 375.0
+theme = SubResource("Theme_2353p")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2353p")
 script = ExtResource("1_2353p")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 390.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(255, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatVertContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(255, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="BasicInfoBox" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/StatVertContainer"]
 layout_mode = 2
 
-[node name="Portrait" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Portrait" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/BasicInfoBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -48,28 +68,25 @@ texture = ExtResource("1_kufck")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/BasicInfoBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 24
 text = "Nitya Nil"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="HpBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+[node name="HpBar" type="ProgressBar" parent="Control/MarginContainer/HBoxContainer/StatVertContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 22)
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_styles/background = SubResource("StyleBoxFlat_vpdnt")
 theme_override_styles/fill = SubResource("StyleBoxFlat_who5d")
 value = 100.0
 show_percentage = false
 
-[node name="HpLabel" type="Label" parent="MarginContainer/VBoxContainer/HpBar"]
+[node name="HpLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/HpBar"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 11
@@ -83,3 +100,75 @@ grow_vertical = 2
 text = "100/100"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="StatsContainer" type="BoxContainer" parent="Control/MarginContainer/HBoxContainer/StatVertContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+vertical = true
+
+[node name="StatsLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "Stats"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="HeldLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "WEAPON: BAT
+CHARM: None"
+fit_content = true
+scroll_active = false
+
+[node name="HSeparator2" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="StatNumLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "ATK: 10
+DEF: 10
+SPD: 10
+ACC: 10
+EVAD: 10"
+scroll_active = false
+
+[node name="VSeparator" type="VSeparator" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="DetailsVertContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer"]
+layout_mode = 2
+
+[node name="EquipLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Equip"
+horizontal_alignment = 1
+
+[node name="MovesLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Moves"
+horizontal_alignment = 1
+
+[node name="SwapLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Swap"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer"]
+layout_mode = 2

@@ -2,8 +2,11 @@ extends PauseMenuState
 
 var char_idx: int = 0
 
-func enter(_prev: String) -> void:
-	char_idx = 0
+func enter(prev: String) -> void:
+	if prev == "charedit":
+		char_idx = pause_menu.char_selected
+	else:
+		char_idx = 0
 	select_char(char_idx)
 
 func unhandled_input(event: InputEvent) -> void:
@@ -12,8 +15,8 @@ func unhandled_input(event: InputEvent) -> void:
 		change_state.emit(self, "main")
 	if get_tree().paused:
 		if event.is_action_pressed("select"):
-			#Open char
-			pass
+			pause_menu.char_selected = char_idx
+			change_state.emit(self, "charedit")
 		if event.is_action_pressed("left"):
 			char_idx -= 1
 			if char_idx < 0: char_idx = 3
