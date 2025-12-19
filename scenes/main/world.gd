@@ -16,14 +16,6 @@ func _ready() -> void:
 		$Player.global_position = GameManager.tilepos_to_worldpos(GameManager.player_pos)
 		GameManager.add_item(Item.createCommonItem(Item.CommonItems.SmHpPot, 2))
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("return"):
-		toggle_paused()
-
-func toggle_paused() -> void:
-	get_tree().paused = not get_tree().paused
-	$UI/PauseMenu.visible = not $UI/PauseMenu.visible
-
 # Cutscene Manager (for now?)
 
 func pause_for_dialogue(convo: Conversation) -> void:

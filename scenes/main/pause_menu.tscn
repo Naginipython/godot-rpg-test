@@ -1,23 +1,268 @@
-[gd_scene load_steps=2 format=3 uid="uid://ijfooy6bkk8"]
+[gd_scene load_steps=10 format=3 uid="uid://ijfooy6bkk8"]
 
 [ext_resource type="Script" uid="uid://d2n7euqgjlvsl" path="res://scenes/main/pause_menu.gd" id="1_qo3ou"]
+[ext_resource type="PackedScene" uid="uid://bkl3k4tk33tl4" path="res://scenes/obj/world/pause_player_menu.tscn" id="2_sxsxs"]
+[ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="3_o3hrf"]
+[ext_resource type="Script" uid="uid://bgl1giwabnm6q" path="res://scenes/obj/StateMachines/pause_menu/pause_main.gd" id="4_xgeum"]
+[ext_resource type="Script" uid="uid://d0atgx3y85rmu" path="res://scenes/obj/StateMachines/pause_menu/char_select.gd" id="5_riycc"]
 
-[node name="PauseMenu" type="PanelContainer"]
-process_mode = 2
+[sub_resource type="Animation" id="Animation_sxsxs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%PlayerMenuHBox:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(570, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%PlayerMenuHBox:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1280, 150)]
+}
+
+[sub_resource type="Animation" id="Animation_o3hrf"]
+resource_name = "menu_close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%PlayerMenuHBox:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(570, -0.05, 0, 0.05, 0, 720, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.1)
+}
+
+[sub_resource type="Animation" id="Animation_qo3ou"]
+resource_name = "menu_open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%PlayerMenuHBox:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(720, -0.05, 0, 0.05, 0, 570, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.1)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%PlayerMenuHBox:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1280, 150)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sxsxs"]
+_data = {
+&"RESET": SubResource("Animation_sxsxs"),
+&"menu_close": SubResource("Animation_o3hrf"),
+&"menu_open": SubResource("Animation_qo3ou")
+}
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
 z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_qo3ou")
+
+[node name="Bg" type="PanelContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_qo3ou")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
 
-[node name="SaveBtnTemp" type="Button" parent="CenterContainer"]
+[node name="MenuBtnContainer" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="CharBtn" type="Button" parent="MarginContainer/MenuBtnContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Character"
+
+[node name="ItmBtn" type="Button" parent="MarginContainer/MenuBtnContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Items"
+
+[node name="IdkBtn" type="Button" parent="MarginContainer/MenuBtnContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "???"
+
+[node name="SaveBtnTemp" type="Button" parent="MarginContainer/MenuBtnContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
 text = "Save Game (temp)"
 
-[connection signal="pressed" from="CenterContainer/SaveBtnTemp" to="." method="_on_save_btn_temp_pressed"]
+[node name="SelectCharArrow" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 633.0
+offset_top = 521.0
+offset_right = 653.0
+offset_bottom = 566.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "V"
+
+[node name="PlayerMenuHBox" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="PausePlayerMenu" parent="PlayerMenuHBox" instance=ExtResource("2_sxsxs")]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Bg")
+libraries = {
+&"": SubResource("AnimationLibrary_sxsxs")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
+script = ExtResource("3_o3hrf")
+init_state = NodePath("Main")
+
+[node name="Main" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_player", "char_btn", "itm_btn", "idk_btn", "save_temp_btn")]
+script = ExtResource("4_xgeum")
+animation_player = NodePath("../../AnimationPlayer")
+char_btn = NodePath("../../MarginContainer/MenuBtnContainer/CharBtn")
+itm_btn = NodePath("../../MarginContainer/MenuBtnContainer/ItmBtn")
+idk_btn = NodePath("../../MarginContainer/MenuBtnContainer/IdkBtn")
+save_temp_btn = NodePath("../../MarginContainer/MenuBtnContainer/SaveBtnTemp")
+
+[node name="CharSelect" type="Node" parent="StateMachine"]
+script = ExtResource("5_riycc")
+
+[node name="CharEdit" type="Node" parent="StateMachine"]
+
+[node name="ItemMenu" type="Node" parent="StateMachine"]
+
+[connection signal="pressed" from="MarginContainer/MenuBtnContainer/CharBtn" to="StateMachine/Main" method="_on_char_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/MenuBtnContainer/SaveBtnTemp" to="StateMachine/Main" method="_on_save_btn_temp_pressed"]

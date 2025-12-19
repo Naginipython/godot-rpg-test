@@ -983,7 +983,7 @@ text = "[shake rate=50 level=20]TEST[/shake]
 [i][wave amp=25 freq=5]woosh[/wave][/i]"
 
 [node name="PauseMenu" parent="UI" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_3wopa")]
-visible = false
+modulate = Color(1, 1, 1, 0)
 player = NodePath("../../Player")
 world = NodePath("../..")
 

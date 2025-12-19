@@ -1,14 +1,26 @@
-extends PanelContainer
+extends Control
+class_name PauseMenu
+
+const PAUSE_PLAYER_MENU = preload("uid://bkl3k4tk33tl4")
 
 @export var player: Player
 @export var world: Node
 
-func _on_save_btn_temp_pressed() -> void:
-	if player:
-		GameManager.player_pos = GameManager.worldpos_to_tilepos(player.global_position)
-	SaveManager.save_game()
+var party: Array[CharacterData]
+#var selected_idx: int = 0
+#var selected_char_idx: int = 0
+#var pick_char: bool = false
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("return"):
-		world.toggle_paused()
-		get_viewport().set_input_as_handled()
+func _ready() -> void:
+	%PausePlayerMenu.queue_free()
+	setup_box.call_deferred()
+
+func setup_box() -> void:
+	#GameManager.sort_party()
+	party = GameManager.party
+	for ch in party:
+		var menu_inst: PanelContainer = PAUSE_PLAYER_MENU.instantiate()
+		menu_inst.init_menu(ch)
+		menu_inst.size = Vector2(255, 150)
+		%PlayerMenuHBox.add_child(menu_inst)
+	visible = false
