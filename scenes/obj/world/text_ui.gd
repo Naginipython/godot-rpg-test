@@ -31,8 +31,12 @@ var speed_per_char = 0.02
 var curr_tween: Tween
 var can_skip = false
 
+var options: PackedStringArray = []
+var option_idx: int = 0
+
 signal line_finished
 signal convo_finished
+signal option_chosen(option: String)
 
 func _ready() -> void:
 	text.text = ""
@@ -48,20 +52,59 @@ func _process(_delta: float) -> void:
 	else:
 		%EndHintLabel.modulate = Color(1,1,1,1)
 
+# ----- Input methods -----
 func pressed_select() -> void:
 	if is_enabled:
 		if is_printing and can_skip:
 			impatient()
-		elif text.visible_ratio == 1:
+		elif text.visible_ratio == 1 and not $OtherThings.visible:
 			next()
+		elif $OtherThings.visible:
+			var btn: Button = %OptionsContainer.get_child(option_idx)
+			btn.pressed.emit()
 
+func impatient() -> void:
+	if curr_tween: curr_tween.kill()
+	text.visible_characters = -1
+	_on_line_finished()
+
+func next() -> void:
+	if queue.is_empty() and options.is_empty():
+		convo_finished.emit()
+	elif queue.is_empty() and not options.is_empty():
+		enable_options()
+	else:
+		text.text = ""
+		set_line()
+		is_printing = true
+
+func option_select(dir: String) -> void:
+	if $OtherThings.visible:
+		match dir:
+			"up": 
+				option_idx -= 1
+				if option_idx <= -1: option_idx = options.size()-1
+			"down": 
+				option_idx += 1
+				if option_idx >= options.size(): option_idx = 0
+		var btn: Button = %OptionsContainer.get_child(option_idx)
+		btn.grab_focus()
+
+# ----- Entrance/Exits -----
 func enable_text(convo: Conversation) -> void:
 	$SkipCooldown.start()
 	animation_player.play("enable_text")
 	next_text(convo)
 	is_enabled = true
 
+func enable_text_w_options(convo: Conversation, _options: PackedStringArray) -> void:
+	print("has options")
+	options = _options
+	option_idx = 0
+	enable_text(convo)
+
 func next_text(convo: Conversation) -> void:
+	# Used when convos are streaming in
 	text.text = ""
 	queue = convo.lines.duplicate()
 	set_line()
@@ -73,6 +116,12 @@ func disable_text() -> void:
 	setup_char()
 	is_enabled = false
 
+func _on_line_finished() -> void:
+	is_printing = false
+	queue.pop_front()
+	emit_signal("line_finished")
+
+# ----- Basic Setups -----
 func set_line() -> void:
 	can_skip = false
 	$SkipCooldown.start()
@@ -92,6 +141,7 @@ func set_line() -> void:
 		curr_tween.tween_property(text, "visible_characters", char_count, duration)
 		curr_tween.finished.connect(_on_line_finished)
 
+# ----- Character Setup -----
 func setup_char(speaker: TextboxStyle = null) -> void:
 	var img: CompressedTexture2D = null
 	var new_title: String = ""
@@ -118,15 +168,6 @@ func setup_char(speaker: TextboxStyle = null) -> void:
 	var style: StyleBoxFlat = text_box.get_theme_stylebox("panel")
 	style.border_color = color
 
-func next() -> void:
-	if queue.is_empty():
-		#disable_textbox()
-		convo_finished.emit()
-	else:
-		text.text = ""
-		set_line()
-		is_printing = true
-
 func set_face() -> void:
 	if queue.front():
 		var face: Face = queue.front().face
@@ -139,15 +180,32 @@ func change_emotion(new_emotion: Face) -> void:
 		var tween = create_tween()
 		tween.tween_property(glow, "modulate", emotion_colors[new_emotion], 0.2)
 
-func impatient() -> void:
-	if curr_tween: curr_tween.kill()
-	text.visible_characters = -1
-	_on_line_finished()
+# Options
+func enable_options() -> void:
+	$OtherThings.visible = true
+	var btn: Button = %OptionsContainer.get_child(0)
+	btn.grab_focus()
+	btn.text = options[0]
+	btn.pressed.connect(_option_btn_pressed.bind(options[0]))
+	for i in range(1, options.size()):
+		var new_btn = btn.duplicate()
+		new_btn.text = options[i]
+		new_btn.pressed.connect(_option_btn_pressed.bind(options[i]))
+		%OptionsContainer.add_child(new_btn)
+	%OptionsContainer.position.y = -10 - %OptionsContainer.get_minimum_size().y
 
-func _on_line_finished() -> void:
-	is_printing = false
-	queue.pop_front()
-	emit_signal("line_finished")
+func _option_btn_pressed(data: String) -> void:
+	# Todo: signal what is pressed for Lecturn (similar to convo_finished)
+	options = []
+	# remove option buttons (minus first)
+	for i in range(1, %OptionsContainer.get_children().size()):
+		%OptionsContainer.remove_child(%OptionsContainer.get_child(i))
+	print(%OptionsContainer.get_children())
+	# shut off $OtherThings
+	$OtherThings.visible = false
+	# emit signal with data
+	option_chosen.emit(data)
 
+# ----- Etc -----
 func _on_skip_cooldown_timeout() -> void:
 	can_skip = true

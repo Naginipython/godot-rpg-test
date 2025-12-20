@@ -16,8 +16,8 @@ func enter(_prev: String) -> void:
 	pause_menu.add_child(new_menu)
 	menu.modulate.a = 0
 	
-	var tween: Tween = create_tween()
-	tween.tween_property(new_menu, "global_position", stat_menu_template.global_position, 0.2)
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_property(new_menu, "global_position", stat_menu_template.global_position, 0.1)
 	#move PlayerMenuHBox down a lil (cuetness factor)
 	var playerbox: HBoxContainer = %PlayerMenuHBox
 	tween.tween_property(playerbox, "global_position", Vector2(0, 570.0 + 100), 0.1)
@@ -33,12 +33,12 @@ func unhandled_input(event: InputEvent) -> void:
 		change_state.emit(self, "charselect")
 
 func exit(_next: String) -> void:
-	var tween: Tween = create_tween()
+	var tween: Tween = create_tween().set_parallel(true)
 	tween.tween_property(new_menu, "size", menu.size, 0.1)
 	var playerbox: HBoxContainer = %PlayerMenuHBox
 	tween.tween_property(playerbox, "global_position", Vector2(0, 570.0), 0.1)
 	tween.chain()
-	tween.tween_property(new_menu, "global_position", menu.global_position, 0.2)
+	tween.tween_property(new_menu, "global_position", menu.global_position, 0.1)
 	await tween.finished
 	new_menu.queue_free()
 	menu.modulate.a = 1

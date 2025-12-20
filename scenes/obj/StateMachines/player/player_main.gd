@@ -46,7 +46,7 @@ func handle_move(delta: float) -> void:
 	if not is_moving:
 		var x = Input.get_axis("left", "right")
 		var y = Input.get_axis("up", "down")
-		var input_dir = Vector2(x, y)
+		input_dir = Vector2(x, y)
 
 		# Start movement if input exists
 		if input_dir != Vector2.ZERO:
@@ -66,21 +66,21 @@ func handle_move(delta: float) -> void:
 			if is_in_cutscene:
 				change_state.emit(self, "cutscene")
 
-func handle_move2(delta: float) -> void:
-	input_dir = Vector2.ZERO
-	if Input.is_action_pressed("down"): input_dir = Vector2.DOWN
-	elif Input.is_action_pressed("up"): input_dir = Vector2.UP
-	elif Input.is_action_pressed("right"): input_dir = Vector2.RIGHT
-	elif Input.is_action_pressed("left"): input_dir = Vector2.LEFT
-	
-	if input_dir and not is_moving:
-		is_moving = true
-		var tween = create_tween()
-		tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-		tween.tween_property(player, "position", player.global_position + input_dir*MOVE_DISTANCE, 0.2)
-		tween.tween_callback(move_false)
-func move_false() -> void:
-	is_moving = false
+#func handle_move2(delta: float) -> void:
+	#input_dir = Vector2.ZERO
+	#if Input.is_action_pressed("down"): input_dir = Vector2.DOWN
+	#elif Input.is_action_pressed("up"): input_dir = Vector2.UP
+	#elif Input.is_action_pressed("right"): input_dir = Vector2.RIGHT
+	#elif Input.is_action_pressed("left"): input_dir = Vector2.LEFT
+	#
+	#if input_dir and not is_moving:
+		#is_moving = true
+		#var tween = create_tween()
+		#tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+		#tween.tween_property(player, "position", player.global_position + input_dir*MOVE_DISTANCE, 0.2)
+		#tween.tween_callback(move_false)
+#func move_false() -> void:
+	#is_moving = false
 
 func is_facing_towards(target: Node2D) -> bool:
 	var target_dir: Vector2

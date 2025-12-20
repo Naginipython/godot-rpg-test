@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://cftgcjpu4qqba"]
+
+[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/art/world_sprites/Soldier.png" id="1_q2qtx"]
+[ext_resource type="Script" uid="uid://dsjf272dha76l" path="res://scenes/obj/world/lecturn.gd" id="2_q2qtx"]
+[ext_resource type="FontFile" uid="uid://cxeqijtrpv80q" path="res://assets/art/fonts/PixelOperator8.ttf" id="3_6f82a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p4ujx"]
+radius = 6.2499995
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7e86v"]
+radius = 14.999998
+
+[node name="Lecturn" type="Sprite2D" groups=["Npcs"]]
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_q2qtx")
+offset = Vector2(1, 2)
+flip_v = true
+hframes = 9
+vframes = 7
+script = ExtResource("2_q2qtx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1.2499999, 2.4999998)
+shape = SubResource("CircleShape2D_p4ujx")
+
+[node name="InteractDetection" type="Area2D" parent="." groups=["Npcs"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractDetection"]
+position = Vector2(1.2499999, 2.4999998)
+shape = SubResource("CircleShape2D_7e86v")
+
+[node name="HintLabel" type="Label" parent="."]
+visible = false
+z_index = 10
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.5
+offset_top = -22.5
+offset_right = -1.5000153
+offset_bottom = -5.75
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_6f82a")
+theme_override_font_sizes/font_size = 8
+text = "E to talk"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="InteractDetection" to="." method="_on_interact_detection_body_entered"]
+[connection signal="body_exited" from="InteractDetection" to="." method="_on_interact_detection_body_exited"]

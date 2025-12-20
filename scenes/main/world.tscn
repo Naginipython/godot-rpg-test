@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=4 uid="uid://bg6g61feiv3rm"]
+[gd_scene load_steps=61 format=4 uid="uid://bg6g61feiv3rm"]
 
 [ext_resource type="Script" uid="uid://cyja04a4wmrkk" path="res://scenes/main/world.gd" id="1_526id"]
 [ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="2_7te0o"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dk0gksulrujr0" path="res://scenes/obj/world/enemy_spawn_pos.tscn" id="9_smv1n"]
 [ext_resource type="Resource" uid="uid://14n8gqa74fdh" path="res://assets/resource/TextboxStyle/rotom_temp.tres" id="10_xwd6a"]
 [ext_resource type="Resource" uid="uid://dyx2gp4jpnlxb" path="res://assets/resource/TextboxStyle/Clio Aite.tres" id="11_sag5l"]
+[ext_resource type="PackedScene" uid="uid://cftgcjpu4qqba" path="res://scenes/obj/world/lecturn.tscn" id="15_bolsh"]
 [ext_resource type="Resource" uid="uid://rgjmc231x4f3" path="res://assets/resource/TextboxStyle/nitya_temp.tres" id="16_0w3ym"]
 [ext_resource type="Resource" uid="uid://dekrg23r0e1mc" path="res://assets/resource/TextboxStyle/wilhelmina_temp.tres" id="17_ailbm"]
 
@@ -703,14 +704,26 @@ script = ExtResource("7_3c7vn")
 text = "Hello!"
 metadata/_custom_type_script = "uid://co5pvnhporosc"
 
-[sub_resource type="Resource" id="Resource_2p2jg"]
+[sub_resource type="Resource" id="Resource_0fler"]
 script = ExtResource("7_3c7vn")
 text = "This is a test"
 metadata/_custom_type_script = "uid://co5pvnhporosc"
 
 [sub_resource type="Resource" id="Resource_r1or7"]
 script = ExtResource("8_xwd6a")
-lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_sag5l"), SubResource("Resource_2p2jg")])
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_sag5l"), SubResource("Resource_0fler")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_fvaq5"]
+script = ExtResource("7_3c7vn")
+text = "Whoa, you really beat that guy!"
+speaker = ExtResource("8_sag5l")
+face = 2
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_snr5s"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_fvaq5")])
 metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
 
 [sub_resource type="Resource" id="Resource_0w3ym"]
@@ -729,18 +742,6 @@ metadata/_custom_type_script = "uid://co5pvnhporosc"
 [sub_resource type="Resource" id="Resource_xwd6a"]
 script = ExtResource("8_xwd6a")
 lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_0w3ym"), SubResource("Resource_ailbm")])
-metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
-
-[sub_resource type="Resource" id="Resource_fvaq5"]
-script = ExtResource("7_3c7vn")
-text = "Whoa, you really beat that guy!"
-speaker = ExtResource("8_sag5l")
-face = 2
-metadata/_custom_type_script = "uid://co5pvnhporosc"
-
-[sub_resource type="Resource" id="Resource_snr5s"]
-script = ExtResource("8_xwd6a")
-lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_fvaq5")])
 metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
 
 [sub_resource type="Resource" id="Resource_3wopa"]
@@ -803,6 +804,21 @@ metadata/_custom_type_script = "uid://co5pvnhporosc"
 [sub_resource type="Resource" id="Resource_pasgk"]
 script = ExtResource("8_xwd6a")
 lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_moqhu"), SubResource("Resource_uv1xp"), SubResource("Resource_rlych")])
+metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
+
+[sub_resource type="Resource" id="Resource_bs8nu"]
+script = ExtResource("7_3c7vn")
+text = "Consider me a lecturn"
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_4icm0"]
+script = ExtResource("7_3c7vn")
+text = "What would you like to do?"
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
+[sub_resource type="Resource" id="Resource_l5mfl"]
+script = ExtResource("8_xwd6a")
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_bs8nu"), SubResource("Resource_4icm0")])
 metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
 
 [sub_resource type="Resource" id="Resource_4jev0"]
@@ -983,7 +999,6 @@ text = "[shake rate=50 level=20]TEST[/shake]
 [i][wave amp=25 freq=5]woosh[/wave][/i]"
 
 [node name="PauseMenu" parent="UI" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_3wopa")]
-modulate = Color(1, 1, 1, 0)
 player = NodePath("../../Player")
 world = NodePath("../..")
 
@@ -1028,7 +1043,6 @@ text = "!"
 
 [node name="Npc" parent="NPCs" instance=ExtResource("6_yshnf")]
 position = Vector2(-39.999996, -7.9999995)
-convo = SubResource("Resource_r1or7")
 dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_r1or7")
 })
@@ -1036,7 +1050,6 @@ dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 [node name="NpcCombee" parent="NPCs" instance=ExtResource("6_yshnf")]
 self_modulate = Color(1, 1, 0, 1)
 position = Vector2(-56, 8.000002)
-convo = SubResource("Resource_xwd6a")
 dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 -1: SubResource("Resource_snr5s"),
 0: SubResource("Resource_xwd6a")
@@ -1045,7 +1058,6 @@ dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 [node name="NpcRotom" parent="NPCs" instance=ExtResource("6_yshnf")]
 self_modulate = Color(1, 0.62352943, 0, 1)
 position = Vector2(-72, 39.999996)
-convo = SubResource("Resource_3c7vn")
 dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_3c7vn"),
 3: SubResource("Resource_kt1us")
@@ -1054,9 +1066,14 @@ dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 [node name="DebugClio" parent="NPCs" instance=ExtResource("6_yshnf")]
 self_modulate = Color(0.75686276, 0.4627451, 0, 1)
 position = Vector2(-55.999996, 23.999998)
-convo = SubResource("Resource_pasgk")
 dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_pasgk")
+})
+
+[node name="Lecturn" parent="." instance=ExtResource("15_bolsh")]
+position = Vector2(39.999996, -23.999998)
+dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
+0: SubResource("Resource_l5mfl")
 })
 
 [node name="WorldDamageArea" parent="." instance=ExtResource("8_7te0o")]

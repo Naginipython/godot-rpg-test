@@ -1,9 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://da0wvg4q66fyv"]
+[gd_scene load_steps=13 format=3 uid="uid://da0wvg4q66fyv"]
 
 [ext_resource type="Script" uid="uid://bxo01r4gjw6ao" path="res://scenes/obj/world/text_ui.gd" id="1_b12xu"]
 [ext_resource type="Texture2D" uid="uid://dux88ljpoq63i" path="res://assets/art/portraits/temp-combee.png" id="2_v0jta"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3egqr"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
 bg_color = Color(0, 0, 0, 0.7647059)
 border_width_left = 4
 border_width_top = 10
@@ -25,6 +29,32 @@ gradient = SubResource("Gradient_b12xu")
 fill = 1
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b12xu"]
+bg_color = Color(0, 0, 0, 0.7647059)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0jta"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="Animation" id="Animation_266js"]
 length = 0.001
@@ -136,22 +166,15 @@ script = ExtResource("1_b12xu")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3egqr")
 
-[node name="MarginContainer" type="MarginContainer" parent="TextBox"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TextBox/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextBox"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="BoxContainer" type="BoxContainer" parent="TextBox/MarginContainer/HBoxContainer"]
+[node name="BoxContainer" type="BoxContainer" parent="TextBox/HBoxContainer"]
 layout_mode = 2
 vertical = true
 
-[node name="Portrait" type="TextureRect" parent="TextBox/MarginContainer/HBoxContainer/BoxContainer"]
+[node name="Portrait" type="TextureRect" parent="TextBox/HBoxContainer/BoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -159,7 +182,7 @@ texture = SubResource("AtlasTexture_b7jct")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Glow" type="TextureRect" parent="TextBox/MarginContainer/HBoxContainer/BoxContainer/Portrait"]
+[node name="Glow" type="TextureRect" parent="TextBox/HBoxContainer/BoxContainer/Portrait"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 0, 1)
 show_behind_parent = true
@@ -173,12 +196,12 @@ offset_bottom = 77.0
 grow_horizontal = 2
 texture = SubResource("GradientTexture2D_v0jta")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextBox/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Title" type="RichTextLabel" parent="TextBox/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="TextBox/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
@@ -186,7 +209,7 @@ bbcode_enabled = true
 text = "Combee, Destroyer of Worlds"
 fit_content = true
 
-[node name="Text" type="RichTextLabel" parent="TextBox/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Text" type="RichTextLabel" parent="TextBox/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(720, 0)
 layout_mode = 2
@@ -199,12 +222,35 @@ text = "test test test test test test test test test test test test test test te
 fit_content = true
 autowrap_mode = 2
 
-[node name="EndHintLabel" type="Label" parent="TextBox/MarginContainer/HBoxContainer"]
+[node name="EndHintLabel" type="Label" parent="TextBox/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "[>>>]"
+
+[node name="OtherThings" type="Control" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="OptionsContainer" type="VBoxContainer" parent="OtherThings"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = -75.0
+offset_bottom = -10.0
+grow_horizontal = 0
+
+[node name="OptionBtn" type="Button" parent="OtherThings/OptionsContainer"]
+custom_minimum_size = Vector2(300, 65)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_b12xu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_v0jta")
+text = "Option1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
