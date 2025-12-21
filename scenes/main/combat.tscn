@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://jg6viof7rwpu" path="res://scenes/main/bg.tscn" id="3_2s4uo"]
 [ext_resource type="PackedScene" uid="uid://dkbmx1hgvvsm4" path="res://scenes/main/attack_game.tscn" id="4_1l022"]
 [ext_resource type="Texture2D" uid="uid://cp7opcyvgowcp" path="res://assets/art/Jelly_Hoshiumi_Portrait.webp" id="5_2m6id"]
-[ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="6_d2w21"]
+[ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/UI/text_ui.tscn" id="6_d2w21"]
 [ext_resource type="Script" uid="uid://dns4ihqipjsd0" path="res://scenes/obj/StateMachines/state_machine.gd" id="7_1l022"]
 [ext_resource type="Script" uid="uid://dnjuk0e2t7l52" path="res://scenes/obj/StateMachines/combat/combat_main.gd" id="7_2s4uo"]
 [ext_resource type="Script" uid="uid://b4g2t1etxddkh" path="res://scenes/obj/StateMachines/combat/combat_attack_game.gd" id="9_2m6id"]
@@ -208,6 +208,8 @@ script = ExtResource("2_d2w21")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextUI" parent="CanvasLayer" instance=ExtResource("6_d2w21")]
+visible = false
+modulate = Color(1, 1, 1, 0)
 offset_top = -170.0
 offset_bottom = -23.0
 

@@ -7,6 +7,6 @@
 script = ExtResource("1_clenn")
 char_name = "Wilhelmina Frost"
 title = "Captain of the Royal Guard and Knight of Ostellia"
-color = Color(0.3372549, 0.5921569, 1, 1)
+color = Color(0.6, 0.79607844, 0.8392157, 1)
 portrait = ExtResource("1_dl6lf")
 metadata/_custom_type_script = "uid://cbypi08gv5ts1"

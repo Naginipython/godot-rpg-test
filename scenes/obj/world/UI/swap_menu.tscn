@@ -1,0 +1,125 @@
+[gd_scene load_steps=7 format=3 uid="uid://gg8q6j8nf1bm"]
+
+[ext_resource type="Script" uid="uid://d2pqct0qr2w78" path="res://scenes/obj/world/UI/swap_menu.gd" id="1_yt00r"]
+[ext_resource type="PackedScene" uid="uid://d4m1on3wn256l" path="res://scenes/obj/world/UI/swap_menu_char_box.tscn" id="2_yt00r"]
+[ext_resource type="PackedScene" uid="uid://dh8l7ch4480bs" path="res://scenes/obj/world/UI/swap_menu_swap_char_box.tscn" id="3_l774x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l774x"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.9490196)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8039216, 0.8039216, 0.8039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yt00r"]
+bg_color = Color(0.09985284, 0.09985284, 0.09985284, 0.95000005)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.09803922, 0.09803922, 0.09803922, 0.9490196)
+
+[sub_resource type="Theme" id="Theme_l774x"]
+Button/styles/focus = SubResource("StyleBoxFlat_l774x")
+Button/styles/normal = SubResource("StyleBoxFlat_yt00r")
+VBoxContainer/constants/separation = 0
+
+[node name="SwapMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yt00r")
+
+[node name="Bg" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_right = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CharContainer" type="VBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="SwapMenuCharBox" parent="HBoxContainer/CharContainer" instance=ExtResource("2_yt00r")]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="SwapCharContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="SwapMenuSwapCharBox" parent="HBoxContainer/ScrollContainer/SwapCharContainer" instance=ExtResource("3_l774x")]
+layout_mode = 2
+
+[node name="ActiveSelectLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 575.0
+offset_top = 339.0
+offset_right = 595.0
+offset_bottom = 384.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "<"
+
+[node name="OptionsContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 575.0
+offset_top = 298.0
+offset_right = 775.0
+offset_bottom = 423.0
+theme = SubResource("Theme_l774x")
+alignment = 1
+
+[node name="SwapBtn" type="Button" parent="OptionsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Swap"
+
+[node name="SwapWItemsBtn" type="Button" parent="OptionsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Swap & Return Items"
+
+[node name="CompareBtn" type="Button" parent="OptionsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Compare"

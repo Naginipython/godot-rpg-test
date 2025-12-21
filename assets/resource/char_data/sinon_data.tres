@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://w6vnyrxdgcvs"]
+
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="1_bn6q8"]
+[ext_resource type="Resource" uid="uid://cfw1b88ns4lrs" path="res://assets/resource/Actions/temp (keeps being DELETED)/sinon_act.tres" id="2_a2bcw"]
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="2_y2bdw"]
+[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/resource/char_data/char_data.gd" id="3_a2bcw"]
+[ext_resource type="Resource" uid="uid://be5ae4vkwedt1" path="res://assets/resource/TextboxStyle/sinon_temp.tres" id="4_bn6q8"]
+[ext_resource type="Resource" uid="uid://du0q00bu60b6l" path="res://assets/resource/Actions/temp (keeps being DELETED)/sinon_atk.tres" id="4_j4760"]
+
+[resource]
+script = ExtResource("3_a2bcw")
+char_id = "sinon"
+style = ExtResource("4_bn6q8")
+base_max_health = 90
+base_str = 6
+base_def = 12
+attacks = Dictionary[String, ExtResource("2_y2bdw")]({
+"Siren Screech": ExtResource("4_j4760")
+})
+actions = Dictionary[String, ExtResource("1_bn6q8")]({
+"Blood Moon": ExtResource("2_a2bcw")
+})
+metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

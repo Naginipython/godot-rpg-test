@@ -7,6 +7,6 @@
 script = ExtResource("1_3xejs")
 char_name = "Bibi Biscuit"
 title = "Dog Maid with great debt"
-color = Color(1, 0.31764707, 0.4392157, 1)
+color = Color(0.99607843, 0.4392157, 0.53333336, 1)
 portrait = ExtResource("1_ncusn")
 metadata/_custom_type_script = "uid://cbypi08gv5ts1"

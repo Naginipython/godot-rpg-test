@@ -7,6 +7,6 @@
 script = ExtResource("1_h76ot")
 char_name = "Jelly Hoshiumi"
 title = "Invading Alien Princess"
-color = Color(0.47058824, 0.9137255, 0.9647059, 1)
+color = Color(0.58431375, 0.90588236, 0.972549, 1)
 portrait = ExtResource("1_2kixe")
 metadata/_custom_type_script = "uid://cbypi08gv5ts1"

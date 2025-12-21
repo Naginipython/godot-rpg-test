@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://c6pabecs32b42"]
+
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_66d1h"]
+
+[resource]
+script = ExtResource("1_66d1h")
+name = "Quick Slash"
+desc = "Learned from many historical events"
+power = 55
+metadata/_custom_type_script = "uid://cjkpjaawc01k4"

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://bvgfw3akg2jn2"]
+
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="1_gjye5"]
+[ext_resource type="Resource" uid="uid://cwni0djab5if2" path="res://assets/resource/Actions/temp (keeps being DELETED)/clio_act.tres" id="2_h4320"]
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="2_rsyrb"]
+[ext_resource type="Script" uid="uid://cyew0p7wwyqsf" path="res://assets/resource/char_data/char_data.gd" id="3_h4320"]
+[ext_resource type="Resource" uid="uid://c6pabecs32b42" path="res://assets/resource/Actions/temp (keeps being DELETED)/clio_atk.tres" id="4_x2bw1"]
+[ext_resource type="Resource" uid="uid://dyx2gp4jpnlxb" path="res://assets/resource/TextboxStyle/Clio Aite.tres" id="6_fr7q1"]
+
+[resource]
+script = ExtResource("3_h4320")
+char_id = "clio"
+style = ExtResource("6_fr7q1")
+base_max_health = 120
+base_str = 9
+base_def = 11
+base_acc = 13
+attacks = Dictionary[String, ExtResource("2_rsyrb")]({
+"Quick Slash": ExtResource("4_x2bw1")
+})
+actions = Dictionary[String, ExtResource("1_gjye5")]({
+"Pattern Recognition": ExtResource("2_h4320")
+})
+metadata/_custom_type_script = "uid://cyew0p7wwyqsf"

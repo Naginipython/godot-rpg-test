@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bkl3k4tk33tl4"]
 
-[ext_resource type="Script" uid="uid://cep532rinjrb0" path="res://scenes/obj/world/pause_player_menu.gd" id="1_2353p"]
+[ext_resource type="Script" uid="uid://cep532rinjrb0" path="res://scenes/obj/world/UI/pause_player_menu.gd" id="1_2353p"]
 [ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/art/portraits/Nitya_Nil_temp.jpg" id="1_kufck"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_2353p"]

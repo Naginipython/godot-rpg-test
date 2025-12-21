@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://da0wvg4q66fyv"]
 
-[ext_resource type="Script" uid="uid://bxo01r4gjw6ao" path="res://scenes/obj/world/text_ui.gd" id="1_b12xu"]
+[ext_resource type="Script" uid="uid://bxo01r4gjw6ao" path="res://scenes/obj/world/UI/text_ui.gd" id="1_b12xu"]
 [ext_resource type="Texture2D" uid="uid://dux88ljpoq63i" path="res://assets/art/portraits/temp-combee.png" id="2_v0jta"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3egqr"]
@@ -147,8 +147,6 @@ _data = {
 }
 
 [node name="TextUI" type="MarginContainer"]
-visible = false
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -235,6 +233,7 @@ layout_mode = 2
 
 [node name="OptionsContainer" type="VBoxContainer" parent="OtherThings"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -247,6 +246,7 @@ grow_horizontal = 0
 [node name="OptionBtn" type="Button" parent="OtherThings/OptionsContainer"]
 custom_minimum_size = Vector2(300, 65)
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_b12xu")
 theme_override_styles/focus = SubResource("StyleBoxFlat_v0jta")

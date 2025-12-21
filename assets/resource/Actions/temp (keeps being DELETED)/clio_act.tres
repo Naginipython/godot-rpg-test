@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Action" load_steps=3 format=3 uid="uid://cwni0djab5if2"]
+
+[ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/resource/dialogue/conversation.gd" id="1_1key2"]
+[ext_resource type="Script" uid="uid://um1iui5rrhk4" path="res://assets/resource/Actions/action.gd" id="2_ytv75"]
+
+[resource]
+script = ExtResource("2_ytv75")
+name = "Pattern Recognition"
+desc = "History tends to repeat"
+type = 1
+stat = Array[int]([2])
+amount = 20
+metadata/_custom_type_script = "uid://um1iui5rrhk4"

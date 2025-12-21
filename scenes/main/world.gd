@@ -15,6 +15,13 @@ func _ready() -> void:
 		StoryManager.story_progress += 1
 		$Player.global_position = GameManager.tilepos_to_worldpos(GameManager.player_pos)
 		GameManager.add_item(Item.createCommonItem(Item.CommonItems.SmHpPot, 2))
+	
+	await get_tree().process_frame
+	# TEMP
+	#GameManager.get_char_data("nitya").health = 0
+	GameManager.get_char_data("wilhelmina").health = 0
+	#GameManager.get_char_data("malice").health = 0
+	#GameManager.get_char_data("bibi").health = 0
 
 # Cutscene Manager (for now?)
 

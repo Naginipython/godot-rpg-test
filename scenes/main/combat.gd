@@ -21,10 +21,6 @@ var choose_char_act: Action = null
 var choose_char_itm: Item = null
 
 func _ready() -> void:
-	# TEMP
-	GameManager.get_char_data("malice").health = 0
-	#GameManager.get_char_data("bibi").health = 0
-	#GameManager.get_char_data("wilhelmina").health = 0
 	GameManager.sort_party()
 	var idx: int = 0
 	for character in GameManager.party:
@@ -72,16 +68,16 @@ func create_cute_panels(color: Color, playerMenu: PlayerMenu) -> void:
 	add_child(panel_inst)
 
 func next_turn() -> void:
-	if turn >= 4: 
-		turn = 0
-	else: 
+	if turn < 4:
 		player_menus[turn].selected = false
+	turn += 1
+	if turn > 4: turn = 0
+	
+	while turn < 4 and player_menus[turn].is_disabled:
 		turn += 1
+		if turn > 4: turn = 0
 	
 	if turn < 4:
-		while player_menus[turn].is_disabled:
-			turn += 1
-			if turn >= 4: break
 		player_menus[turn].selected = true
 
 func prev_turn() -> void:

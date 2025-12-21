@@ -1,11 +1,12 @@
-[gd_scene load_steps=61 format=4 uid="uid://bg6g61feiv3rm"]
+[gd_scene load_steps=63 format=4 uid="uid://bg6g61feiv3rm"]
 
 [ext_resource type="Script" uid="uid://cyja04a4wmrkk" path="res://scenes/main/world.gd" id="1_526id"]
-[ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/text_ui.tscn" id="2_7te0o"]
+[ext_resource type="PackedScene" uid="uid://da0wvg4q66fyv" path="res://scenes/obj/world/UI/text_ui.tscn" id="2_7te0o"]
 [ext_resource type="Texture2D" uid="uid://d0bv8cabsbfk6" path="res://assets/art/tilemap_packed.png" id="2_526id"]
 [ext_resource type="PackedScene" uid="uid://57pgol331lfm" path="res://scenes/obj/world/player.tscn" id="3_0aorq"]
 [ext_resource type="PackedScene" uid="uid://ijfooy6bkk8" path="res://scenes/main/pause_menu.tscn" id="3_3wopa"]
 [ext_resource type="Texture2D" uid="uid://crlvgovb0l1yt" path="res://assets/art/tilemap_packed2.png" id="4_0aorq"]
+[ext_resource type="PackedScene" uid="uid://gg8q6j8nf1bm" path="res://scenes/obj/world/UI/swap_menu.tscn" id="4_shf8f"]
 [ext_resource type="Script" uid="uid://83jl6t2urywe" path="res://scenes/obj/world/cut_scene_area.gd" id="5_2p2jg"]
 [ext_resource type="PackedScene" uid="uid://dbyfr2017ij20" path="res://scenes/obj/world/npc.tscn" id="6_yshnf"]
 [ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/resource/dialogue/dialogue_line.gd" id="7_3c7vn"]
@@ -811,6 +812,11 @@ script = ExtResource("7_3c7vn")
 text = "Consider me a lecturn"
 metadata/_custom_type_script = "uid://co5pvnhporosc"
 
+[sub_resource type="Resource" id="Resource_k8u43"]
+script = ExtResource("7_3c7vn")
+text = "All players have been healed"
+metadata/_custom_type_script = "uid://co5pvnhporosc"
+
 [sub_resource type="Resource" id="Resource_4icm0"]
 script = ExtResource("7_3c7vn")
 text = "What would you like to do?"
@@ -818,7 +824,7 @@ metadata/_custom_type_script = "uid://co5pvnhporosc"
 
 [sub_resource type="Resource" id="Resource_l5mfl"]
 script = ExtResource("8_xwd6a")
-lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_bs8nu"), SubResource("Resource_4icm0")])
+lines = Array[ExtResource("7_3c7vn")]([SubResource("Resource_bs8nu"), SubResource("Resource_k8u43"), SubResource("Resource_4icm0")])
 metadata/_custom_type_script = "uid://c6dr1cp22kiyo"
 
 [sub_resource type="Resource" id="Resource_4jev0"]
@@ -989,6 +995,8 @@ text_ui = NodePath("UI/TextUI")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TextUI" parent="UI" instance=ExtResource("2_7te0o")]
+visible = false
+modulate = Color(1, 1, 1, 0)
 
 [node name="WackyTextTest" type="RichTextLabel" parent="UI"]
 visible = false
@@ -1001,6 +1009,10 @@ text = "[shake rate=50 level=20]TEST[/shake]
 [node name="PauseMenu" parent="UI" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_3wopa")]
 player = NodePath("../../Player")
 world = NodePath("../..")
+
+[node name="SwapMenu" parent="UI" instance=ExtResource("4_shf8f")]
+unique_name_in_owner = true
+visible = false
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -1023,6 +1035,7 @@ marker = NodePath("Start")
 shape = SubResource("RectangleShape2D_sag5l")
 
 [node name="Player" parent="." node_paths=PackedStringArray("world", "text_ui", "cutscene_player") instance=ExtResource("3_0aorq")]
+z_index = 1
 position = Vector2(8, 8)
 world = NodePath("..")
 text_ui = NodePath("../UI/TextUI")
@@ -1070,8 +1083,9 @@ dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_pasgk")
 })
 
-[node name="Lecturn" parent="." instance=ExtResource("15_bolsh")]
+[node name="Lecturn" parent="." node_paths=PackedStringArray("swap_menu") instance=ExtResource("15_bolsh")]
 position = Vector2(39.999996, -23.999998)
+swap_menu = NodePath("../UI/SwapMenu")
 dialogue = Dictionary[int, ExtResource("8_xwd6a")]({
 0: SubResource("Resource_l5mfl")
 })

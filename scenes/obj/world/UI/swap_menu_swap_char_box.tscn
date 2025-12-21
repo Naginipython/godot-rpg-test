@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh8l7ch4480bs"]
+
+[ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/art/portraits/Nitya_Nil_temp.jpg" id="1_pvoxi"]
+[ext_resource type="Script" uid="uid://dijh6u24gs32c" path="res://scenes/obj/world/UI/swap_menu_swap_char_box.gd" id="1_yiv15"]
+[ext_resource type="Texture2D" uid="uid://dhm8prte7r88f" path="res://assets/art/fire_type.png" id="2_yiv15"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4f6mi"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 0, 1)
+corner_detail = 5
+
+[node name="SwapMenuSwapCharBox" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 75)
+offset_right = 400.0
+offset_bottom = 81.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4f6mi")
+script = ExtResource("1_yiv15")
+
+[node name="BasicInfoBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="CharIcon" type="TextureRect" parent="BasicInfoBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(77, 0)
+layout_mode = 2
+theme_type_variation = &"ImageRect"
+texture = ExtResource("1_pvoxi")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BasicInfoBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="BasicInfoBox/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/line_spacing = -5
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+text = "Wilhelmina Frost"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BasicInfoBox/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatLabel" type="Label" parent="BasicInfoBox/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 2
+text = "Lvl. #"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TypeImg" type="TextureRect" parent="BasicInfoBox/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture = ExtResource("2_yiv15")
+expand_mode = 1

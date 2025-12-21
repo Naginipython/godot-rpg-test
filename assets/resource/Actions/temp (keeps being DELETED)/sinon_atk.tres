@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://du0q00bu60b6l"]
+
+[ext_resource type="Script" uid="uid://cjkpjaawc01k4" path="res://assets/resource/Actions/attack.gd" id="1_p8r7x"]
+
+[resource]
+script = ExtResource("1_p8r7x")
+name = "Siren Screech"
+desc = "Self explanitory"
+power = 55
+metadata/_custom_type_script = "uid://cjkpjaawc01k4"

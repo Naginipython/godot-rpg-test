@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4m1on3wn256l"]
+
+[ext_resource type="Script" uid="uid://b5cb1cxtrumnd" path="res://scenes/obj/world/UI/swap_menu_char_box.gd" id="1_fnfln"]
+[ext_resource type="Texture2D" uid="uid://cbcfedh8onyr7" path="res://assets/art/portraits/Nitya_Nil_temp.jpg" id="1_v5ws7"]
+[ext_resource type="Texture2D" uid="uid://dhm8prte7r88f" path="res://assets/art/fire_type.png" id="2_fnfln"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12jbg"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ixe1"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="SwapMenuCharBox" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 100)
+theme_override_styles/panel = SubResource("StyleBoxFlat_12jbg")
+script = ExtResource("1_fnfln")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="BasicInfoBox" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/BasicInfoBox"]
+clip_children = 1
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ixe1")
+
+[node name="CharIcon" type="TextureRect" parent="MarginContainer/BasicInfoBox/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"ImageRect"
+texture = ExtResource("1_v5ws7")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/BasicInfoBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="MarginContainer/BasicInfoBox/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/line_spacing = -5
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+text = "Wilhelmina Frost"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/BasicInfoBox/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatLabel" type="Label" parent="MarginContainer/BasicInfoBox/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 2
+text = "Lvl. #"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TypeImg" type="TextureRect" parent="MarginContainer/BasicInfoBox/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture = ExtResource("2_fnfln")
+expand_mode = 1

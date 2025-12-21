@@ -7,6 +7,6 @@
 script = ExtResource("1_8bnw7")
 char_name = "Malice Evermore"
 title = "Energy Vampire WIP"
-color = Color(0.9411765, 0.6627451, 1, 1)
+color = Color(0.99607843, 0.43529412, 0.6431373, 1)
 portrait = ExtResource("1_4sjhe")
 metadata/_custom_type_script = "uid://cbypi08gv5ts1"

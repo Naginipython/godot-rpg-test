@@ -33,6 +33,7 @@ var can_skip = false
 
 var options: PackedStringArray = []
 var option_idx: int = 0
+var connected: bool = false
 
 signal line_finished
 signal convo_finished
@@ -42,6 +43,7 @@ func _ready() -> void:
 	text.text = ""
 	title.text = ""
 	title.visible = false
+	$OtherThings.visible = false
 	animation_player.play("RESET")
 
 func _process(_delta: float) -> void:
@@ -98,7 +100,6 @@ func enable_text(convo: Conversation) -> void:
 	is_enabled = true
 
 func enable_text_w_options(convo: Conversation, _options: PackedStringArray) -> void:
-	print("has options")
 	options = _options
 	option_idx = 0
 	enable_text(convo)
@@ -186,6 +187,9 @@ func enable_options() -> void:
 	var btn: Button = %OptionsContainer.get_child(0)
 	btn.grab_focus()
 	btn.text = options[0]
+	if connected:
+		btn.pressed.disconnect(_option_btn_pressed)
+	connected = true
 	btn.pressed.connect(_option_btn_pressed.bind(options[0]))
 	for i in range(1, options.size()):
 		var new_btn = btn.duplicate()
@@ -199,8 +203,7 @@ func _option_btn_pressed(data: String) -> void:
 	options = []
 	# remove option buttons (minus first)
 	for i in range(1, %OptionsContainer.get_children().size()):
-		%OptionsContainer.remove_child(%OptionsContainer.get_child(i))
-	print(%OptionsContainer.get_children())
+		%OptionsContainer.remove_child(%OptionsContainer.get_child(1))
 	# shut off $OtherThings
 	$OtherThings.visible = false
 	# emit signal with data
