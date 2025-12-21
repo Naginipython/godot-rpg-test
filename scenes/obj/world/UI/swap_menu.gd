@@ -24,6 +24,7 @@ func enable() -> void:
 	state = SwapStates.SelectSwap
 	%ActiveSelectLabel.visible = false
 	options_container.visible = false
+	$CompareContainer.visible = false
 	revert_cute_indent()
 	
 	# get data
@@ -60,6 +61,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				input_state_select_active(event)
 			SwapStates.SelectOption:
 				input_state_select_options(event)
+			SwapStates.Compare:
+				input_state_compare(event)
 
 # ----- Select Swap state -----
 func input_state_select_swap(event: InputEvent) -> void:
@@ -110,6 +113,7 @@ func input_state_select_active(event: InputEvent) -> void:
 		open_swap_options(active_char_idx)
 		options_container.get_child(0).grab_focus()
 	if event.is_action_pressed("return"):
+		get_viewport().set_input_as_handled()
 		state = SwapStates.SelectSwap
 		%ActiveSelectLabel.visible = false
 		revert_cute_indent()
@@ -150,6 +154,7 @@ func input_state_select_options(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
 		select_option(option_idx)
 	if event.is_action_pressed("return"):
+		get_viewport().set_input_as_handled()
 		%ActiveSelectLabel.visible = true
 		options_container.visible = false
 		state = SwapStates.SelectActive
@@ -161,22 +166,60 @@ func open_swap_options(idx: int) -> void:
 
 func select_option(idx: int) -> void:
 	var new_box: SwapMenuSwapCharBox = swap_char_container.get_child(swap_char_idx)
-	match idx:
-		0:  # Old char
-			active[active_char_idx].active = false
-			active.remove_at(active_char_idx)
-			# New char
-			var new_char: CharacterData = GameManager.get_char_data(new_box.char_id)
-			new_char.active = true
-			active.push_back(new_char)
-			GameManager.sort_party()
-			# Reset
-			enable()
-	# Select Swap
-		# Changes character active & party
-		# Updates this screen
-	# Select swap & return items
-		# same as above, changes item status
-	# Select Compare
-		# Brings up menu where it shows both data (new state)
-	pass
+	if idx == 0 || idx == 1:
+		active[active_char_idx].active = false
+		active.remove_at(active_char_idx)
+		# New char
+		var new_char: CharacterData = GameManager.get_char_data(new_box.char_id)
+		new_char.active = true
+		active.push_back(new_char)
+		GameManager.sort_party()
+		# Reset
+		enable()
+	if idx == 1:
+		# TODO: Select swap & return items
+		# changes item status
+		pass
+	if idx == 2:
+		# Set stats
+		setup_compare()
+		$CompareContainer.visible = true
+		state = SwapStates.Compare
+		# TODO: compare moves
+
+# ----- Compare state -----
+func input_state_compare(event: InputEvent) -> void:
+	if event.is_action_pressed("return"):
+		get_viewport().set_input_as_handled()
+		$CompareContainer.visible = false
+		state = SwapStates.SelectOption
+
+func setup_compare() -> void:
+	var ch1 = GameManager.characters[char_container.get_child(active_char_idx).char_id]
+	var ch2 = GameManager.characters[swap_char_container.get_child(swap_char_idx).char_id]
+	print(ch2.char_id)
+	%CompareMenu1.set_menu(ch1)
+	%CompareMenu2.set_menu(ch2)
+	var stats = ["", ""]
+	
+	stat_compare(stats, "ATK: ", ch1.curr_str, ch2.curr_str)
+	stat_compare(stats, "DEF: ", ch1.curr_def, ch2.curr_def)
+	stat_compare(stats, "SPD: ", ch1.curr_spd, ch2.curr_spd)
+	stat_compare(stats, "ACC: ", ch1.curr_acc, ch2.curr_acc)
+	stat_compare(stats, "EVAD: ", ch1.curr_evad, ch2.curr_evad)
+	
+	%CompareMenu1.set_stats_custom("", stats[0]) # todo
+	%CompareMenu2.set_stats_custom("", stats[1]) # todo
+
+func stat_compare(stats: Array, statName: String, toCheck1: int, toCheck2: int) -> void:
+	stats[0] += statName
+	stats[1] += statName
+	if toCheck1 > toCheck2:
+		stats[0] += "[color=#00ff00]" + str(toCheck1) + "[/color]" + "\n"
+		stats[1] += "[color=#ff0000]" + str(toCheck2) + "[/color]" + "\n"
+	elif toCheck1 < toCheck2:
+		stats[1] += "[color=#00ff00]" + str(toCheck1) + "[/color]" + "\n"
+		stats[0] += "[color=#ff0000]" + str(toCheck2) + "[/color]" + "\n"
+	else:
+		stats[0] += str(toCheck1) + "\n"
+		stats[1] += str(toCheck2) + "\n"

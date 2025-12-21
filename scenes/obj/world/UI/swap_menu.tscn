@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://gg8q6j8nf1bm"]
+[gd_scene load_steps=11 format=3 uid="uid://gg8q6j8nf1bm"]
 
 [ext_resource type="Script" uid="uid://d2pqct0qr2w78" path="res://scenes/obj/world/UI/swap_menu.gd" id="1_yt00r"]
 [ext_resource type="PackedScene" uid="uid://d4m1on3wn256l" path="res://scenes/obj/world/UI/swap_menu_char_box.tscn" id="2_yt00r"]
 [ext_resource type="PackedScene" uid="uid://dh8l7ch4480bs" path="res://scenes/obj/world/UI/swap_menu_swap_char_box.tscn" id="3_l774x"]
+[ext_resource type="PackedScene" uid="uid://bkl3k4tk33tl4" path="res://scenes/obj/world/UI/pause_player_menu.tscn" id="4_l774x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l774x"]
 bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.9490196)
@@ -24,6 +25,24 @@ border_color = Color(0.09803922, 0.09803922, 0.09803922, 0.9490196)
 Button/styles/focus = SubResource("StyleBoxFlat_l774x")
 Button/styles/normal = SubResource("StyleBoxFlat_yt00r")
 VBoxContainer/constants/separation = 0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_2353p"]
+color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="Theme" id="Theme_16xns"]
+HSeparator/styles/separator = SubResource("StyleBoxLine_2353p")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 2
+Label/font_sizes/font_size = 24
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/outline_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c27el"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="SwapMenu" type="Control"]
 process_mode = 3
@@ -88,6 +107,7 @@ layout_mode = 2
 
 [node name="ActiveSelectLabel" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 575.0
 offset_top = 339.0
@@ -98,6 +118,7 @@ theme_override_font_sizes/font_size = 32
 text = "<"
 
 [node name="OptionsContainer" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 575.0
 offset_top = 298.0
@@ -123,3 +144,57 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "Compare"
+
+[node name="CompareContainer" type="Control" parent="."]
+z_index = 2
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="CompareMenu" type="PanelContainer" parent="CompareContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CompareContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -188.0
+offset_right = 280.0
+offset_bottom = 188.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CompareMenu1" parent="CompareContainer/HBoxContainer" instance=ExtResource("4_l774x")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(270, 170)
+layout_mode = 2
+
+[node name="Moves1" type="PanelContainer" parent="CompareContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+theme = SubResource("Theme_16xns")
+theme_override_styles/panel = SubResource("StyleBoxFlat_c27el")
+
+[node name="CompareMenu2" parent="CompareContainer/HBoxContainer" instance=ExtResource("4_l774x")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(270, 170)
+layout_mode = 2
+
+[node name="Moves2" type="PanelContainer" parent="CompareContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+theme = SubResource("Theme_16xns")
+theme_override_styles/panel = SubResource("StyleBoxFlat_c27el")

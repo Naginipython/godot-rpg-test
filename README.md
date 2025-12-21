@@ -18,6 +18,8 @@ In Rhythm game, asd are used to press the keys
 menus:
 
 - Main Menu creates new save
+- change party at lecturn (black upside down man temp)
+- Pause menu, with character viewing
 
 In world:
 
@@ -32,6 +34,7 @@ In world:
 - Environmental damage that pushes back
 - NPCs have a dialogue manager, with temporary dialogue upon flag triggers, default dialogue, and dialogue for if story progresses
 	- Yellow NPC has flag trigger dialogue and orange one has story progress dialogue (both viewable when beat enemy (press r))
+	- Black "lecturn" NPC adds choice-based dialogue options
 - Going to the left will trigger a cutscene, which will only trigger with prior story. Small position check added too
 
 In combat:
@@ -62,7 +65,11 @@ In combat:
 menus:
 
 - Loads data
-- change party
+- Weapon/Charm
+- Pause menu character moves & equip
+- Pause menu items
+- Pause menu third idk option (what do I want it to be?)
+- Pause menu proper settings menu
 
 combat:
 
@@ -80,9 +87,6 @@ combat:
 
 world:
 
-- interactables
-	- Sign
-	- Choices NPC? (Clio to game?)
 - player follow
 - retain HP, stats, and items
 - damaging tiles (1/2 working)

@@ -31,7 +31,9 @@ const STAT_CURVES: Dictionary[BuffableStats, Curve] = {
 	BuffableStats.HP: preload("uid://dohe3fy834op7"),
 	BuffableStats.STR: preload("uid://bp7di76adwpav"),
 	BuffableStats.DEF: preload("uid://cclgsyrbicql1"),
-	BuffableStats.SPD: preload("uid://bfw3phwk4kthv")
+	BuffableStats.SPD: preload("uid://bfw3phwk4kthv"),
+	BuffableStats.ACC: preload("uid://bfw3phwk4kthv"), #temp
+	BuffableStats.EVAD: preload("uid://bfw3phwk4kthv") #temp
 }
 
 var level: int:
@@ -40,6 +42,8 @@ var curr_max_health: int = 100
 var curr_str: int = 10
 var curr_def: int = 10
 var curr_spd: int = 10
+var curr_acc: int = 10
+var curr_evad: int = 10
 
 var health: int = 100: set = _on_health_set
 
@@ -61,6 +65,8 @@ func recalculate_stats() -> void:
 	curr_str = base_str * STAT_CURVES[BuffableStats.STR].sample(stat_sample_pos)
 	curr_def = base_def * STAT_CURVES[BuffableStats.DEF].sample(stat_sample_pos)
 	curr_spd = base_spd * STAT_CURVES[BuffableStats.SPD].sample(stat_sample_pos)
+	curr_acc = base_acc * STAT_CURVES[BuffableStats.ACC].sample(stat_sample_pos)
+	curr_evad = base_evad * STAT_CURVES[BuffableStats.EVAD].sample(stat_sample_pos)
 
 func _on_health_set(new_value: int) -> void:
 	health = clampi(new_value, 0, curr_max_health)

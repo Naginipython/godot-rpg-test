@@ -30,7 +30,7 @@ bg_color = Color(1, 0, 0, 1)
 [node name="PausePlayerMenu" type="PanelContainer"]
 clip_children = 2
 custom_minimum_size = Vector2(275, 170)
-offset_right = 1000.0
+offset_right = 645.0
 offset_bottom = 375.0
 theme = SubResource("Theme_2353p")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2353p")
@@ -42,7 +42,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 0
 offset_right = 1000.0
-offset_bottom = 390.0
+offset_bottom = 376.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -113,7 +113,8 @@ text = "Stats"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+[node name="HeldSeparator" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HeldLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
@@ -126,7 +127,7 @@ CHARM: None"
 fit_content = true
 scroll_active = false
 
-[node name="HSeparator2" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
+[node name="StatSeparator" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
 layout_mode = 2
 
 [node name="StatNumLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer/StatVertContainer/StatsContainer"]
@@ -136,7 +137,7 @@ size_flags_vertical = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "ATK: 10
-DEF: 10
+DEF: [color=#00ff00]10[/color]
 SPD: 10
 ACC: 10
 EVAD: 10"
@@ -152,23 +153,37 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer"]
 layout_mode = 2
 
-[node name="EquipLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Equip"
-horizontal_alignment = 1
-
 [node name="MovesLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Moves"
 horizontal_alignment = 1
 
-[node name="SwapLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/HBoxContainer"]
+[node name="EquipLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Swap"
+text = "Equip"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer"]
 layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer"]
+custom_minimum_size = Vector2(0, 225)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator2" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/HBoxContainer/DetailsVertContainer"]
+custom_minimum_size = Vector2(705, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 16
+text = "Effect: STR, SPD and DEF enemy debuff, for all
+Description of move!"
