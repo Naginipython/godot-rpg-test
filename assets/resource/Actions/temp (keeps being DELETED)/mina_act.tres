@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Action" load_steps=8 format=3 uid="uid://t45vkv0x5rcq"]
+[gd_resource type="Resource" script_class="Action" format=3 uid="uid://t45vkv0x5rcq"]
 
 [ext_resource type="Script" uid="uid://c6dr1cp22kiyo" path="res://assets/resource/dialogue/conversation.gd" id="1_gcy0v"]
 [ext_resource type="Script" uid="uid://co5pvnhporosc" path="res://assets/resource/dialogue/dialogue_line.gd" id="2_t3epr"]

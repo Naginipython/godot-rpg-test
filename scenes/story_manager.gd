@@ -1,6 +1,14 @@
 extends Node
 class_name Story
 
+# How this works:
+# All notable story moments will be numericly on StoryPoint. 0 is default, 1 is start, 2 is next, etc
+# Negative numbers are considered "flags". Flags are temporary story moments or (TODO) branching moments
+# Flag's negative num (minus 1) correlate in the 'flags' array, for a quick boolean check
+
+# When Dialogue is enabled, the TextUI receives a Dialogue Object. The 'dialogue_check' function chooses which of the map will be used. 
+# Possibly can be changed for further customization
+
 var story_progress: int = 1
 
 enum Chapter {

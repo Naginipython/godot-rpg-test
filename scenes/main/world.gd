@@ -23,8 +23,8 @@ func _ready() -> void:
 	#GameManager.get_char_data("malice").health = 0
 	#GameManager.get_char_data("bibi").health = 0
 
-# Cutscene Manager (for now?)
 
+# Cutscene Manager (for now?)
 func pause_for_dialogue(convo: Conversation) -> void:
 	$CutScenePlayer.pause()
 	text_ui.enable_text(convo)
