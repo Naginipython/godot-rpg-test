@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://mfcrh37220vv"]
+
+[ext_resource type="Script" uid="uid://bnlssay03en6h" path="res://scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/art/world_sprites/Soldier.png" id="2_dqkch"]
+[ext_resource type="Script" uid="uid://bpu2lmvuapw77" path="res://scripts/state_machines/state_machine.gd" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://d0qewfinlfv0y" path="res://scripts/state_machines/player/player_main.gd" id="4_qlg0r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("2_dqkch")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yo5px"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yo5px"]
+radius = 6.25
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awi32"]
+radius = 7.5
+
+[node name="Player" type="CharacterBody2D" unique_id=1939647322]
+collision_mask = 6
+script = ExtResource("1_qhqgy")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1043283033]
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_yo5px")
+offset = Vector2(1, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119337137]
+position = Vector2(0, 2)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CircleShape2D_yo5px")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=827810554]
+position = Vector2(0, 2)
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2112213327]
+shape = SubResource("CircleShape2D_awi32")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=524527793]
+zoom = Vector2(4, 4)
+
+[node name="StateMachine" type="Node" parent="." unique_id=805327283 node_paths=PackedStringArray("init_state")]
+script = ExtResource("3_dqkch")
+init_state = NodePath("Main")
+
+[node name="Main" type="Node" parent="StateMachine" unique_id=950399973]
+script = ExtResource("4_qlg0r")
