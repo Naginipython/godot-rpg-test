@@ -3,6 +3,10 @@ extends Node
 
 var entity: Node
 
+enum State {
+	Main
+}
+
 @warning_ignore("unused_signal")
 signal change_state(state: State, new_state: String)
 

@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://mfcrh37220vv"]
 
-[ext_resource type="Script" uid="uid://bnlssay03en6h" path="res://scripts/player.gd" id="1_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/art/world_sprites/Soldier.png" id="2_dqkch"]
-[ext_resource type="Script" uid="uid://bpu2lmvuapw77" path="res://scripts/state_machines/state_machine.gd" id="3_dqkch"]
-[ext_resource type="Script" uid="uid://d0qewfinlfv0y" path="res://scripts/state_machines/player/player_main.gd" id="4_qlg0r"]
+[ext_resource type="Script" uid="uid://bnlssay03en6h" path="res://scripts/characters/player.gd" id="1_dyp2m"]
+[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/art/world_sprites/Soldier.png" id="2_atpat"]
+[ext_resource type="Script" uid="uid://bpu2lmvuapw77" path="res://scripts/state_machines/state_machine.gd" id="3_kqtwu"]
+[ext_resource type="Script" uid="uid://d0qewfinlfv0y" path="res://scripts/state_machines/player/player_main.gd" id="4_6eyoc"]
+[ext_resource type="Script" uid="uid://cdonfqwic78ts" path="res://scripts/state_machines/player/player_talking.gd" id="5_atpat"]
+[ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="6_kqtwu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
-atlas = ExtResource("2_dqkch")
+atlas = ExtResource("2_atpat")
 region = Rect2(0, 0, 100, 100)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yo5px"]
@@ -28,7 +30,7 @@ radius = 7.5
 
 [node name="Player" type="CharacterBody2D" unique_id=1939647322]
 collision_mask = 6
-script = ExtResource("1_qhqgy")
+script = ExtResource("1_dyp2m")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1043283033]
 scale = Vector2(0.8, 0.8)
@@ -51,8 +53,20 @@ shape = SubResource("CircleShape2D_awi32")
 zoom = Vector2(4, 4)
 
 [node name="StateMachine" type="Node" parent="." unique_id=805327283 node_paths=PackedStringArray("init_state")]
-script = ExtResource("3_dqkch")
+script = ExtResource("3_kqtwu")
 init_state = NodePath("Main")
 
 [node name="Main" type="Node" parent="StateMachine" unique_id=950399973]
-script = ExtResource("4_qlg0r")
+script = ExtResource("4_6eyoc")
+
+[node name="Talking" type="Node" parent="StateMachine" unique_id=494815731]
+script = ExtResource("5_atpat")
+
+[node name="DialogueStateContext" type="Node" parent="." unique_id=818930676 node_paths=PackedStringArray("target")]
+script = ExtResource("6_kqtwu")
+alias = "Nitya"
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cd3222nx3y3k5"
+
+[connection signal="area_entered" from="Area2D" to="StateMachine/Main" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="StateMachine/Main" method="_on_area_2d_area_exited"]

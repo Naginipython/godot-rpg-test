@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://bu8ta1qckurkp"]
+
+[ext_resource type="Script" uid="uid://baj7dyctt5xxt" path="res://assets/character_data/Actions/action.gd" id="1_3hvwp"]
+[ext_resource type="Script" uid="uid://1kpdgvbymar5" path="res://assets/character_data/character_data.gd" id="1_s2yjq"]
+[ext_resource type="Script" uid="uid://gmc65pd5t7oi" path="res://assets/character_data/Actions/attack.gd" id="2_84oti"]
+[ext_resource type="Resource" uid="uid://cl5hcv1dii2qg" path="res://assets/character_data/TextboxStyle/nitya_temp.tres" id="4_2qq7m"]
+
+[resource]
+script = ExtResource("1_s2yjq")
+char_id = "nitya"
+active = true
+base_max_health = 110
+base_spd = 12
+metadata/_custom_type_script = "uid://1kpdgvbymar5"

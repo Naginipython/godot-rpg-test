@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dyoxkttfu5c3o"]
 
 [ext_resource type="TileSet" uid="uid://cv4sq5ih4s8rq" path="res://scenes/temp_world_tileset.tres" id="1_2fs3g"]
-[ext_resource type="PackedScene" uid="uid://mfcrh37220vv" path="res://scenes/player.tscn" id="2_pofix"]
+[ext_resource type="PackedScene" uid="uid://mfcrh37220vv" path="res://scenes/characters/player.tscn" id="2_pofix"]
 
 [node name="World" type="Node" unique_id=1618449251]
 

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Action" format=3 uid="uid://dkjerrltodkj7"]
+
+[ext_resource type="Script" uid="uid://baj7dyctt5xxt" path="res://assets/character_data/Actions/action.gd" id="1_uj3as"]
+
+[resource]
+script = ExtResource("1_uj3as")
+name = "Mock"
+desc = "She keeps it family friendly"
+type = 1
+stat = Array[int]([1])
+amount = 10
+metadata/_custom_type_script = "uid://baj7dyctt5xxt"

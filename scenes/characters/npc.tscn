@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dmx8ei7c4821"]
+
+[ext_resource type="Texture2D" uid="uid://d3ujrcxw0hfuf" path="res://assets/art/world_sprites/Soldier.png" id="1_bgitj"]
+[ext_resource type="Script" uid="uid://c7h5k3jw3gd1h" path="res://scripts/characters/npc.gd" id="2_01k3j"]
+[ext_resource type="FontFile" uid="uid://cxeqijtrpv80q" path="res://assets/art/fonts/PixelOperator8.ttf" id="3_urpkq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yo5px"]
+radius = 6.25
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awi32"]
+radius = 15.0
+
+[node name="Npc" type="Sprite2D" unique_id=1941052105 node_paths=PackedStringArray("label") groups=["Npcs"]]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_bgitj")
+offset = Vector2(1, 2)
+hframes = 9
+vframes = 7
+script = ExtResource("2_01k3j")
+label = NodePath("HintLabel")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=308140207]
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=322498178]
+position = Vector2(1.25, 2.5)
+shape = SubResource("CircleShape2D_yo5px")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=293011905 groups=["Npcs"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1778301892]
+position = Vector2(1.25, 2.5)
+shape = SubResource("CircleShape2D_awi32")
+
+[node name="HintLabel" type="Label" parent="." unique_id=1051198317]
+visible = false
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.5
+offset_top = -22.5
+offset_right = -1.5
+offset_bottom = -5.75
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_urpkq")
+theme_override_font_sizes/font_size = 8
+text = "E to talk"
+horizontal_alignment = 1
+vertical_alignment = 1

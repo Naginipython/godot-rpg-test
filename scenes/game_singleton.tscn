@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dcjlixa2sa3n5"]
+
+[ext_resource type="Script" uid="uid://c7kgw1obe37qb" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+[ext_resource type="Script" uid="uid://1kpdgvbymar5" path="res://assets/character_data/character_data.gd" id="2_glms7"]
+[ext_resource type="Resource" uid="uid://bu8ta1qckurkp" path="res://assets/character_data/nitya_data.tres" id="3_udu3i"]
+
+[node name="GameSingleton" type="Node" unique_id=801321791]
+script = ExtResource("1_hwd4i")
+temp_character_data = Array[ExtResource("2_glms7")]([ExtResource("3_udu3i")])

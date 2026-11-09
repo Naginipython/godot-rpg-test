@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextboxStyle" format=3 uid="uid://1cxfa074ov6r"]
+
+[ext_resource type="Texture2D" uid="uid://bo30g22xmsrxk" path="res://assets/art/portraits/clio_aite_temp.jpg" id="1_8ej85"]
+[ext_resource type="Script" uid="uid://df0uxa1tev63e" path="res://assets/character_data/TextboxStyle/textbox_style.gd" id="1_qwalk"]
+
+[resource]
+script = ExtResource("1_qwalk")
+char_name = "Clio Aite"
+title = "Phase World's Head Archivist"
+color = Color(0.54901963, 0.7294118, 0.5764706, 1)
+portrait = ExtResource("1_8ej85")
+metadata/_custom_type_script = "uid://df0uxa1tev63e"

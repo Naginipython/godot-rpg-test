@@ -11,23 +11,19 @@ var facing_dir: Vector2 = Vector2.DOWN
 #temp
 var input_dir: Vector2
 
-func enter(prev: String) -> void:
+func enter(_prev: String) -> void:
 	target_pos = player.global_position
 
 func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"): # and interact_cooldown.is_stopped():
-		#interact()
-		pass
-
-func process(_delta: float) -> void:
-	pass
+		interact()
 
 func physics_process(delta: float) -> void:
 	check_running()
 	handle_move(delta)
 
 func check_running() -> void:
-	if Input.is_key_pressed(KEY_SHIFT):
+	if Input.is_action_pressed("run"):
 		duration = 0.15
 	else:
 		duration = 0.2
@@ -55,3 +51,44 @@ func handle_move(delta: float) -> void:
 		# If reached tile, stop or chain next tile if still holding input
 		if player.global_position == target_pos:
 			is_moving = false
+
+func is_facing_towards(target: Node2D) -> bool:
+	var target_dir: Vector2
+	var dir = (target.global_position - player.global_position)
+	if abs(dir.x) > abs(dir.y):
+		target_dir = Vector2.RIGHT if dir.x > 0 else Vector2.LEFT
+	else:
+		target_dir = Vector2.DOWN if dir.y > 0 else Vector2.UP
+	return target_dir == facing_dir
+
+func interact() -> void:
+	if not player.npcs_in_range.is_empty():
+		for n in player.npcs_in_range:
+			if is_facing_towards(n):
+				player.facing_npc = n
+				break
+			else:
+				player.facing_npc = null
+		if player.facing_npc:
+			change_state.emit(self, "talking")
+
+#func damage_pushback() -> void:
+	## Temp
+	#print("ow")
+	#target_pos = prev_pos
+
+#region Signals
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Npcs"):
+		# Bc the Area2D is in the group
+		var npc: Npc = area.get_parent()
+		player.npcs_in_range.push_back(npc)
+		npc.toggle_hint_visibility(true)
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	if area.is_in_group("Npcs"):
+		var npc: Npc = player.npcs_in_range.pop_at(player.npcs_in_range.find(area.get_parent()))
+		npc.toggle_hint_visibility(false)
+
+#endregion
