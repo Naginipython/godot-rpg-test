@@ -1,0 +1,17 @@
+~ game_start
+nitya: Yippee game started!
+$> StoryManager.story_progress += 1 # SagaBegins -> StartGame
+=> END
+
+~ to_new_area
+# !
+$> player.surprised()
+$> player.move_tiles(6,0)
+nitya: Whoa! What is that over there!
+$> player.move_tiles(0,5)
+nitya: Oh, just some video game coin.
+wilhelmina: Does it do anything?
+nitya: No, this is just the excuse to create a simple test for cutscenes
+wilhelmina: ... I see. Let's carry on then.
+$> StoryManager.story_progress += 1 # StartGame -> NewAreaFound
+=> END

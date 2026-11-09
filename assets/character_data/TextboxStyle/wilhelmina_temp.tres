@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextboxStyle" format=3 uid="uid://idpvsui3d4en"]
+
+[ext_resource type="Texture2D" uid="uid://d2l4vtbssikl" path="res://assets/art/portraits/wilhelmina_frost_temp.jpg" id="1_6bkh6"]
+[ext_resource type="Script" uid="uid://df0uxa1tev63e" path="res://assets/character_data/TextboxStyle/textbox_style.gd" id="1_exi4k"]
+
+[resource]
+script = ExtResource("1_exi4k")
+char_name = "Wilhelmina Frost"
+title = "Captain of the Royal Guard and Knight of Ostellia"
+color = Color(0.6, 0.79607844, 0.8392157, 1)
+portrait = ExtResource("1_6bkh6")
+metadata/_custom_type_script = "uid://df0uxa1tev63e"

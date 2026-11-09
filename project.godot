@@ -16,6 +16,8 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
 
+Game="*uid://dcjlixa2sa3n5"
+StoryManager="*uid://bwjfqyyd4yjfb"
 DialogueManager="*uid://c3rodes2l3gxb"
 
 [dialogue_manager]
@@ -51,6 +53,7 @@ Enemies=""
 Npcs=""
 Player=""
 WorldDamage=""
+Cutscene=""
 
 [input]
 
@@ -109,7 +112,7 @@ run={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://assets/dialogue/test.dialogue")
+locale/translations_pot_files=PackedStringArray("res://assets/dialogue/test.dialogue", "res://assets/dialogue/story.dialogue")
 
 [layer_names]
 

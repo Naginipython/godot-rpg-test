@@ -5,7 +5,10 @@
 [ext_resource type="Script" uid="uid://bpu2lmvuapw77" path="res://scripts/state_machines/state_machine.gd" id="3_kqtwu"]
 [ext_resource type="Script" uid="uid://d0qewfinlfv0y" path="res://scripts/state_machines/player/player_main.gd" id="4_6eyoc"]
 [ext_resource type="Script" uid="uid://cdonfqwic78ts" path="res://scripts/state_machines/player/player_talking.gd" id="5_atpat"]
+[ext_resource type="Script" uid="uid://bpgopp2roglpa" path="res://scripts/state_machines/player/player_cutscene.gd" id="6_6eyoc"]
 [ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="6_kqtwu"]
+[ext_resource type="FontFile" uid="uid://cxeqijtrpv80q" path="res://assets/art/fonts/PixelOperator8.ttf" id="8_eojnx"]
+[ext_resource type="Script" uid="uid://hjsufyrjjxsa" path="res://scripts/state_machines/player/player_state.gd" id="9_qgnko"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
 atlas = ExtResource("2_atpat")
@@ -28,9 +31,21 @@ radius = 6.25
 [sub_resource type="CircleShape2D" id="CircleShape2D_awi32"]
 radius = 7.5
 
-[node name="Player" type="CharacterBody2D" unique_id=1939647322]
+[node name="Player" type="CharacterBody2D" unique_id=1939647322 node_paths=PackedStringArray("state_machine")]
 collision_mask = 6
 script = ExtResource("1_dyp2m")
+state_machine = NodePath("StateMachine")
+
+[node name="HeadLabel" type="Label" parent="." unique_id=741578200]
+visible = false
+offset_left = -2.0
+offset_top = -16.0
+offset_right = 38.0
+offset_bottom = 7.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_eojnx")
+theme_override_font_sizes/font_size = 8
+text = "!"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1043283033]
 scale = Vector2(0.8, 0.8)
@@ -62,11 +77,17 @@ script = ExtResource("4_6eyoc")
 [node name="Talking" type="Node" parent="StateMachine" unique_id=494815731]
 script = ExtResource("5_atpat")
 
+[node name="Cutscene" type="Node" parent="StateMachine" unique_id=1979742287]
+script = ExtResource("6_6eyoc")
+
 [node name="DialogueStateContext" type="Node" parent="." unique_id=818930676 node_paths=PackedStringArray("target")]
 script = ExtResource("6_kqtwu")
-alias = "Nitya"
+alias = "player"
 target = NodePath("..")
 metadata/_custom_type_script = "uid://cd3222nx3y3k5"
+
+[node name="PlayerStateScript_holder" type="Node" parent="." unique_id=1430773481]
+script = ExtResource("9_qgnko")
 
 [connection signal="area_entered" from="Area2D" to="StateMachine/Main" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="StateMachine/Main" method="_on_area_2d_area_exited"]

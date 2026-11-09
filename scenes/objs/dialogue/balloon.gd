@@ -8,6 +8,7 @@ signal ended
 	"nitya": preload("uid://cl5hcv1dii2qg"),
 	"rotom": preload("uid://c3o1r2ep47fyq"),
 	"clio": preload("uid://1cxfa074ov6r"),
+	"wilhelmina": preload("uid://idpvsui3d4en")
 }
 
 enum Face {
@@ -128,7 +129,7 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(_event: InputEvent) -> void:
-	# Only the balloon is allowed to handle input while it's showing
+# Only the balloon is allowed to handle input while it's showing
 	if will_block_other_input:
 		get_viewport().set_input_as_handled()
 

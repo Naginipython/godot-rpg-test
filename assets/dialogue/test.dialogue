@@ -15,7 +15,11 @@ combee: For more information see the online documentation.
 => END
 
 ~ nobody
-Hey, this is a dialogue test with nobody.
+# Variable checking example
+if StoryManager.story_progression_check("NewAreaFound")
+	Hey, it seems you've progressed the story. Still a nobody, though
+else
+	Hey, this is a dialogue test with nobody.
 => END
 
 ~ emotion
@@ -30,7 +34,6 @@ clio: This is a more specific character test
 clio: This is a test for a long sentence. I want to see if the textbox will change size when text is added, or if it stays the same throughout. Considering which will look better, I am unsure.
 clio: Also, [i][wave amp=25 freq=5]BOO![/wave][/i]
 
-# Variable checking example
 #~ variable_example
 #if GameState.has_met_nathan
 #	Nathan: Hello again!
