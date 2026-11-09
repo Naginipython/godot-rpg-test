@@ -1,0 +1,284 @@
+[gd_scene format=3 uid="uid://bqdylmpof5mmq"]
+
+[ext_resource type="PackedScene" uid="uid://bkl3k4tk33tl4" path="res://scenes/ui/pause_menu/pause_player_menu.tscn" id="1_rbnsh"]
+[ext_resource type="Script" uid="uid://dubkuq3mo1ic" path="res://scripts/ui/pause_menu.gd" id="1_xgg5q"]
+[ext_resource type="Script" uid="uid://bpu2lmvuapw77" path="res://scripts/state_machines/state_machine.gd" id="2_xgg5q"]
+[ext_resource type="Script" uid="uid://dj06h1fb7gc8" path="res://scripts/state_machines/pause_menu/pause_main.gd" id="4_rv5mv"]
+[ext_resource type="Script" uid="uid://cbxuvtotefjwm" path="res://scripts/state_machines/pause_menu/pause_char_select.gd" id="5_2mh1u"]
+[ext_resource type="Script" uid="uid://dbm25p8tkftgt" path="res://scripts/state_machines/pause_menu/pause_char_edit.gd" id="6_xtvdp"]
+
+[sub_resource type="Animation" id="Animation_rv5mv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/PlayerMenuHBox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 570)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/PlayerMenuHBox:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [570.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xtvdp"]
+resource_name = "menu_close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/PlayerMenuHBox:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [570.0, 720.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2mh1u"]
+resource_name = "menu_open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/PlayerMenuHBox:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [720.0, 570.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xtvdp"]
+_data = {
+&"RESET": SubResource("Animation_rv5mv"),
+&"menu_close": SubResource("Animation_xtvdp"),
+&"menu_open": SubResource("Animation_2mh1u")
+}
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1362817292]
+script = ExtResource("1_xgg5q")
+
+[node name="Control" type="Control" parent="." unique_id=1449033696]
+process_mode = 3
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Bg" type="PanelContainer" parent="Control" unique_id=538227569]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=846888116]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 57.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=1493143896]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="CharBtn" type="Button" parent="Control/MarginContainer/HBoxContainer" unique_id=2114729996]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+button_mask = 0
+text = "Character"
+
+[node name="ItmBtn" type="Button" parent="Control/MarginContainer/HBoxContainer" unique_id=1493528407]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+button_mask = 0
+text = "Items"
+
+[node name="IdkBtn" type="Button" parent="Control/MarginContainer/HBoxContainer" unique_id=1907485023]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+button_mask = 0
+text = "???"
+
+[node name="SaveBtnTemp" type="Button" parent="Control/MarginContainer/HBoxContainer" unique_id=630484775]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+button_mask = 0
+text = "Save Game (temp)"
+
+[node name="SelectCharArrow" type="Label" parent="Control" unique_id=1080207546]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 633.0
+offset_top = 521.0
+offset_right = 653.0
+offset_bottom = 566.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "V"
+
+[node name="StatMenuTemplate" parent="Control" unique_id=975625548 instance=ExtResource("1_rbnsh")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -225.0
+offset_right = 500.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerMenuHBox" type="HBoxContainer" parent="Control" unique_id=518099250]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TempPausePlayerMenu" parent="Control/PlayerMenuHBox" unique_id=1912186241 instance=ExtResource("1_rbnsh")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control" unique_id=1762824022]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_xtvdp")
+
+[node name="StateMachine" type="Node" parent="Control" unique_id=1082382356 node_paths=PackedStringArray("init_state")]
+script = ExtResource("2_xgg5q")
+init_state = NodePath("Main")
+
+[node name="Main" type="Node" parent="Control/StateMachine" unique_id=589928929 node_paths=PackedStringArray("animation_player", "char_btn", "itm_btn", "idk_btn", "save_temp_btn")]
+script = ExtResource("4_rv5mv")
+animation_player = NodePath("../../AnimationPlayer")
+char_btn = NodePath("../../MarginContainer/HBoxContainer/CharBtn")
+itm_btn = NodePath("../../MarginContainer/HBoxContainer/ItmBtn")
+idk_btn = NodePath("../../MarginContainer/HBoxContainer/IdkBtn")
+save_temp_btn = NodePath("../../MarginContainer/HBoxContainer/SaveBtnTemp")
+
+[node name="CharSelect" type="Node" parent="Control/StateMachine" unique_id=1231288711]
+script = ExtResource("5_2mh1u")
+
+[node name="CharEdit" type="Node" parent="Control/StateMachine" unique_id=1572564319 node_paths=PackedStringArray("stat_menu_template", "menu_parent")]
+script = ExtResource("6_xtvdp")
+stat_menu_template = NodePath("../../StatMenuTemplate")
+menu_parent = NodePath("../..")
+
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/CharBtn" to="Control/StateMachine/Main" method="_on_char_btn_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/SaveBtnTemp" to="Control/StateMachine/Main" method="_on_save_btn_temp_pressed"]

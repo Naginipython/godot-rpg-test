@@ -39,5 +39,4 @@ func change_state(state: State, new_state: String) -> void:
 	if curr_state: curr_state.exit(new_state)
 	
 	to_change.enter(prev)
-	print(to_change)
 	curr_state = to_change

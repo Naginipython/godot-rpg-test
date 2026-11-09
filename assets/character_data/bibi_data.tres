@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://bh50cyxxg6hh4"]
+
+[ext_resource type="Script" uid="uid://baj7dyctt5xxt" path="res://assets/character_data/Actions/action.gd" id="1_37rdk"]
+[ext_resource type="Script" uid="uid://gmc65pd5t7oi" path="res://assets/character_data/Actions/attack.gd" id="2_25uhw"]
+[ext_resource type="Resource" uid="uid://dp7qacgnk5l4x" path="res://assets/character_data/Actions/bibi/bibi_act.tres" id="2_chwj0"]
+[ext_resource type="Script" uid="uid://1kpdgvbymar5" path="res://assets/character_data/character_data.gd" id="3_chwj0"]
+[ext_resource type="Resource" uid="uid://rybbjf4bttk0" path="res://assets/character_data/Actions/bibi/bibi_atk.tres" id="4_4cbay"]
+[ext_resource type="Resource" uid="uid://7a5rd6i5loj6" path="res://assets/character_data/TextboxStyle/bibi_temp.tres" id="6_dca2m"]
+
+[resource]
+script = ExtResource("3_chwj0")
+char_id = "bibi"
+active = true
+style = ExtResource("6_dca2m")
+base_max_health = 90
+base_spd = 5
+attacks = Dictionary[String, ExtResource("2_25uhw")]({
+"Spoon Smack": ExtResource("4_4cbay")
+})
+actions = Dictionary[String, ExtResource("1_37rdk")]({
+"Lil Treat": ExtResource("2_chwj0")
+})
+metadata/_custom_type_script = "uid://1kpdgvbymar5"

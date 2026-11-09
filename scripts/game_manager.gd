@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	
-	player.start_talking(load("uid://ojry86wl3yv3"), "game_start")
+	#player.start_talking(load("uid://ojry86wl3yv3"), "game_start")
 	#DialogueManager.show_dialogue_balloon(load("uid://ojry86wl3yv3"), "game_start")
 
 func register_player(new_player: Player) -> void:
