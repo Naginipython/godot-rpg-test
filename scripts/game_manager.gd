@@ -9,9 +9,12 @@ enum Modes {
 
 var mode: Modes = Modes.WORLD
 var player: Player
+var player_pos: Vector2 = Vector2.ZERO # conver to Dict
 var characters: Dictionary[String, CharacterData] = {}
 var party: Array[CharacterData] = []
 var items: Array[Item] = []
+
+var enemies_dead_pos: Array[Vector2]
 
 func _ready() -> void:
 	if characters.is_empty():
@@ -47,6 +50,9 @@ func worldpos_to_tilepos(worldpos: Vector2) -> Vector2:
 func tilepos_to_worldpos(tilepos: Vector2) -> Vector2:
 	# (0,0) is (8,8). (1,1) is (8+16, 8+16)
 	return Vector2(8+tilepos.x*16, 8+tilepos.y*16)
+
+func record_pos(pos: Vector2) -> void:
+	player_pos = pos
 
 func change_mode(new_mode: Modes) -> void:
 	match new_mode:

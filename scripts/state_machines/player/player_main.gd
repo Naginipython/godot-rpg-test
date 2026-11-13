@@ -88,13 +88,20 @@ func damage_pushback() -> void:
 #region Signals
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Enemies"):
+		Game.enemy_dead_pos.push_back(area.get_parent().spawnpoint.global_position)
+		Game.record_pos(Game.worldpos_to_tilepos(target_pos))
+		Game.change_mode(Game.Modes.COMBAT)
+	
 	if area.is_in_group("Npcs"):
 		# Bc the Area2D is in the group
 		var npc: Npc = area.get_parent()
 		player.npcs_in_range.push_back(npc)
 		npc.toggle_hint_visibility(true)
+	
 	if area.is_in_group("WorldDamage"):
 		damage_pushback()
+	
 	if area.is_in_group("Cutscene"):
 		if StoryManager.story_progress == area.required_cutscene:
 			player.cutscene_area = area

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://d3nyvyhsvwqg6"]
+
+[ext_resource type="Texture2D" uid="uid://cxbj82euhoxiq" path="res://assets/art/world_sprites/Orc.png" id="1_7jb55"]
+[ext_resource type="Script" uid="uid://dlpoq61t6rhhe" path="res://scripts/characters/enemy.gd" id="2_fulqv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yo5px"]
+radius = 7.0
+
+[node name="Enemy" type="Sprite2D" unique_id=707388487 groups=["Enemies"]]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_7jb55")
+offset = Vector2(-6, 2)
+hframes = 9
+vframes = 6
+script = ExtResource("2_fulqv")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=727993094 groups=["Enemies"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=909590064]
+position = Vector2(0, 2.5)
+shape = SubResource("CircleShape2D_yo5px")

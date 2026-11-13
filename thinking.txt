@@ -1,0 +1,37 @@
+goal: algorithm that will make a small rhythm course for a battle
+issue: laying blocks when some can jump backwards
+thought: create a mask of block spots taken, so if 1 block is going back, next one is also back, but land in the same spot, it's recalculated
+
+idea: array of "rows", every timer tick, spawn that arrow row
+for hold blocks, hold is only listed on 1 row, but spans calculated dist., with mask ensuring that nothing spawns over it
+
+current plan:
+	manually create tracks for basic, hold, then chess-knight.
+	then, with the structure in place, create the algorithm with masking
+
+Array of array rows, with array properties:
+	[ # game
+		[ # rows
+			[ # properties
+				BlockType.Normal, Lane.Q
+			],
+			[
+				Block.Normal, Lane.E
+			]
+		],
+		[
+			[
+				Block.Hold, Lane.Q, 3
+			]
+		],
+		... (3 block)
+		[							# left (Q) and back 2
+			Block.MultiHit, Lane.W, Vector2(-1,2)
+		],
+		... (2 blocks)
+		[
+			Block.Normal, Lane Q
+		]
+	]
+
+difficulty will be hard to factor into the algorithm. Maybe don't bother?

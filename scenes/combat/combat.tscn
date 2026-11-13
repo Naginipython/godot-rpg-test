@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b5q3buuo6ovem"]
+
+[ext_resource type="PackedScene" uid="uid://cgxhpbm6kv4mx" path="res://scenes/combat/bg.tscn" id="1_5vqsm"]
+[ext_resource type="PackedScene" uid="uid://bd66fgn4rwa0i" path="res://scenes/combat/attack_game.tscn" id="2_6aonj"]
+
+[node name="Combat" type="Control" unique_id=84590928]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" parent="." unique_id=1444685522 instance=ExtResource("1_5vqsm")]
+modulate = Color(0.73333335, 0.73333335, 0.73333335, 1)
+layout_mode = 0
+
+[node name="BattleContainer" type="BoxContainer" parent="." unique_id=358477647]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+offset_bottom = 500.0
+grow_horizontal = 2
+
+[node name="AttackGame" parent="BattleContainer" unique_id=2056829277 instance=ExtResource("2_6aonj")]
+layout_mode = 2

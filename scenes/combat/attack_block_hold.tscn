@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b0o6da58ydsbc"]
+
+[ext_resource type="PackedScene" uid="uid://wkhmrwcvscup" path="res://scenes/combat/attack_block.tscn" id="1_qntop"]
+[ext_resource type="Script" uid="uid://d3ui06l5npca7" path="res://scripts/combat/attack_block_hold.gd" id="2_qntop"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qntop"]
+bg_color = Color(1, 1, 0, 1)
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id="Theme_i217f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yo5px"]
+bg_color = Color(1, 1, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+
+[node name="AttackBlock" unique_id=1077360787 instance=ExtResource("1_qntop")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_qntop")
+script = ExtResource("2_qntop")
+
+[node name="HoldBar" type="Panel" parent="." index="1" unique_id=1845174535]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 318.0
+theme = SubResource("Theme_i217f")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yo5px")
+
+[node name="FeedbackTimer" type="Timer" parent="." index="2" unique_id=354421037]
+wait_time = 0.65
+
+[connection signal="timeout" from="FeedbackTimer" to="." method="_on_feedback_timer_timeout"]

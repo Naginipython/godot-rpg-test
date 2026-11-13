@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bhpqyktbr8eq4"]
+
+[ext_resource type="PackedScene" uid="uid://wkhmrwcvscup" path="res://scenes/combat/attack_block.tscn" id="1_q48et"]
+[ext_resource type="Script" uid="uid://0lv4enyk4l6j" path="res://scripts/combat/attack_block_normal.gd" id="2_snxjb"]
+
+[node name="AttackBlock" unique_id=1077360787 instance=ExtResource("1_q48et")]
+script = ExtResource("2_snxjb")

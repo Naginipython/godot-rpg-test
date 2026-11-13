@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dmx8ei7c4821" path="res://scenes/characters/npc.tscn" id="3_vpaal"]
 [ext_resource type="Resource" uid="uid://cwv6jiom70ajj" path="res://assets/dialogue/test.dialogue" id="4_jwygn"]
 [ext_resource type="PackedScene" uid="uid://do0dcl144scd8" path="res://scenes/objs/world_damage_area.tscn" id="5_vpaal"]
+[ext_resource type="PackedScene" uid="uid://88gxryg88kfr" path="res://scenes/objs/enemy_spawn_pos.tscn" id="6_i30uk"]
 [ext_resource type="Resource" uid="uid://ojry86wl3yv3" path="res://assets/dialogue/story.dialogue" id="7_folui"]
 [ext_resource type="Script" uid="uid://dmfrxdnqads4u" path="res://scripts/world/new_area_found_test.gd" id="7_xaid1"]
 
@@ -52,6 +53,11 @@ self_modulate = Color(0.75686276, 0.4627451, 0, 1)
 position = Vector2(-56, 8.000002)
 dialogue = ExtResource("4_jwygn")
 dialogue_start = "clio"
+
+[node name="Enemies" type="Node" parent="." unique_id=1867842496]
+
+[node name="EnemySpawnPos" parent="Enemies" unique_id=1837116610 instance=ExtResource("6_i30uk")]
+position = Vector2(24, 24)
 
 [node name="WorldDamageArea" parent="." unique_id=1675720826 instance=ExtResource("5_vpaal")]
 position = Vector2(104, -24)

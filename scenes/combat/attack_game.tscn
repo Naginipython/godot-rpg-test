@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bd66fgn4rwa0i"]
+
+[ext_resource type="Script" uid="uid://byx7rim66f7tc" path="res://scripts/combat/attack_game.gd" id="1_fqs6c"]
+[ext_resource type="PackedScene" uid="uid://bhpqyktbr8eq4" path="res://scenes/combat/attack_block_normal.tscn" id="2_u6oxr"]
+[ext_resource type="PackedScene" uid="uid://b0o6da58ydsbc" path="res://scenes/combat/attack_block_hold.tscn" id="3_l3ubc"]
+[ext_resource type="PackedScene" uid="uid://cxh2ned6okj26" path="res://scenes/combat/attack_game_label.tscn" id="3_u6oxr"]
+
+[node name="AttackGame" type="Control" unique_id=2056829277]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fqs6c")
+attack_block_normal = ExtResource("2_u6oxr")
+attack_block_hold = ExtResource("3_l3ubc")
+result_label = ExtResource("3_u6oxr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1517715694]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="PanelQ" type="Panel" parent="HBoxContainer" unique_id=1432664742]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelW" type="Panel" parent="HBoxContainer" unique_id=1706641457]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelE" type="Panel" parent="HBoxContainer" unique_id=1245246086]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tempo" type="Timer" parent="." unique_id=1614970872]
+wait_time = 0.75
+
+[connection signal="timeout" from="Tempo" to="." method="_on_key_spawn_timer_timeout"]
