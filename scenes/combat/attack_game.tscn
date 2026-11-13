@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bhpqyktbr8eq4" path="res://scenes/combat/attack_block_normal.tscn" id="2_u6oxr"]
 [ext_resource type="PackedScene" uid="uid://b0o6da58ydsbc" path="res://scenes/combat/attack_block_hold.tscn" id="3_l3ubc"]
 [ext_resource type="PackedScene" uid="uid://cxh2ned6okj26" path="res://scenes/combat/attack_game_label.tscn" id="3_u6oxr"]
+[ext_resource type="PackedScene" uid="uid://dd4273ecqhfcd" path="res://scenes/combat/attack_block_multi.tscn" id="4_1nli5"]
 
 [node name="AttackGame" type="Control" unique_id=2056829277]
 layout_mode = 3
@@ -15,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_fqs6c")
 attack_block_normal = ExtResource("2_u6oxr")
 attack_block_hold = ExtResource("3_l3ubc")
+attack_block_multi = ExtResource("4_1nli5")
 result_label = ExtResource("3_u6oxr")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1517715694]
@@ -46,4 +48,4 @@ size_flags_horizontal = 3
 [node name="Tempo" type="Timer" parent="." unique_id=1614970872]
 wait_time = 0.75
 
-[connection signal="timeout" from="Tempo" to="." method="_on_key_spawn_timer_timeout"]
+[connection signal="timeout" from="Tempo" to="." method="_on_tempo_timeout"]

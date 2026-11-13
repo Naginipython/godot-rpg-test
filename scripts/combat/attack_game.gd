@@ -5,6 +5,7 @@ signal attack_ended
 
 @export var attack_block_normal: PackedScene
 @export var attack_block_hold: PackedScene
+@export var attack_block_multi: PackedScene
 @export var result_label: PackedScene
 var threshold: float
 
@@ -20,6 +21,9 @@ var queue_w: Array[AttackBlock] = []
 var queue_e: Array[AttackBlock] = []
 var panel_char_idx: Array[int] = [0,1,2] # Set in set_panel_to_char every attack
 var enabled_panels: Array[bool] = [false, false, false] # Dead chars
+
+var song_time: float = 0
+var next_spawn_time: float = 0
 
 enum Block {
 	Normal, Hold, Multihit
@@ -46,9 +50,17 @@ const EXAMPLE_HOLD = [
 	[[Block.Normal, Lane.E]],
 ]
 
+const EXAMPLE_MULTI = [
+	[[Block.Multihit, Lane.Q, 2]],
+	[],
+	[[Block.Normal, Lane.E]]
+]
+
 func _ready() -> void:
 	threshold = panel_q.global_position.y + 45
-	attack_plan = EXAMPLE_HOLD.duplicate(true)
+	attack_plan = EXAMPLE_MULTI.duplicate(true)
+	select_and_setup_three_random_players()
+	next_spawn_time = tempo.wait_time
 	tempo.start()
 
 func _process(_delta: float) -> void:
@@ -72,6 +84,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_released("right"):
 		key_released(queue_e)
 
+func _physics_process(delta: float) -> void:
+	song_time += delta
+
 func check_missed(queue: Array[AttackBlock]):
 	if not queue.is_empty():
 		if queue.front().position.y > threshold:
@@ -92,6 +107,41 @@ func damage(idx: int, _dmg: int) -> void:
 	print("damage idx: ", idx)
 	#Game.party[panel_char_idx[idx]].health -= dmg
 
+func select_and_setup_three_random_players() -> Array[int]:
+	var players_attacked = get_three_random_players()
+	
+	if players_attacked.size() == 3:
+		for i in range(0, players_attacked.size()):
+			set_panel_to_char(i, players_attacked[i])
+	elif players_attacked.size() == 2:
+		var rand = randi_range(0,1)
+		set_panel_to_char(rand, players_attacked[0])
+		if rand == 1: rand = 2
+		else: rand = randi_range(1,2)
+		set_panel_to_char(rand, players_attacked[1])
+	elif players_attacked.size() == 1:
+		var random = randi_range(0, 2)
+		set_panel_to_char(random, players_attacked[0])
+	
+	return players_attacked
+	
+func get_three_random_players() -> Array[int]:
+	var players_attacked: Array[int] = []
+	# If 3 or less
+	if Game.party.any(func (x: CharacterData): return x.health == 0) or Game.party.size() < 4:
+		var i = 0
+		for player in Game.party:
+			if not player.health == 0: players_attacked.push_back(i)
+			i += 1
+	else: # All 4 are up
+		while players_attacked.size() < 3:
+			var n = randi_range(0, 3)
+			if players_attacked.find(n) == -1:
+				players_attacked.push_back(n)
+	players_attacked.sort()
+	print("Select players attacked: ", players_attacked)
+	return players_attacked
+
 func set_panel_to_char(panel_idx: int, char_idx: int) -> void:
 	# Todo: setup entire party to panel_idx here, instead of the other place
 	if not panel_idx in range(0, 3): return
@@ -104,10 +154,14 @@ func check_attack_end():
 		tempo.stop()
 		attack_ended.emit()
 
-func _on_key_spawn_timer_timeout() -> void:
+#region Signals
+
+func _on_tempo_timeout() -> void:
 	if attack_plan.is_empty():
 		return
 	
+	var row_spawn_time := next_spawn_time
+	next_spawn_time += tempo.wait_time
 	var row = attack_plan.pop_front()
 	for item in row:
 		var queue: Array[AttackBlock]
@@ -128,26 +182,36 @@ func _on_key_spawn_timer_timeout() -> void:
 				push_error("Unknown attack lane: %s" % lane)
 				continue
 		
+		var block_type: Block = item[0]
+		var block: AttackBlock
 		match item[0]:
 			Block.Normal:
-				var block: AttackBlockNormal = attack_block_normal.instantiate()
-				block.global_position = Vector2(panel.global_position.x, global_position.y - block.size.y)
-				block.size.x = panel.size.x
-				block.feedback.connect(_on_block_feedback.bind(lane))
-				block.resolved.connect(_on_block_resolved.bind(block, queue, lane))
-				add_child(block)
-				queue.push_back(block)
+				block = attack_block_normal.instantiate()
 			Block.Hold:
-				var block: AttackBlockHold = attack_block_hold.instantiate()
-				block.global_position = Vector2(panel.global_position.x, global_position.y - block.size.y)
-				block.size.x = panel.size.x
-				block.feedback.connect(_on_block_feedback.bind(lane))
-				block.resolved.connect(_on_block_resolved.bind(block, queue, lane))
-				add_child(block)
-				block.configure(int(item[2]), tempo.wait_time, threshold)
-				queue.push_back(block)
+				block = attack_block_hold.instantiate()
+			Block.Multihit:
+				block = attack_block_multi.instantiate()
 			_:
 				push_error("Attack block type not implemented: %s" % item[0])
+		
+		block.global_position = Vector2(panel.global_position.x, global_position.y - block.size.y)
+		block.size.x = panel.size.x
+		block.feedback.connect(_on_block_feedback.bind(lane))
+		block.resolved.connect(_on_block_resolved.bind(block, queue, lane))
+		add_child(block)
+		block.setup(self, row_spawn_time)
+		
+		match block_type:
+			Block.Normal:
+				pass
+			Block.Hold:
+				block.configure(int(item[2]), tempo.wait_time, threshold)
+			Block.Multihit:
+				block.configure(int(item[2]), tempo.wait_time)
+			_:
+				push_error("Unknown block_type: %s" % block_type)
+		
+		queue.push_back(block)
 
 func _on_block_feedback(feedback: String, lane: int) -> void:
 	var panels: Array[Panel] = [panel_q, panel_w, panel_e]
@@ -171,3 +235,5 @@ func _on_block_resolved(result: String, block: AttackBlock, queue: Array[AttackB
 		print("HIT: lane ", lane, " with result: ", result)
 
 	block.kill()
+
+#endregion

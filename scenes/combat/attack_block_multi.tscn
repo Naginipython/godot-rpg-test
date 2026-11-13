@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dd4273ecqhfcd"]
+
+[ext_resource type="PackedScene" uid="uid://wkhmrwcvscup" path="res://scenes/combat/attack_block.tscn" id="1_nnvup"]
+[ext_resource type="Script" uid="uid://upkp56tj71rg" path="res://scripts/combat/attack_block_multi.gd" id="2_nnvup"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nnvup"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="AttackBlockMulti" unique_id=1077360787 instance=ExtResource("1_nnvup")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_nnvup")
+script = ExtResource("2_nnvup")
+health = 2
+backtrack_speed = 1000.0
+
+[node name="HealthLabel" type="Label" parent="." index="1" unique_id=1089385570]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 32
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
